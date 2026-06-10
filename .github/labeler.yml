@@ -1,0 +1,53 @@
+---
+documentation:
+  - changed-files:
+      - any-glob-to-any-file:
+          - README.md
+          - docs/**
+github_actions:
+  - changed-files:
+      - any-glob-to-any-file:
+          - .github/workflows/**
+dependencies:
+  - changed-files:
+      - any-glob-to-any-file:
+          - pyproject.toml
+          - uv.lock
+tests:
+  - changed-files:
+      - any-glob-to-any-file:
+          - tests/**
+examples:
+  - changed-files:
+      - any-glob-to-any-file:
+          - examples/**
+aiokafka:
+  - changed-files:
+      - any-glob-to-any-file:
+          - tests/integration/test_kafka.py
+          - tests/integration/asyncapi/test_kafka.py
+confluent:
+  - changed-files:
+      - any-glob-to-any-file:
+          - tests/integration/test_confluent.py
+          - tests/integration/asyncapi/test_confluent.py
+nats:
+  - changed-files:
+      - any-glob-to-any-file:
+          - tests/integration/test_nats.py
+          - tests/integration/asyncapi/test_nats.py
+rabbitmq:
+  - changed-files:
+      - any-glob-to-any-file:
+          - tests/integration/test_rabbit.py
+          - tests/integration/asyncapi/test_rabbit.py
+redis:
+  - changed-files:
+      - any-glob-to-any-file:
+          - tests/integration/test_redis.py
+          - tests/integration/asyncapi/test_redis.py
+mqtt:
+  - changed-files:
+      - any-glob-to-any-file:
+          - tests/integration/test_mqtt.py
+          - tests/integration/asyncapi/test_mqtt.py
