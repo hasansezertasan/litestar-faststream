@@ -481,16 +481,16 @@ wheels = [
 
 [[package]]
 name = "faststream"
-version = "0.7.1"
+version = "0.7.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "anyio" },
     { name = "fast-depends", extra = ["pydantic"] },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/5a/92/7f5edc7e1945968331c185ee197b690b413da861649d5859e3f377348acd/faststream-0.7.1.tar.gz", hash = "sha256:11816dd4ca678f6b173159c456619993b09684b684abe4010366d6a0c8059c58", size = 329453, upload-time = "2026-06-04T05:18:10.145Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/9f/9a/cd055fa18489b2e18bbd1dac962e3fab34fcf6aafba9836b435d599ca9ae/faststream-0.7.0.tar.gz", hash = "sha256:1841930d8189594e2058ba19670b17ad31295841f2cbc346f027b6084c807376", size = 328202, upload-time = "2026-06-01T20:43:09.837Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/12/2e/73d58856a305a73ac31d3d950f9b96a2ef4c1a6071e38b339d1b0b466418/faststream-0.7.1-py3-none-any.whl", hash = "sha256:d4f971f6ba7621a05a67a8fcb4436fdcf89b5f21b33eb107f193b1c9553738a0", size = 556454, upload-time = "2026-06-04T05:18:08.897Z" },
+    { url = "https://files.pythonhosted.org/packages/dd/9d/f0859afc7166ec555b58cdd16d0e5bb534f390e512522e202a0fdaa1f54f/faststream-0.7.0-py3-none-any.whl", hash = "sha256:e3fddd25bc8ca6999ca97b017947d7951fa431d4b7f093f2c84f2bb19a36759b", size = 555227, upload-time = "2026-06-01T20:43:08.466Z" },
 ]
 
 [package.optional-dependencies]
@@ -1007,7 +1007,7 @@ dev = [
     { name = "creosote", specifier = "==5.2.0" },
     { name = "deptry", specifier = "==0.25.1" },
     { name = "dirty-equals", specifier = "==0.11" },
-    { name = "faststream", extras = ["rabbit", "kafka", "confluent", "nats", "redis"], specifier = ">=0.6,<0.8" },
+    { name = "faststream", extras = ["rabbit", "kafka", "confluent", "nats", "redis"], specifier = ">=0.7.0,<0.8" },
     { name = "httpx", specifier = "==0.28.1" },
     { name = "import-linter", specifier = "==2.11" },
     { name = "litestar", extras = ["standard"] },
