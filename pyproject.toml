@@ -68,7 +68,7 @@ dev = [
     "pytest==9.0.3",
     "PyYAML==6.0.3",
     "ruff==0.15.18",
-    "ty==0.0.46",
+    "ty==0.0.51",
     "zmqtt>=0.0.5; python_version >= '3.11'",
 ]
 
