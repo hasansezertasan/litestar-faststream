@@ -58,7 +58,7 @@ dev = [
     "dirty-equals==0.11",
     "faststream[rabbit,kafka,confluent,nats,redis]>=0.7.1,<0.8",
     "httpx==0.28.1",
-    "import-linter==2.11",
+    "import-linter==2.12",
     "litestar[standard]",
     "mypy==2.1.0",
     "opentelemetry-api>=1.20",
