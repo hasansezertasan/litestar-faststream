@@ -67,6 +67,13 @@ def collect(
         _walk_handler(h, result, seen, plugin_name)
 
     for fn in extra_handlers:
+        if isinstance(fn, type) and issubclass(fn, Controller):
+            # A Controller passed via ``BrokerConfig.handlers`` is typically
+            # stream-only (no HTTP routes), so it never appears in
+            # ``app.routes``. Walk its marked methods exactly like a route
+            # handler; binding is deferred to the lifespan pass.
+            _walk_handler(fn, result, seen, plugin_name)
+            continue
         if not _has_any_marker(fn):
             msg = (
                 f"BrokerConfig.handlers includes {fn!r} but no "
@@ -177,6 +184,10 @@ def _reject_http_handler_markers(route_handler: BaseRouteHandler) -> None:
     Broker handlers and HTTP handlers are separate citizens; mixing them on
     a single method is a design error. HTTP handlers that need to publish
     should inject the broker via Litestar DI.
+
+    Raises:
+        MarkerConfigurationError: If the HTTP route handler's function also
+            carries ``@subscriber`` and/or ``@publisher`` markers.
     """
     fn = getattr(route_handler, "fn", None)
     if fn is None:

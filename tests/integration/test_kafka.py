@@ -3,6 +3,7 @@
 import pytest
 from faststream.kafka import KafkaBroker, TestKafkaBroker
 from litestar import Litestar, get
+from litestar.di import NamedDependency
 from litestar.testing import AsyncTestClient
 
 from litestar_faststream import (
@@ -34,7 +35,7 @@ async def test_http_handler_receives_broker_via_di() -> None:
     async def consumer(payload: dict) -> None: ...
 
     @get("/trigger")
-    async def trigger(kafka: KafkaBroker) -> dict:
+    async def trigger(kafka: NamedDependency[KafkaBroker]) -> dict:
         await kafka.publish({"hello": "world"}, topic="di-target-kafka")
         return {"published": True}
 

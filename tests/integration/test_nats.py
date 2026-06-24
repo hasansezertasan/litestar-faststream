@@ -3,6 +3,7 @@
 import pytest
 from faststream.nats import NatsBroker, TestNatsBroker
 from litestar import Litestar, get
+from litestar.di import NamedDependency
 from litestar.testing import AsyncTestClient
 
 from litestar_faststream import (
@@ -34,7 +35,7 @@ async def test_http_handler_receives_broker_via_di() -> None:
     async def consumer(payload: dict) -> None: ...
 
     @get("/trigger")
-    async def trigger(nats: NatsBroker) -> dict:
+    async def trigger(nats: NamedDependency[NatsBroker]) -> dict:
         await nats.publish({"hello": "world"}, subject="di-target-nats")
         return {"published": True}
 

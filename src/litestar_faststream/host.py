@@ -14,7 +14,7 @@ The plugin:
 
 import logging
 from collections.abc import Awaitable, Callable, Sequence
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any
 
 from faststream.specification.asyncapi.factory import AsyncAPI

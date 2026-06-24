@@ -9,6 +9,7 @@ pytest.importorskip("zmqtt")
 
 from faststream.mqtt import MQTTBroker, TestMQTTBroker
 from litestar import Litestar, get
+from litestar.di import NamedDependency
 from litestar.testing import AsyncTestClient
 
 from litestar_faststream import (
@@ -41,7 +42,7 @@ async def test_http_handler_receives_broker_via_di() -> None:
     async def consumer(payload: dict) -> None: ...
 
     @get("/trigger")
-    async def trigger(mqtt: MQTTBroker) -> dict:
+    async def trigger(mqtt: NamedDependency[MQTTBroker]) -> dict:
         await mqtt.publish({"hello": "world"}, topic="di-target-mqtt")
         return {"published": True}
 

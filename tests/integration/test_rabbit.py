@@ -5,6 +5,7 @@ from typing import ClassVar
 import pytest
 from faststream.rabbit import RabbitBroker, TestRabbitBroker
 from litestar import Controller, Litestar, get, post
+from litestar.di import NamedDependency
 from litestar.testing import AsyncTestClient
 
 from litestar_faststream import (
@@ -141,7 +142,7 @@ async def test_http_handler_publishes_via_di() -> None:
     async def process(data: dict) -> None: ...
 
     @post("/send-email")
-    async def endpoint(data: dict, rabbit: RabbitBroker) -> dict:
+    async def endpoint(data: dict, rabbit: NamedDependency[RabbitBroker]) -> dict:
         await rabbit.publish(data, queue="send-email")
         return {"queued": True}
 
@@ -172,7 +173,7 @@ async def test_http_handler_receives_broker_via_di() -> None:
     async def consumer(payload: dict) -> None: ...
 
     @get("/trigger")
-    async def trigger(rabbit: RabbitBroker) -> dict:
+    async def trigger(rabbit: NamedDependency[RabbitBroker]) -> dict:
         await rabbit.publish({"hello": "world"}, queue="di-target")
         return {"published": True}
 

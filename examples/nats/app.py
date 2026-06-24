@@ -17,6 +17,7 @@ from faststream import Logger
 from faststream.nats import NatsBroker
 from faststream.nats.annotations import Client, NatsMessage
 from litestar import Controller, Litestar, get, post
+from litestar.di import NamedDependency
 
 from litestar_faststream import (
     BrokerConfig,
@@ -44,12 +45,16 @@ class OrdersController(Controller):
         return []
 
     @post("/")
-    async def create_order(self, data: Order, nats: NatsBroker) -> dict:
+    async def create_order(
+        self,
+        data: Order,
+        nats: NamedDependency[NatsBroker],
+    ) -> dict:
         await nats.publish(data, "orders.new")
         return {"queued": True}
 
     @get("/stats")
-    async def order_stats(self, nats: NatsBroker) -> dict:
+    async def order_stats(self, nats: NamedDependency[NatsBroker]) -> dict:
         # Litestar DI: param name ``nats`` matches BrokerConfig.name; the
         # ``NatsBroker`` annotation resolves via signature_namespace.
         return {"broker": type(nats).__name__, "connected": True}

@@ -13,7 +13,7 @@ Two flavours live here:
 """
 
 from collections.abc import Iterator, Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, Union, overload
+from typing import TYPE_CHECKING, Any, TypeVar, overload
 
 from litestar.di import Provide
 
@@ -98,24 +98,30 @@ class Brokers(Mapping[str, "BrokerUsecase[Any, Any]"]):
         return f"Brokers({sorted(self._items)!r})"
 
     @overload
-    def get(self, name: str) -> "BrokerUsecase[Any, Any]": ...
+    def get(self, name: object) -> "BrokerUsecase[Any, Any]": ...
     @overload
     def get(
-        self, name: str, default: _T
-    ) -> "Union[BrokerUsecase[Any, Any], _T]": ...
+        self,
+        name: object,
+        default: "BrokerUsecase[Any, Any] | _T",
+    ) -> "BrokerUsecase[Any, Any] | _T": ...
     def get(
         self,
-        name: str,
+        name: object,
         default: "Any" = _MISSING,
     ) -> "Any":
         """Return broker ``name`` or raise :class:`BrokerNotRegisteredError`.
+
+        ``name`` is typed as ``object`` to stay compatible with
+        :meth:`Mapping.get` (whose key parameter is ``object``); registered
+        keys are always strings, so a non-string ``name`` simply misses.
 
         ``default`` keeps :class:`Mapping.get` semantics: pass any value
         (including ``None``) to fall back instead of raising. Overloads
         narrow the return type so callers using the default-arg form get
         ``BrokerUsecase | T`` rather than a lie.
         """
-        if name in self._items:
+        if isinstance(name, str) and name in self._items:
             return self._items[name]
         if default is not _MISSING:
             return default
@@ -125,7 +131,7 @@ class Brokers(Mapping[str, "BrokerUsecase[Any, Any]"]):
         """Tuple of registered broker names (sorted, stable)."""
         return tuple(sorted(self._items))
 
-    def _missing(self, name: str) -> BrokerNotRegisteredError:
+    def _missing(self, name: object) -> BrokerNotRegisteredError:
         return BrokerNotRegisteredError(
             f"No broker named {name!r} in Brokers registry; registered: {self.names()}",
         )

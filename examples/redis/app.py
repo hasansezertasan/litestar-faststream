@@ -18,6 +18,7 @@ from faststream import Logger
 from faststream.redis import RedisBroker
 from faststream.redis.annotations import Pipeline, Redis, RedisChannelMessage
 from litestar import Controller, Litestar, get, post
+from litestar.di import NamedDependency
 
 from litestar_faststream import (
     BrokerConfig,
@@ -48,12 +49,16 @@ class OrdersController(Controller):
         return []
 
     @post("/")
-    async def create_order(self, data: Order, redis: RedisBroker) -> dict:
+    async def create_order(
+        self,
+        data: Order,
+        redis: NamedDependency[RedisBroker],
+    ) -> dict:
         await redis.publish(data, "orders.new")
         return {"queued": True}
 
     @get("/stats")
-    async def order_stats(self, redis: RedisBroker) -> dict:
+    async def order_stats(self, redis: NamedDependency[RedisBroker]) -> dict:
         # Litestar DI: param name ``redis`` matches BrokerConfig.name; type hint
         # resolves via signature_namespace (no extra imports needed in user
         # modules). Drop to the raw client to read the counter maintained below.
