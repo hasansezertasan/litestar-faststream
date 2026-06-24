@@ -96,7 +96,12 @@ class OrdersController(Controller):
         )
 
 
-plugin = FastStreamPlugin(FastStreamConfig(brokers=[BrokerConfig(broker=broker)]))
+plugin = FastStreamPlugin(
+    FastStreamConfig(
+        brokers=[BrokerConfig(broker=broker)],
+        asyncapi_url="/asyncapi",
+    ),
+)
 
 
 @plugin.after_startup("rabbit")

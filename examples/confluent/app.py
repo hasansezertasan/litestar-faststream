@@ -91,7 +91,12 @@ class OrdersController(Controller):
         )
 
 
-plugin = FastStreamPlugin(FastStreamConfig(brokers=[BrokerConfig(broker=broker)]))
+plugin = FastStreamPlugin(
+    FastStreamConfig(
+        brokers=[BrokerConfig(broker=broker)],
+        asyncapi_url="/asyncapi",
+    ),
+)
 
 
 # The confluent backend's broker class is ``KafkaBroker``, so it registers

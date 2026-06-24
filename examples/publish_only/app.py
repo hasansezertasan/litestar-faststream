@@ -68,6 +68,7 @@ plugin = FastStreamPlugin(
         brokers=[
             BrokerConfig(broker=broker, publish_only=PUBLISH_ONLY, handlers=[on_order]),
         ],
+        asyncapi_url="/asyncapi",
     ),
 )
 
