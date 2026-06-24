@@ -131,7 +131,9 @@ preview = true
 select = ["ALL"]
 
 [tool.ruff.lint.per-file-ignores]
-"./tests/**/*.py" = ["ANN001", "PLC2701", "S101", "TC"]
+# RUF076: autouse fixtures are intentional in tests (e.g. resetting module
+# state between cases); the rule's blanket discouragement does not apply here.
+"./tests/**/*.py" = ["ANN001", "PLC2701", "S101", "TC", "RUF076"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
