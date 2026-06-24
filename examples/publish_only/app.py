@@ -9,7 +9,7 @@ The ``publish_only=True`` flag on a ``BrokerConfig`` tells the plugin to call
 ``broker.connect()`` but skip ``broker.start()`` in the ASGI lifespan.
 ``broker.publish(...)`` from the HTTP handler still works because it only
 needs an open connection. The HTTP handler injects the broker via Litestar DI
-(``rabbit: RabbitBroker``) and calls ``rabbit.publish(...)`` directly. The
+(``rabbit: NamedDependency[RabbitBroker]``) and calls ``rabbit.publish(...)`` directly. The
 ``@subscriber`` below is registered (and shows up in AsyncAPI) but won't fire
 in the API process — the worker process, launched via ``litestar faststream
 run``, ignores ``publish_only`` and starts the consume-loops.
@@ -21,6 +21,7 @@ from dataclasses import dataclass
 from faststream import Logger
 from faststream.rabbit import RabbitBroker
 from litestar import Controller, Litestar, post
+from litestar.di import NamedDependency
 
 from litestar_faststream import (
     BrokerConfig,
@@ -44,7 +45,11 @@ class OrdersController(Controller):
     path = "/orders"
 
     @post("/")
-    async def create_order(self, data: Order, rabbit: RabbitBroker) -> dict:
+    async def create_order(
+        self,
+        data: Order,
+        rabbit: NamedDependency[RabbitBroker],
+    ) -> dict:
         await rabbit.publish(data, "orders.new")
         return {"queued": True, "user_id": data.user_id}
 
@@ -63,6 +68,7 @@ plugin = FastStreamPlugin(
         brokers=[
             BrokerConfig(broker=broker, publish_only=PUBLISH_ONLY, handlers=[on_order]),
         ],
+        asyncapi_url="/asyncapi",
     ),
 )
 

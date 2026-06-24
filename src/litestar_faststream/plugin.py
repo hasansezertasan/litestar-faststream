@@ -93,7 +93,7 @@ class BrokerConfig:
         self._composer.add_on_broker_shutdown(fn)
         return fn
 
-    def _apply_to_app_config(self, app_config: AppConfig) -> AppConfig:  # noqa: PLR0915
+    def _apply_to_app_config(self, app_config: AppConfig) -> AppConfig:
         # Litestar may default `route_handlers` to None; normalize to a list
         # so we can safely mutate it (e.g. append route handlers).
         app_config.route_handlers = list(app_config.route_handlers or [])

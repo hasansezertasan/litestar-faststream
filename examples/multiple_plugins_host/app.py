@@ -10,6 +10,7 @@ from faststream import Logger
 from faststream.kafka import KafkaBroker
 from faststream.redis import RedisBroker
 from litestar import Controller, Litestar, post
+from litestar.di import NamedDependency
 
 from litestar_faststream import (
     BrokerConfig,
@@ -33,7 +34,11 @@ class OrdersController(Controller):
     path = "/orders"
 
     @post("/")
-    async def create_order(self, data: Order, kafka: KafkaBroker) -> dict:
+    async def create_order(
+        self,
+        data: Order,
+        kafka: NamedDependency[KafkaBroker],
+    ) -> dict:
         # Inject the kafka broker by ``BrokerConfig.name`` — the redis broker
         # is also registered (under ``redis``) but unused on this route.
         await kafka.publish(data, "orders.new")

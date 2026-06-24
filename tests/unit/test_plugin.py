@@ -1,4 +1,5 @@
 import asyncio
+from typing import Any
 from unittest.mock import AsyncMock, MagicMock
 
 import pytest
@@ -225,7 +226,9 @@ def test_already_bound_uses_identity_not_qualname() -> None:
 
 
 def test_stream_only_controller_instantiated_with_owner_none() -> None:
-    """A Controller carrying only ``@subscriber`` methods (no HTTP routes) is
+    """Instantiate a stream-only Controller with ``owner=None``.
+
+    A Controller carrying only ``@subscriber`` methods (no HTTP routes) is
     not reachable through ``app.routes``. The plugin falls back to
     ``controller_cls(owner=None)`` to obtain a single instance for binding.
     Regression coverage for that previously-untested path.
@@ -235,7 +238,10 @@ def test_stream_only_controller_instantiated_with_owner_none() -> None:
     class StreamOnly(Controller):
         path = "/unused"
 
-        def __init__(self, owner: object = None) -> None:
+        def __init__(self, owner: Any = None) -> None:
+            # Litestar accepts ``owner=None`` at runtime even though the stub
+            # types it as ``Router``; the plugin relies on this for
+            # stream-only Controllers (see ``plugin.py``'s singleton path).
             super().__init__(owner=owner)
             init_calls.append(owner)
             self.seen: list[dict] = []

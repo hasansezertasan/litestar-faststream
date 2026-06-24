@@ -20,6 +20,7 @@ from faststream import Logger
 from faststream.confluent import KafkaBroker
 from faststream.confluent.annotations import KafkaMessage, KafkaProducer
 from litestar import Controller, Litestar, get, post
+from litestar.di import NamedDependency
 
 from litestar_faststream import (
     BrokerConfig,
@@ -47,12 +48,16 @@ class OrdersController(Controller):
         return []
 
     @post("/")
-    async def create_order(self, data: Order, kafka: KafkaBroker) -> dict:
+    async def create_order(
+        self,
+        data: Order,
+        kafka: NamedDependency[KafkaBroker],
+    ) -> dict:
         await kafka.publish(data, "orders.new")
         return {"queued": True}
 
     @get("/stats")
-    async def order_stats(self, kafka: KafkaBroker) -> dict:
+    async def order_stats(self, kafka: NamedDependency[KafkaBroker]) -> dict:
         # Litestar DI: param name ``kafka`` matches BrokerConfig.name; the
         # confluent ``KafkaBroker`` resolves via signature_namespace.
         return {"broker": type(kafka).__name__, "connected": True}
@@ -86,10 +91,17 @@ class OrdersController(Controller):
         )
 
 
-plugin = FastStreamPlugin(FastStreamConfig(brokers=[BrokerConfig(broker=broker)]))
+plugin = FastStreamPlugin(
+    FastStreamConfig(
+        brokers=[BrokerConfig(broker=broker)],
+        asyncapi_url="/asyncapi",
+    ),
+)
 
 
-@plugin.after_startup("confluent")
+# The confluent backend's broker class is ``KafkaBroker``, so it registers
+# under the default name ``"kafka"`` (same as the pure-Python backend).
+@plugin.after_startup("kafka")
 async def announce(app: Litestar) -> None:
     app.logger.info("confluent broker ready")
 

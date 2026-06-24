@@ -18,6 +18,7 @@ from faststream import Logger
 from faststream.mqtt import MQTTBroker
 from faststream.mqtt.annotations import MQTTMessage
 from litestar import Controller, Litestar, get, post
+from litestar.di import NamedDependency
 
 from litestar_faststream import (
     BrokerConfig,
@@ -45,12 +46,16 @@ class OrdersController(Controller):
         return []
 
     @post("/")
-    async def create_order(self, data: Order, mqtt: MQTTBroker) -> dict:
+    async def create_order(
+        self,
+        data: Order,
+        mqtt: NamedDependency[MQTTBroker],
+    ) -> dict:
         await mqtt.publish(data, "orders/new")
         return {"queued": True}
 
     @get("/stats")
-    async def order_stats(self, mqtt: MQTTBroker) -> dict:
+    async def order_stats(self, mqtt: NamedDependency[MQTTBroker]) -> dict:
         # Litestar DI: param name ``mqtt`` matches BrokerConfig.name; the
         # ``MQTTBroker`` annotation resolves via signature_namespace.
         return {"broker": type(mqtt).__name__, "connected": True}
@@ -80,7 +85,12 @@ class OrdersController(Controller):
         )
 
 
-plugin = FastStreamPlugin(FastStreamConfig(brokers=[BrokerConfig(broker=broker)]))
+plugin = FastStreamPlugin(
+    FastStreamConfig(
+        brokers=[BrokerConfig(broker=broker)],
+        asyncapi_url="/asyncapi",
+    ),
+)
 
 
 @plugin.after_startup("mqtt")

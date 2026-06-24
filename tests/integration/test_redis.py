@@ -3,6 +3,7 @@
 import pytest
 from faststream.redis import RedisBroker, TestRedisBroker
 from litestar import Litestar, get
+from litestar.di import NamedDependency
 from litestar.testing import AsyncTestClient
 
 from litestar_faststream import (
@@ -34,7 +35,7 @@ async def test_http_handler_receives_broker_via_di() -> None:
     async def consumer(payload: dict) -> None: ...
 
     @get("/trigger")
-    async def trigger(redis: RedisBroker) -> dict:
+    async def trigger(redis: NamedDependency[RedisBroker]) -> dict:
         await redis.publish({"hello": "world"}, channel="di-target-redis")
         return {"published": True}
 
