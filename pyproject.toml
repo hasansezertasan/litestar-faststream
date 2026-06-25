@@ -67,7 +67,7 @@ dev = [
     "pytest-asyncio==1.4.0",
     "pytest==9.1.1",
     "PyYAML==6.0.3",
-    "ruff==0.15.19",
+    "ruff==0.15.20",
     "ty==0.0.53",
     "zmqtt>=0.0.5; python_version >= '3.11'",
 ]
