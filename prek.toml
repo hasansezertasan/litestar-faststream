@@ -31,7 +31,7 @@ hooks = [
 # hooks = [{ id = "typos" }]
 [[repos]]
 repo = "https://github.com/python-jsonschema/check-jsonschema"
-rev = "0.37.3"
+rev = "0.37.4"
 hooks = [
   { id = "check-dependabot" },
   { id = "check-github-actions" },
