@@ -7,6 +7,9 @@ from unittest.mock import AsyncMock, MagicMock
 import pytest
 
 from litestar_faststream import instrumentation as instr_mod
+from litestar_faststream import (
+    monitored,
+)
 from litestar_faststream.instrumentation import OtelMiddleware
 
 
@@ -178,9 +181,7 @@ def test_extract_destination_unwraps_named_object() -> None:
 # ----- @monitored decorator -----------------------------------------------
 
 
-import logging  # noqa: E402
-
-from litestar_faststream import monitored  # noqa: E402
+import logging  # ruff: ignore[module-import-not-at-top-of-file]
 
 
 @pytest.mark.asyncio()
