@@ -22,7 +22,7 @@ def _fake_broker(name: str = "rabbit") -> MagicMock:
 
     sub_calls: list = []
 
-    def subscriber_call(*args, **kwargs):  # noqa: ANN002, ANN003, ANN202
+    def subscriber_call(*args, **kwargs):  # ruff: ignore[missing-type-args, missing-type-kwargs, missing-return-type-private-function]
         def deco(fn) -> None:
             sub_calls.append((args, kwargs, fn))
             return fn

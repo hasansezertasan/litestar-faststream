@@ -25,8 +25,8 @@ def _fake_broker(class_name: str = "RabbitBroker") -> MagicMock:
     broker._subscribers = []
     broker.__class__.__name__ = class_name
 
-    def subscriber_call(*args, **kwargs):  # noqa: ANN002, ANN003, ANN202
-        def deco(fn):  # noqa: ANN202
+    def subscriber_call(*args, **kwargs):  # ruff: ignore[missing-type-args, missing-type-kwargs, missing-return-type-private-function]
+        def deco(fn):  # ruff: ignore[missing-return-type-private-function]
             return fn
 
         return deco

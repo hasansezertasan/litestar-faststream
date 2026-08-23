@@ -45,7 +45,7 @@ def test_marker_inherits_from_discovery() -> None:
 
 def test_subclass_caught_by_root() -> None:
     with pytest.raises(FastStreamPluginError, match="duplicate"):
-        raise DuplicateBrokerNameError("duplicate")  # noqa: EM101 - inline keeps PT012 happy
+        raise DuplicateBrokerNameError("duplicate")  # ruff: ignore[raw-string-in-exception] - inline keeps PT012 happy
 
 
 def test_subclass_caught_by_litestar_base() -> None:
@@ -55,4 +55,4 @@ def test_subclass_caught_by_litestar_base() -> None:
         BrokerNotRegisteredError: deliberately, to exercise the catch path.
     """
     with pytest.raises(ImproperlyConfiguredException, match="missing"):
-        raise BrokerNotRegisteredError("missing")  # noqa: EM101 - inline keeps PT012 happy
+        raise BrokerNotRegisteredError("missing")  # ruff: ignore[raw-string-in-exception] - inline keeps PT012 happy

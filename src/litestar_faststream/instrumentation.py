@@ -76,7 +76,7 @@ def get_tracer() -> Any:
     therefore always ``with tracer.start_as_current_span(...)`` without
     feature-detecting first.
     """
-    global _tracer  # noqa: PLW0603 - intentional module-level cache
+    global _tracer  # ruff: ignore[global-statement] - intentional module-level cache
     if _tracer is None:
         _tracer = trace.get_tracer(TRACER_NAME)
     return _tracer

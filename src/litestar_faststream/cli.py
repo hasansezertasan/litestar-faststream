@@ -96,10 +96,10 @@ def register_broker_cli(cli: click.Group, plugin: Any) -> None:
     )
     def status(
         plugin_name: str | None,
-        watch: bool,  # noqa: FBT001 - click options bind by position
+        watch: bool,  # ruff: ignore[boolean-type-hint-positional-argument] - click options bind by position
         interval: float,
         timeout: float,
-        as_json: bool,  # noqa: FBT001 - click options bind by position
+        as_json: bool,  # ruff: ignore[boolean-type-hint-positional-argument] - click options bind by position
     ) -> None:
         plugins = _select(state["plugins"], plugin_name)
         asyncio.run(
