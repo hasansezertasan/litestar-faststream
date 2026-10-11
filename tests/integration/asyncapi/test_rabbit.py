@@ -10,4 +10,6 @@ from tests.integration.asyncapi.test_base import LitestarAsyncAPITestcase
 class TestRabbitAsyncAPI(LitestarAsyncAPITestcase):
     broker_class = RabbitBroker
     test_broker_cm = TestRabbitBroker
-    broker_url = "amqp://guest:guest@localhost:5672/"
+    # RabbitMQ's documented default local credentials (guest/guest@localhost),
+    # not a real secret: tests run against in-memory Test brokers.
+    broker_url = "amqp://guest:guest@localhost:5672/"  # pragma: allowlist secret

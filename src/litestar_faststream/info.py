@@ -4,7 +4,16 @@ Kept separate from ``cli.py`` so the formatting logic is unit-testable
 without going through Click.
 """
 
-from litestar_faststream.plugin import BrokerConfig
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    # Typing-only: importing plugin at runtime would close a static import
+    # cycle (cli -> info -> plugin -> cli, via plugin._apply_to_cli's lazy
+    # broker-CLI import). The annotation below is never evaluated at runtime.
+    from litestar_faststream.plugin import BrokerConfig
+
+__all__ = ["render_plugin_info"]
+
 
 _QUEUE_COL_WIDTH = 20
 
@@ -22,7 +31,7 @@ def _target_label(value: object) -> str:
     return str(value)
 
 
-def render_plugin_info(plugin: BrokerConfig) -> str:
+def render_plugin_info(plugin: "BrokerConfig") -> str:
     """Render a human-readable summary of what a ``BrokerConfig`` registered.
 
     Reads the ``_registered_subscribers`` / ``_registered_response_publishers``

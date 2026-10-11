@@ -8,9 +8,9 @@ Wraps any FastStream broker (RabbitMQ, Kafka, Confluent, NATS, Redis, MQTT) as a
 
 ## When to use
 
-* You are building a Litestar HTTP service that also needs to consume or publish broker messages.
-* You want a single `litestar` CLI that can run either the HTTP server or a worker-only process for the broker.
-* You want AsyncAPI docs served alongside Litestar's OpenAPI docs.
+- You are building a Litestar HTTP service that also needs to consume or publish broker messages.
+- You want a single `litestar` CLI that can run either the HTTP server or a worker-only process for the broker.
+- You want AsyncAPI docs served alongside Litestar's OpenAPI docs.
 
 [![License](https://img.shields.io/github/license/hasansezertasan/litestar-faststream.svg)](./LICENSE)
 [![Python versions](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-blue.svg)](./pyproject.toml)
@@ -78,10 +78,10 @@ Or single-process — `litestar run` starts both via the Litestar lifespan.
 
 1. The broker instance is created at module level (FastStream-native).
 2. A `FastStreamPlugin` wrapping `FastStreamConfig(brokers=[BrokerConfig(broker=broker)])` is added to `Litestar(plugins=[...])`. The plugin:
-    * starts/stops every configured broker via the Litestar lifespan;
-    * mounts a combined AsyncAPI HTML route at `FastStreamConfig.asyncapi_url` when set;
-    * registers each broker as a Litestar dependency under the `BrokerConfig.name` (defaults to the broker class name lower-cased, e.g. `rabbit`);
-    * walks `route_handlers` looking for `@subscriber` / `@publisher` markers.
+    - starts/stops every configured broker via the Litestar lifespan;
+    - mounts a combined AsyncAPI HTML route at `FastStreamConfig.asyncapi_url` when set;
+    - registers each broker as a Litestar dependency under the `BrokerConfig.name` (defaults to the broker class name lower-cased, e.g. `rabbit`);
+    - walks `route_handlers` looking for `@subscriber` / `@publisher` markers.
 3. Each marked function is bound to the broker exactly once. For methods on a `Controller`, the plugin binds the method to the *same* Controller instance Litestar uses for HTTP, so `self` is shared between HTTP and stream handlers (see [Semantics on Controller methods](#semantics-on-controller-methods)). Controller-level config (`path`, `dependencies`) still applies to HTTP siblings only, not to the FastStream subscriber.
 
 A more complete demo (HTTP routes, controller-hosted subscriber, startup hook, HTTP-to-broker via DI) lives in [`examples/rabbit/app.py`](./examples/rabbit/app.py). The same `Orders` demo is mirrored per broker — [`kafka`](./examples/kafka/app.py), [`confluent`](./examples/confluent/app.py), [`nats`](./examples/nats/app.py), [`redis`](./examples/redis/app.py), [`mqtt`](./examples/mqtt/app.py) — so the only thing that changes between them is the broker import. For a multi-broker setup, see [`examples/multiple_plugins_host/app.py`](./examples/multiple_plugins_host/app.py) (Kafka + Redis on a single Litestar app).
@@ -114,9 +114,8 @@ All brokers use the same `BrokerConfig`. Subscriber-side typed `Annotated` alias
 
 ---
 
-# Guide
+## Guide
 
-- [Controllers and free decorators](#controllers-and-free-decorators)
 - [Publishers](#publishers)
 - [Dependencies and DI bridge](#dependencies-and-di-bridge)
 - [Lifespan and hooks](#lifespan-and-hooks)
@@ -130,8 +129,8 @@ All brokers use the same `BrokerConfig`. Subscriber-side typed `Annotated` alias
 
 The integration ships two free decorators usable independently of any broker instance:
 
-* `subscriber(*args, plugin: str | None = None, **kwargs)` — marks a function as a subscriber for the FastStream broker the plugin owns.
-* `publisher(*args, plugin: str | None = None, **kwargs)` — marks a function as a publisher; the function's return value is published to the named queue/topic (mirrors `@broker.publisher`).
+- `subscriber(*args, plugin: str | None = None, **kwargs)` — marks a function as a subscriber for the FastStream broker the plugin owns.
+- `publisher(*args, plugin: str | None = None, **kwargs)` — marks a function as a publisher; the function's return value is published to the named queue/topic (mirrors `@broker.publisher`).
 
 > **`@subscriber` and `@publisher` mark broker handlers, not HTTP routes.** Applying either to a method that also carries an HTTP-verb decorator (`@get`, `@post`, …) raises at app init. HTTP handlers that need to publish should inject the broker via Litestar DI — see [Publishing from an HTTP handler](#publishing-from-an-http-handler).
 
@@ -174,15 +173,15 @@ Stream handlers on a `Controller` receive `self` bound to the **same singleton i
 
 The binding is **deferred to lifespan startup**, not done at `on_app_init`. Discovery happens during `on_app_init` and records each Controller-bound marker in `_pending_controller_subscribers`; the actual `broker.subscriber(...)` registration runs in a `pre_startup` lifespan hook (`_bind_and_register_controllers`), just before `broker.connect()/start()`. This ordering matters:
 
-* Litestar only builds `app.routes` after `on_app_init` returns; the singleton instances we need to bind to are not reachable until then.
-* Registering with the broker after Litestar has finished route construction (but before `broker.start()` iterates its subscriber set) lets the bound methods participate in the broker's normal startup path.
+- Litestar only builds `app.routes` after `on_app_init` returns; the singleton instances we need to bind to are not reachable until then.
+- Registering with the broker after Litestar has finished route construction (but before `broker.start()` iterates its subscriber set) lets the bound methods participate in the broker's normal startup path.
 
 Implications:
 
-* `self` **is available** and points at the shared Controller singleton.
-* Controller-level config (`path`, `dependencies`, `middleware`, `guards`) still applies to HTTP siblings only; it does **not** flow into the FastStream subscriber (those features are tied to Litestar's per-request scope).
-* `staticmethod` and `classmethod` decorated handlers stay unbound — `self`/`cls` semantics follow standard Python.
-* Module-level functions are equally supported and remain the simplest option when shared state isn't needed.
+- `self` **is available** and points at the shared Controller singleton.
+- Controller-level config (`path`, `dependencies`, `middleware`, `guards`) still applies to HTTP siblings only; it does **not** flow into the FastStream subscriber (those features are tied to Litestar's per-request scope).
+- `staticmethod` and `classmethod` decorated handlers stay unbound — `self`/`cls` semantics follow standard Python.
+- Module-level functions are equally supported and remain the simplest option when shared state isn't needed.
 
 ### Mixing with Tier 1 (broker-bound) decorators
 
@@ -190,8 +189,8 @@ Implications:
 
 ### Registration sources
 
-* Discovery scans `app_config.route_handlers` (Controllers, Routers, route handlers) for markers.
-* `BrokerConfig(handlers=[fn1, fn2])` — explicit list of `@subscriber`/`@publisher`-marked callables. Each entry must carry a marker; a callable without one raises at startup.
+- Discovery scans `app_config.route_handlers` (Controllers, Routers, route handlers) for markers.
+- `BrokerConfig(handlers=[fn1, fn2])` — explicit list of `@subscriber`/`@publisher`-marked callables. Each entry must carry a marker; a callable without one raises at startup.
 
 ## Publishers
 
@@ -296,8 +295,8 @@ The literal key `"broker"` is intentionally **not** registered, to avoid collisi
 
 Two patterns, both first-class:
 
-* **HTTP handlers** — use Litestar's standard `request.logger`. No plugin work required.
-* **Stream subscribers** — annotate a parameter with `Logger` (from `faststream`). It resolves to the broker's per-message logger via FastStream's context.
+- **HTTP handlers** — use Litestar's standard `request.logger`. No plugin work required.
+- **Stream subscribers** — annotate a parameter with `Logger` (from `faststream`). It resolves to the broker's per-message logger via FastStream's context.
 
 ```python
 from faststream import Logger
@@ -377,8 +376,8 @@ async def warm_up(app: Litestar) -> None: ...
 plugin = FastStreamPlugin(FastStreamConfig(brokers=[cfg]))
 ```
 
-* `fn(app)` for `after_startup` runs after `broker.start()`, before the app yields.
-* `fn(app)` for `on_broker_shutdown` runs before `broker.stop()`.
+- `fn(app)` for `after_startup` runs after `broker.start()`, before the app yields.
+- `fn(app)` for `on_broker_shutdown` runs before `broker.stop()`.
 
 Hook errors are logged but do not block lifespan teardown — `broker.stop()` always runs.
 
@@ -453,7 +452,6 @@ app = Litestar(plugins=[FastStreamPlugin(FastStreamConfig(brokers=[BrokerConfig(
 
 Or disable the route entirely with `asyncapi_url=None` and serve the schema yourself.
 
-
 ## CLI
 
 `FastStreamPlugin` extends Litestar's CLI via `CLIPluginProtocol` with a `faststream` subcommand group, enabling dual-process deployment (HTTP server + broker worker).
@@ -481,8 +479,8 @@ uv run litestar faststream info
 
 ### When to use this vs. `faststream run`
 
-* `faststream run app:broker` — pure FastStream apps with no HTTP layer.
-* `litestar faststream run` — Litestar apps where the broker config lives inside the Litestar `AppConfig` (plugin instance, dependencies, logging).
+- `faststream run app:broker` — pure FastStream apps with no HTTP layer.
+- `litestar faststream run` — Litestar apps where the broker config lives inside the Litestar `AppConfig` (plugin instance, dependencies, logging).
 
 ## Multi-broker apps
 
@@ -535,16 +533,16 @@ See [`examples/multiple_plugins_host/app.py`](./examples/multiple_plugins_host/a
 
 ### Constraints
 
-* **Broker name collision** — `FastStreamPlugin.__init__` raises `ImproperlyConfiguredException` if two `BrokerConfig` entries in the same `FastStreamConfig` share the same `name`. Default `name` is the broker class lower-case (`"rabbit"`, `"kafka"`).
-* **DI** — each broker is registered under `BrokerConfig.name`. Handlers inject by parameter name (`rabbit: RabbitBroker`, `kafka: KafkaBroker`); the broker classes are added to `signature_namespace` so the annotations resolve without explicit imports.
-* **Confluent name clash** — `faststream.confluent.KafkaBroker` shares a class name with `faststream.kafka.KafkaBroker`, so the default `name` would collide. Pass `name="confluent"` explicitly on the Confluent `BrokerConfig`.
+- **Broker name collision** — `FastStreamPlugin.__init__` raises `ImproperlyConfiguredException` if two `BrokerConfig` entries in the same `FastStreamConfig` share the same `name`. Default `name` is the broker class lower-case (`"rabbit"`, `"kafka"`).
+- **DI** — each broker is registered under `BrokerConfig.name`. Handlers inject by parameter name (`rabbit: RabbitBroker`, `kafka: KafkaBroker`); the broker classes are added to `signature_namespace` so the annotations resolve without explicit imports.
+- **Confluent name clash** — `faststream.confluent.KafkaBroker` shares a class name with `faststream.kafka.KafkaBroker`, so the default `name` would collide. Pass `name="confluent"` explicitly on the Confluent `BrokerConfig`.
 
 ## Testing
 
 The integration ships no new test surface. Compose two existing primitives:
 
-* `TestRabbitBroker(broker)` — FastStream's in-memory broker stand-in.
-* `litestar.testing.AsyncTestClient(app)` — Litestar's HTTP test client (drives the lifespan).
+- `TestRabbitBroker(broker)` — FastStream's in-memory broker stand-in.
+- `litestar.testing.AsyncTestClient(app)` — Litestar's HTTP test client (drives the lifespan).
 
 ```python
 import pytest
@@ -557,16 +555,13 @@ from litestar_faststream import BrokerConfig, FastStreamConfig, FastStreamPlugin
 
 broker = RabbitBroker("amqp://guest:guest@localhost:5672/")
 
-
 @subscriber("ping")
 async def on_ping(name: str) -> str:
     return f"hello {name}"
 
-
 app = Litestar(
     plugins=[FastStreamPlugin(FastStreamConfig(brokers=[BrokerConfig(broker=broker, handlers=[on_ping])]))],
 )
-
 
 @pytest.mark.asyncio
 async def test_ping_subscriber():
@@ -577,9 +572,9 @@ async def test_ping_subscriber():
 
 ### Pattern notes
 
-* `AsyncTestClient(app)` runs the Litestar lifespan, which starts the (now in-memory) broker via the plugin.
-* `subscriber.mock` (FastStream-native) returns the most recent call payload.
-* When an HTTP handler publishes via injected broker, asserting on the downstream subscriber's `.mock` is the cleanest way to verify the call fired end-to-end.
+- `AsyncTestClient(app)` runs the Litestar lifespan, which starts the (now in-memory) broker via the plugin.
+- `subscriber.mock` (FastStream-native) returns the most recent call payload.
+- When an HTTP handler publishes via injected broker, asserting on the downstream subscriber's `.mock` is the cleanest way to verify the call fired end-to-end.
 
 ## Migrating from the FastAPI integration
 
@@ -646,15 +641,15 @@ The diff is small because broker-side decorators are unchanged; only the surroun
 
 These features exist in the Litestar integration only — there is nothing to map from FastAPI:
 
-* **Free `@subscriber` / `@publisher` decorators on `Controller` methods** — discovery walks `route_handlers`, binds methods to Litestar's Controller singleton, and registers them with the broker. The FastAPI integration only supports the router-bound form. See [Controllers and free decorators](#controllers-and-free-decorators).
-* **Multi-broker apps with `plugin=` marker filter** — multiple `BrokerConfig`s in one Litestar app, with markers optionally scoped to a specific plugin. See [Multi-broker apps](#multi-broker-apps).
-* **`litestar faststream run` / `litestar faststream info` CLI subcommands** — start brokers without the HTTP server (dual-process deployment) or inspect the registered subscribers/publishers per plugin. See [CLI](#cli).
-* **`strict=True` on `BrokerConfig`** — promote unknown `plugin=` marker filters from a startup warning to an init-time error.
+- **Free `@subscriber` / `@publisher` decorators on `Controller` methods** — discovery walks `route_handlers`, binds methods to Litestar's Controller singleton, and registers them with the broker. The FastAPI integration only supports the router-bound form. See [Controllers and free decorators](#controllers-and-free-decorators).
+- **Multi-broker apps with `plugin=` marker filter** — multiple `BrokerConfig`s in one Litestar app, with markers optionally scoped to a specific plugin. See [Multi-broker apps](#multi-broker-apps).
+- **`litestar faststream run` / `litestar faststream info` CLI subcommands** — start brokers without the HTTP server (dual-process deployment) or inspect the registered subscribers/publishers per plugin. See [CLI](#cli).
+- **`strict=True` on `BrokerConfig`** — promote unknown `plugin=` marker filters from a startup warning to an init-time error.
 
 ### Things that did not carry over
 
-* **FastDepends `Context` injection into Litestar HTTP handlers** is not provided. Use Litestar's own DI: declare a parameter named after the `BrokerConfig.name` (default `rabbit`, `kafka`, …) typed with the broker class.
-* **HTTP-scoped Litestar dependencies inside FastStream subscribers** are not available — subscribers run without request scope. Use module-level state, the Controller singleton, or `app.state`.
+- **FastDepends `Context` injection into Litestar HTTP handlers** is not provided. Use Litestar's own DI: declare a parameter named after the `BrokerConfig.name` (default `rabbit`, `kafka`, …) typed with the broker class.
+- **HTTP-scoped Litestar dependencies inside FastStream subscribers** are not available — subscribers run without request scope. Use module-level state, the Controller singleton, or `app.state`.
 
 ## License
 

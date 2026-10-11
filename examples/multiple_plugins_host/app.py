@@ -35,9 +35,7 @@ class OrdersController(Controller):
 
     @post("/")
     async def create_order(
-        self,
-        data: Order,
-        kafka: NamedDependency[KafkaBroker],
+        self, data: Order, kafka: NamedDependency[KafkaBroker]
     ) -> dict:
         # Inject the kafka broker by ``BrokerConfig.name`` — the redis broker
         # is also registered (under ``redis``) but unused on this route.
@@ -65,7 +63,7 @@ plugin = FastStreamPlugin(
         asyncapi_url="/asyncapi",
         title="Orders App",
         description="Kafka durable log + Redis fan-out",
-    ),
+    )
 )
 
 
@@ -79,7 +77,4 @@ async def announce_redis(app: Litestar) -> None:
     app.logger.info("redis broker ready")
 
 
-app = Litestar(
-    plugins=[plugin],
-    route_handlers=[OrdersController],
-)
+app = Litestar(plugins=[plugin], route_handlers=[OrdersController])

@@ -33,15 +33,15 @@ uv run pytest examples/confluent/testing.py
 
 ## What this demonstrates
 
-* `Controller` mixing HTTP siblings with a stream handler.
-* Bridging an HTTP POST to a Kafka topic by injecting `kafka: KafkaBroker` into the route handler and calling `kafka.publish(...)` directly (Litestar DI).
-* `@publisher` wrapping the subscriber's return value (FastStream-native `@broker.publisher` semantics).
-* `after_startup` lifecycle hook.
-* AsyncAPI docs at `/asyncapi`.
-* **DI in FastStream subscribers** via `faststream.confluent.annotations` —
+- `Controller` mixing HTTP siblings with a stream handler.
+- Bridging an HTTP POST to a Kafka topic by injecting `kafka: KafkaBroker` into the route handler and calling `kafka.publish(...)` directly (Litestar DI).
+- `@publisher` wrapping the subscriber's return value (FastStream-native `@broker.publisher` semantics).
+- `after_startup` lifecycle hook.
+- AsyncAPI docs at `/asyncapi`.
+- **DI in FastStream subscribers** via `faststream.confluent.annotations` —
   `KafkaMessage` for the raw incoming message and `KafkaProducer` for the raw
   `AsyncConfluentFastProducer`.
-* **DI in Litestar routes** — `GET /orders/stats` takes `kafka: KafkaBroker`;
+- **DI in Litestar routes** — `GET /orders/stats` takes `kafka: KafkaBroker`;
   the broker is registered under `BrokerConfig.name` (defaults to `"kafka"`
   because the class is also called `KafkaBroker`).
 

@@ -50,9 +50,7 @@ class OrdersController(Controller):
 
     @post("/")
     async def create_order(
-        self,
-        data: Order,
-        redis: NamedDependency[RedisBroker],
+        self, data: Order, redis: NamedDependency[RedisBroker]
     ) -> dict:
         await redis.publish(data, "orders.new")
         return {"queued": True}
@@ -69,10 +67,7 @@ class OrdersController(Controller):
     @subscriber("orders.new")
     @publisher("orders.processed")
     async def on_order(
-        payload: Order,
-        message: RedisChannelMessage,
-        pipe: Pipeline,
-        logger: Logger,
+        payload: Order, message: RedisChannelMessage, pipe: Pipeline, logger: Logger
     ) -> dict:
         # ``Pipeline`` is provided by ``Depends(get_pipe)`` upstream, which does
         # ``async with redis.pipeline() as pipe: yield pipe``. The context-manager
@@ -104,10 +99,7 @@ class OrdersController(Controller):
 
 
 plugin = FastStreamPlugin(
-    FastStreamConfig(
-        brokers=[BrokerConfig(broker=broker)],
-        asyncapi_url="/asyncapi",
-    ),
+    FastStreamConfig(brokers=[BrokerConfig(broker=broker)], asyncapi_url="/asyncapi")
 )
 
 
@@ -116,7 +108,4 @@ async def announce(app: Litestar) -> None:
     app.logger.info("redis broker ready")
 
 
-app = Litestar(
-    plugins=[plugin],
-    route_handlers=[OrdersController],
-)
+app = Litestar(plugins=[plugin], route_handlers=[OrdersController])

@@ -42,10 +42,7 @@ async def test_controller_subscriber_runs() -> None:
         @subscriber("ctl-q")
         async def on_msg(payload: dict) -> None: ...
 
-    app = Litestar(
-        plugins=[_host(BrokerConfig(broker=broker))],
-        route_handlers=[Ctl],
-    )
+    app = Litestar(plugins=[_host(BrokerConfig(broker=broker))], route_handlers=[Ctl])
     async with TestRabbitBroker(broker), AsyncTestClient(app):
         await broker.publish({"x": 1}, queue="ctl-q")
         Ctl.on_msg.mock.assert_called_once_with({"x": 1})
@@ -78,8 +75,7 @@ async def test_controller_subscriber_self_shares_state_with_http() -> None:
             self.events.append(("stream", id(self)))
 
     app = Litestar(
-        plugins=[_host(BrokerConfig(broker=broker))],
-        route_handlers=[Counter],
+        plugins=[_host(BrokerConfig(broker=broker))], route_handlers=[Counter]
     )
 
     async with TestRabbitBroker(broker), AsyncTestClient(app) as client:
@@ -116,8 +112,7 @@ async def test_stream_only_controller_uses_plugin_instance() -> None:
             self.seen.append(payload)
 
     app = Litestar(
-        plugins=[_host(BrokerConfig(broker=broker))],
-        route_handlers=[StreamOnly],
+        plugins=[_host(BrokerConfig(broker=broker))], route_handlers=[StreamOnly]
     )
 
     async with TestRabbitBroker(broker), AsyncTestClient(app):

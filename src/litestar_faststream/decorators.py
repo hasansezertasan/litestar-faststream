@@ -8,6 +8,9 @@ binds marked callables to the broker.
 from collections.abc import Callable
 from typing import Any, TypeVar
 
+__all__ = ["publisher", "subscriber"]
+
+
 F = TypeVar("F", bound=Callable[..., Any])
 
 
@@ -24,36 +27,22 @@ def _set_marker(fn: Any, attr: str, entry: Any, decorator_name: str) -> None:
 
 
 def subscriber(
-    *args: Any,
-    plugin: str | None = None,
-    **kwargs: Any,
+    *args: Any, plugin: str | None = None, **kwargs: Any
 ) -> Callable[[F], F]:
     def deco(fn: F) -> F:
         entry_kwargs = {**kwargs, "plugin": plugin} if plugin is not None else kwargs
         _set_marker(
-            fn,
-            "__faststream_subscribers__",
-            (args, entry_kwargs),
-            "subscriber",
+            fn, "__faststream_subscribers__", (args, entry_kwargs), "subscriber"
         )
         return fn
 
     return deco
 
 
-def publisher(
-    *args: Any,
-    plugin: str | None = None,
-    **kwargs: Any,
-) -> Callable[[F], F]:
+def publisher(*args: Any, plugin: str | None = None, **kwargs: Any) -> Callable[[F], F]:
     def deco(fn: F) -> F:
         entry_kwargs = {**kwargs, "plugin": plugin} if plugin is not None else kwargs
-        _set_marker(
-            fn,
-            "__faststream_publishers__",
-            (args, entry_kwargs),
-            "publisher",
-        )
+        _set_marker(fn, "__faststream_publishers__", (args, entry_kwargs), "publisher")
         return fn
 
     return deco

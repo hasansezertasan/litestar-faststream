@@ -12,21 +12,21 @@ Two flavours live here:
   Mirrors ``litestar-saq``'s ``TaskQueues`` pattern.
 """
 
+# pylint: disable=arguments-renamed,arguments-differ  # Brokers.get deliberately
+# customizes Mapping.get: `key` is renamed to `name` and the default-less form
+# raises BrokerNotRegisteredError instead of returning None (documented above).
+
 from collections.abc import Iterator, Mapping
 from typing import TYPE_CHECKING, Any, TypeVar, overload
 
 from litestar.di import Provide
 
-from .exceptions import BrokerNotRegisteredError
+from litestar_faststream.exceptions import BrokerNotRegisteredError
 
 if TYPE_CHECKING:
     from faststream._internal.broker import BrokerUsecase
 
-__all__ = (
-    "Brokers",
-    "build_broker_provide",
-    "build_brokers_provide",
-)
+__all__ = ("Brokers", "build_broker_provide", "build_brokers_provide")
 
 _T = TypeVar("_T")
 
@@ -90,7 +90,7 @@ class Brokers(Mapping[str, "BrokerUsecase[Any, Any]"]):
         return iter(self._items)
 
     def __len__(self) -> int:
-        """Number of registered brokers."""
+        """Return the number of registered brokers."""
         return len(self._items)
 
     def __repr__(self) -> str:
@@ -101,15 +101,9 @@ class Brokers(Mapping[str, "BrokerUsecase[Any, Any]"]):
     def get(self, name: object) -> "BrokerUsecase[Any, Any]": ...
     @overload
     def get(
-        self,
-        name: object,
-        default: "BrokerUsecase[Any, Any] | _T",
+        self, name: object, default: "BrokerUsecase[Any, Any] | _T"
     ) -> "BrokerUsecase[Any, Any] | _T": ...
-    def get(
-        self,
-        name: object,
-        default: "Any" = _MISSING,
-    ) -> "Any":
+    def get(self, name: object, default: "Any" = _MISSING) -> "Any":
         """Return broker ``name`` or raise :class:`BrokerNotRegisteredError`.
 
         ``name`` is typed as ``object`` to stay compatible with
@@ -133,7 +127,7 @@ class Brokers(Mapping[str, "BrokerUsecase[Any, Any]"]):
 
     def _missing(self, name: object) -> BrokerNotRegisteredError:
         return BrokerNotRegisteredError(
-            f"No broker named {name!r} in Brokers registry; registered: {self.names()}",
+            f"No broker named {name!r} in Brokers registry; registered: {self.names()}"
         )
 
 

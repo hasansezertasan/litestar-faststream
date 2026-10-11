@@ -146,8 +146,7 @@ async def test_run_loop_bounds_shutdown_when_broker_hangs(monkeypatch) -> None:
     async def slow_shutdown(broker) -> None:
         await asyncio.sleep(10)
 
-    from litestar_faststream import cli as cli_mod
-    from litestar_faststream import lifespan as lifespan_mod
+    from litestar_faststream import cli as cli_mod, lifespan as lifespan_mod
 
     monkeypatch.setattr(lifespan_mod, "run_broker_lifecycle_startup", fake_startup)
     monkeypatch.setattr(lifespan_mod, "run_broker_lifecycle_shutdown", slow_shutdown)

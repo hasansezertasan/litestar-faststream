@@ -46,9 +46,7 @@ class OrdersController(Controller):
 
     @post("/")
     async def create_order(
-        self,
-        data: Order,
-        nats: NamedDependency[NatsBroker],
+        self, data: Order, nats: NamedDependency[NatsBroker]
     ) -> dict:
         await nats.publish(data, "orders.new")
         return {"queued": True}
@@ -62,11 +60,7 @@ class OrdersController(Controller):
     @staticmethod
     @subscriber("orders.new")
     @publisher("orders.processed")
-    async def on_order(
-        payload: Order,
-        message: NatsMessage,
-        logger: Logger,
-    ) -> dict:
+    async def on_order(payload: Order, message: NatsMessage, logger: Logger) -> dict:
         logger.info(
             "processing",
             extra={"user_id": payload.user_id, "msg_id": message.message_id},
@@ -85,10 +79,7 @@ class OrdersController(Controller):
 
 
 plugin = FastStreamPlugin(
-    FastStreamConfig(
-        brokers=[BrokerConfig(broker=broker)],
-        asyncapi_url="/asyncapi",
-    ),
+    FastStreamConfig(brokers=[BrokerConfig(broker=broker)], asyncapi_url="/asyncapi")
 )
 
 
@@ -97,7 +88,4 @@ async def announce(app: Litestar) -> None:
     app.logger.info("nats broker ready")
 
 
-app = Litestar(
-    plugins=[plugin],
-    route_handlers=[OrdersController],
-)
+app = Litestar(plugins=[plugin], route_handlers=[OrdersController])

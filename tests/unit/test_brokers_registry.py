@@ -83,8 +83,8 @@ def test_plugin_registers_brokers_dependency() -> None:
             brokers=[
                 BrokerConfig(broker=rabbit, name="rabbit"),
                 BrokerConfig(broker=redis, name="redis"),
-            ],
-        ),
+            ]
+        )
     )
     app_config = plugin.on_app_init(AppConfig())
 
@@ -110,7 +110,7 @@ def test_plugin_does_not_override_user_brokers_dependency(
     user_dep = MagicMock(name="user-brokers")
     rabbit = _fake_broker("rabbit")
     plugin = FastStreamPlugin(
-        FastStreamConfig(brokers=[BrokerConfig(broker=rabbit, name="rabbit")]),
+        FastStreamConfig(brokers=[BrokerConfig(broker=rabbit, name="rabbit")])
     )
     seed = AppConfig()
     seed.dependencies = {"brokers": user_dep}
@@ -125,8 +125,8 @@ def test_plugin_exposes_brokers_in_signature_namespace() -> None:
     """Handlers can annotate ``brokers: Brokers`` without an explicit import."""
     plugin = FastStreamPlugin(
         FastStreamConfig(
-            brokers=[BrokerConfig(broker=_fake_broker("rabbit"), name="rabbit")],
-        ),
+            brokers=[BrokerConfig(broker=_fake_broker("rabbit"), name="rabbit")]
+        )
     )
     app_config = plugin.on_app_init(AppConfig())
     assert app_config.signature_namespace["Brokers"] is Brokers

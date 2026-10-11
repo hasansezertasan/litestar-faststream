@@ -71,11 +71,7 @@ def test_unknown_plugin_filter_strict_raises() -> None:
     @subscriber("q", plugin="bogus")
     async def handler(payload: dict) -> None: ...
 
-    plugin = BrokerConfig(
-        broker=_fake_broker(),
-        handlers=[handler],
-        strict=True,
-    )
+    plugin = BrokerConfig(broker=_fake_broker(), handlers=[handler], strict=True)
     with pytest.raises(ImproperlyConfiguredException, match="bogus"):
         Litestar(plugins=[_host(plugin)])
 
@@ -84,16 +80,8 @@ def test_strict_on_any_broker_raises_for_whole_app() -> None:
     @subscriber("q", plugin="bogus")
     async def handler(payload: dict) -> None: ...
 
-    lax = BrokerConfig(
-        broker=_fake_broker("a"),
-        name="a",
-        handlers=[handler],
-    )
-    strict = BrokerConfig(
-        broker=_fake_broker("b"),
-        name="b",
-        strict=True,
-    )
+    lax = BrokerConfig(broker=_fake_broker("a"), name="a", handlers=[handler])
+    strict = BrokerConfig(broker=_fake_broker("b"), name="b", strict=True)
     with pytest.raises(ImproperlyConfiguredException, match="bogus"):
         Litestar(plugins=[_host(lax, strict)])
 
@@ -102,11 +90,7 @@ def test_strict_does_not_raise_when_all_markers_known() -> None:
     @subscriber("q", plugin="rabbit")
     async def handler(payload: dict) -> None: ...
 
-    plugin = BrokerConfig(
-        broker=_fake_broker(),
-        handlers=[handler],
-        strict=True,
-    )
+    plugin = BrokerConfig(broker=_fake_broker(), handlers=[handler], strict=True)
     Litestar(plugins=[_host(plugin)])  # must not raise
 
 
@@ -155,11 +139,7 @@ def test_publish_only_warns_when_subscribers_present(caplog) -> None:
     @subscriber("queue-x")
     async def handler(payload: dict) -> None: ...
 
-    plugin = BrokerConfig(
-        broker=_fake_broker(),
-        handlers=[handler],
-        publish_only=True,
-    )
+    plugin = BrokerConfig(broker=_fake_broker(), handlers=[handler], publish_only=True)
     with caplog.at_level("WARNING"):
         Litestar(plugins=[_host(plugin)])
     assert any(
@@ -169,10 +149,7 @@ def test_publish_only_warns_when_subscribers_present(caplog) -> None:
 
 
 def test_publish_only_no_warning_without_subscribers(caplog) -> None:
-    plugin = BrokerConfig(
-        broker=_fake_broker(),
-        publish_only=True,
-    )
+    plugin = BrokerConfig(broker=_fake_broker(), publish_only=True)
     with caplog.at_level("WARNING"):
         Litestar(plugins=[_host(plugin)])
     assert not any("publish_only=True" in rec.message for rec in caplog.records)

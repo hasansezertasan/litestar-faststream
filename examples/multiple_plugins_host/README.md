@@ -31,10 +31,10 @@ uv run pytest examples/multiple_plugins_host/testing.py
 
 ## What this demonstrates
 
-* `FastStreamPlugin(FastStreamConfig(brokers=[...]))` hosting two brokers in one Litestar app.
-* `@subscriber("...", plugin="kafka")` / `@publisher("...", plugin="kafka")` routing a marker to one specific broker by name.
-* Combined AsyncAPI document covering both brokers at `/asyncapi`.
-* Per-broker `after_startup` hooks via `plugin.after_startup("kafka")` / `plugin.after_startup("redis")`.
+- `FastStreamPlugin(FastStreamConfig(brokers=[...]))` hosting two brokers in one Litestar app.
+- `@subscriber("...", plugin="kafka")` / `@publisher("...", plugin="kafka")` routing a marker to one specific broker by name.
+- Combined AsyncAPI document covering both brokers at `/asyncapi`.
+- Per-broker `after_startup` hooks via `plugin.after_startup("kafka")` / `plugin.after_startup("redis")`.
 
 ## Live smoke
 
@@ -56,7 +56,7 @@ curl -X POST localhost:8000/orders -H 'content-type: application/json' \
      -d '{"user_id": 1, "item": "tea"}'
 ```
 
-Check the combined AsyncAPI viewer at http://localhost:8000/asyncapi.
+Check the combined AsyncAPI viewer at <http://localhost:8000/asyncapi>i>i>.
 
 Tear down:
 

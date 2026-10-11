@@ -25,7 +25,7 @@ else
   echo "==> SKIP_COMPOSE=1, using external redis"
 fi
 
-for i in 1 2 3 4 5 6 7 8 9 10; do
+for _ in 1 2 3 4 5 6 7 8 9 10; do
   nc -z localhost 6379 && break
   sleep 1
 done
@@ -35,7 +35,7 @@ cd "$repo"
 uv run litestar --app examples.redis.app:app run --port 8765 &
 SERVER_PID=$!
 
-for i in 1 2 3 4 5 6 7 8 9 10; do
+for _ in 1 2 3 4 5 6 7 8 9 10; do
   curl -fs http://localhost:8765/asyncapi.json >/dev/null && break
   sleep 1
 done

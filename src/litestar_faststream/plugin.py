@@ -15,18 +15,21 @@ from typing import TYPE_CHECKING, Any, cast
 
 from litestar.config.app import AppConfig
 
+from litestar_faststream._helpers import qualname
+from litestar_faststream.di import build_broker_provide
+from litestar_faststream.discovery import collect
+from litestar_faststream.lifespan import LifespanComposer
+
 if TYPE_CHECKING:
     from faststream._internal.broker import BrokerUsecase
 
-from ._helpers import qualname
-from .di import build_broker_provide
-from .discovery import collect
-from .lifespan import LifespanComposer
+__all__ = ["BrokerConfig"]
+
 
 logger = logging.getLogger(__name__)
 
 
-class BrokerConfig:
+class BrokerConfig:  # pylint: disable=too-many-instance-attributes,attribute-defined-outside-init
     """Configure a FastStream broker for use under ``FastStreamPlugin``.
 
     Pass instances of this class via ``FastStreamConfig.brokers``.
@@ -50,9 +53,7 @@ class BrokerConfig:
         self.strict = strict
         self.publish_only = publish_only
         self._composer = LifespanComposer(
-            broker,
-            state_key=self.name,
-            publish_only=publish_only,
+            broker, state_key=self.name, publish_only=publish_only
         )
         self._registered_subscribers: list[
             tuple[str, tuple[Any, ...], dict[str, Any]]
@@ -68,9 +69,7 @@ class BrokerConfig:
         # user coroutine rather than Litestar's route-handler wrapper.
         self._pending_controller_subscribers: list[
             tuple[
-                type,
-                Callable[..., Any],
-                list[tuple[tuple[Any, ...], dict[str, Any]]],
+                type, Callable[..., Any], list[tuple[tuple[Any, ...], dict[str, Any]]]
             ]
         ] = []
         self._pending_controller_response_publishers: list[
@@ -80,15 +79,13 @@ class BrokerConfig:
         self._bound = False
 
     def after_startup(
-        self,
-        fn: Callable[[Any], Awaitable[None]],
+        self, fn: Callable[[Any], Awaitable[None]]
     ) -> Callable[[Any], Awaitable[None]]:
         self._composer.add_after_startup(fn)
         return fn
 
     def on_broker_shutdown(
-        self,
-        fn: Callable[[Any], Awaitable[None]],
+        self, fn: Callable[[Any], Awaitable[None]]
     ) -> Callable[[Any], Awaitable[None]]:
         self._composer.add_on_broker_shutdown(fn)
         return fn
@@ -115,7 +112,7 @@ class BrokerConfig:
         self._registered_response_publishers.clear()
         self._pending_controller_subscribers = list(result.controller_subscribers)
         self._pending_controller_response_publishers = list(
-            result.controller_response_publishers,
+            result.controller_response_publishers
         )
         if (
             self._pending_controller_subscribers
@@ -137,8 +134,7 @@ class BrokerConfig:
             for args, kwargs in sub_specs:
                 if self._already_bound(fn, args):
                     logger.debug(
-                        "skipping Tier-2 subscriber for %s; already bound by Tier-1",
-                        fn,
+                        "skipping Tier-2 subscriber for %s; already bound by Tier-1", fn
                     )
                     continue
                 if first_run:
@@ -166,15 +162,15 @@ class BrokerConfig:
                 dict(kwargs),
             ))
 
-        if app_config.lifespan is None:
-            app_config.lifespan = []  # pyrefly: ignore[bad-assignment]
-        if not isinstance(app_config.lifespan, list):
-            app_config.lifespan = list(app_config.lifespan)
-        app_config.lifespan.append(self._composer.build())
+        # Normalize the lifespan sequence defensively: Litestar types this as a
+        # list, but a user-supplied AppConfig may carry None or a tuple at
+        # runtime. Build a fresh list (rather than appending in place) so a
+        # caller-held sequence is never mutated as a side effect.
+        app_config.lifespan = [*list(app_config.lifespan or []), self._composer.build()]
 
         if self.publish_only:
             subscriber_count = len(self._registered_subscribers) + len(
-                self._pending_controller_subscribers,
+                self._pending_controller_subscribers
             )
             if subscriber_count:
                 logger.warning(
@@ -227,7 +223,7 @@ class BrokerConfig:
         return app_config
 
     def _apply_to_cli(self, cli: Any) -> None:
-        from .cli import register_broker_cli
+        from litestar_faststream.cli import register_broker_cli
 
         register_broker_cli(cli, self)
 
@@ -248,7 +244,7 @@ class BrokerConfig:
         target; if they grow that behavior later, the duplicate will surface
         with a clear error from the broker itself.
         """
-        existing = getattr(self.broker, "_subscribers", None) or []
+        existing: list[Any] = getattr(self.broker, "_subscribers", None) or []
         target = fn.__func__ if hasattr(fn, "__func__") else fn
         for sub in existing:
             sub_fn = getattr(sub, "fn", None)
@@ -302,9 +298,7 @@ class BrokerConfig:
         return instances
 
     def _resolve_controller_instance(
-        self,
-        controller_cls: type,
-        cache: dict[type, Any],
+        self, controller_cls: type, cache: dict[type, Any]
     ) -> Any:
         """Return the singleton instance for ``controller_cls``.
 
@@ -384,7 +378,7 @@ class BrokerConfig:
             bound = _get_bound(controller_cls, unbound)
             handler = wrappers.get(id(bound), bound)
             wrappers[id(bound)] = self.broker.publisher(*args, **kwargs)(
-                cast("Callable[..., Any]", handler),
+                cast("Callable[..., Any]", handler)
             )
             self._registered_response_publishers.append((
                 qualname(bound),

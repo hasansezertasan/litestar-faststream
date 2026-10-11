@@ -46,9 +46,7 @@ class OrdersController(Controller):
 
     @post("/")
     async def create_order(
-        self,
-        data: Order,
-        kafka: NamedDependency[KafkaBroker],
+        self, data: Order, kafka: NamedDependency[KafkaBroker]
     ) -> dict:
         await kafka.publish(data, "orders.new")
         return {"queued": True}
@@ -63,10 +61,7 @@ class OrdersController(Controller):
     @subscriber("orders.new")
     @publisher("orders.processed")
     async def on_order(
-        payload: Order,
-        message: KafkaMessage,
-        consumer: Consumer,
-        logger: Logger,
+        payload: Order, message: KafkaMessage, consumer: Consumer, logger: Logger
     ) -> dict:
         # ``Consumer`` is the per-handler AIOKafkaConsumer (extra). Useful for
         # introspecting offsets/partitions or calling ``commit()`` manually.
@@ -83,9 +78,7 @@ class OrdersController(Controller):
     @staticmethod
     @subscriber("orders.processed")
     async def on_processed(
-        payload: dict,
-        producer: KafkaProducer,
-        logger: Logger,
+        payload: dict, producer: KafkaProducer, logger: Logger
     ) -> None:
         # ``KafkaProducer`` is the raw AioKafkaFastProducer — reach for it when
         # you need to publish outside the @publisher decorator contract.
@@ -96,10 +89,7 @@ class OrdersController(Controller):
 
 
 plugin = FastStreamPlugin(
-    FastStreamConfig(
-        brokers=[BrokerConfig(broker=broker)],
-        asyncapi_url="/asyncapi",
-    ),
+    FastStreamConfig(brokers=[BrokerConfig(broker=broker)], asyncapi_url="/asyncapi")
 )
 
 
@@ -108,7 +98,4 @@ async def announce(app: Litestar) -> None:
     app.logger.info("kafka broker ready")
 
 
-app = Litestar(
-    plugins=[plugin],
-    route_handlers=[OrdersController],
-)
+app = Litestar(plugins=[plugin], route_handlers=[OrdersController])

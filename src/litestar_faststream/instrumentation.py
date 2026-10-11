@@ -26,6 +26,11 @@ Usage::
     cfg = BrokerConfig(broker, name="rabbit")
 """
 
+# pylint: disable=broad-exception-caught,global-statement,invalid-name
+# Telemetry must never break the app: the OTel block catches broadly and the
+# lazily-created global `_tracer` cache (lowercase, module-private by design)
+# is assigned via `global` on first use.
+
 import logging
 import time
 from collections.abc import Awaitable, Callable
@@ -35,7 +40,7 @@ from typing import TYPE_CHECKING, Any, TypeVar, cast, overload
 from faststream import BaseMiddleware
 from typing_extensions import ParamSpec
 
-from ._otel_typing import (
+from litestar_faststream._otel_typing import (
     OPENTELEMETRY_INSTALLED,
     SpanKind,
     Status,
@@ -47,12 +52,7 @@ from ._otel_typing import (
 if TYPE_CHECKING:
     from types import TracebackType
 
-__all__ = (
-    "OPENTELEMETRY_INSTALLED",
-    "OtelMiddleware",
-    "get_tracer",
-    "monitored",
-)
+__all__ = ("OPENTELEMETRY_INSTALLED", "OtelMiddleware", "get_tracer", "monitored")
 
 _log = logging.getLogger("litestar_faststream.handlers")
 
@@ -120,9 +120,7 @@ class OtelMiddleware(BaseMiddleware):
         destination = _extract_destination(msg)
         span_name = f"{destination} process" if destination else "faststream process"
         with tracer.start_as_current_span(
-            span_name,
-            kind=SpanKind.CONSUMER,
-            context=parent_ctx,
+            span_name, kind=SpanKind.CONSUMER, context=parent_ctx
         ) as span:
             self._set_message_attrs(span, msg, operation="process")
             try:
@@ -139,16 +137,13 @@ class OtelMiddleware(BaseMiddleware):
         tracer = get_tracer()
         destination = _extract_destination(cmd)
         span_name = f"{destination} publish" if destination else "faststream publish"
-        with tracer.start_as_current_span(
-            span_name,
-            kind=SpanKind.PRODUCER,
-        ) as span:
+        with tracer.start_as_current_span(span_name, kind=SpanKind.PRODUCER) as span:
             self._set_message_attrs(span, cmd, operation="publish")
             # Inject the *current* context (which is now the producer span)
             # into the outgoing message headers so consumers see this span
             # as the parent. Mutating ``cmd.headers`` in place is the
             # documented FastStream extension point.
-            headers = cmd.headers if cmd.headers is not None else {}
+            headers: dict[str, Any] = cmd.headers if cmd.headers is not None else {}
             propagate.inject(carrier=headers)
             cmd.headers = headers
             try:
@@ -176,9 +171,7 @@ class OtelMiddleware(BaseMiddleware):
         if destination:
             span.set_attribute("messaging.destination.name", destination)
         message_id = getattr(obj, "correlation_id", None) or getattr(
-            obj,
-            "message_id",
-            None,
+            obj, "message_id", None
         )
         if message_id:
             span.set_attribute("messaging.message.id", str(message_id))
@@ -256,9 +249,7 @@ def monitored(
           line is always emitted.
     """
 
-    def decorator(
-        func: Callable[P, Awaitable[R]],
-    ) -> Callable[P, Awaitable[R]]:
+    def decorator(func: Callable[P, Awaitable[R]]) -> Callable[P, Awaitable[R]]:
         resolved_name = span_name or getattr(func, "__qualname__", repr(func))
         attrs = dict(attributes or {})
 
@@ -273,8 +264,7 @@ def monitored(
             msg = args[0] if args else None
 
             with tracer.start_as_current_span(
-                resolved_name,
-                kind=SpanKind.INTERNAL,
+                resolved_name, kind=SpanKind.INTERNAL
             ) as span:
                 if OPENTELEMETRY_INSTALLED:
                     for k, v in attrs.items():

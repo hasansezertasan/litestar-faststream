@@ -68,8 +68,7 @@ def test_handlers_without_marker_raise() -> None:
     async def fn() -> None: ...
 
     with pytest.raises(
-        ImproperlyConfiguredException,
-        match="no @subscriber/@publisher",
+        ImproperlyConfiguredException, match="no @subscriber/@publisher"
     ):
         collect(route_handlers=[], extra_handlers=[fn])
 
@@ -83,8 +82,7 @@ def test_publisher_on_http_handler_rejected() -> None:
         return {}
 
     with pytest.raises(
-        ImproperlyConfiguredException,
-        match="cannot decorate an HTTP route handler",
+        ImproperlyConfiguredException, match="cannot decorate an HTTP route handler"
     ):
         collect(route_handlers=[handler], extra_handlers=[])
 
@@ -96,8 +94,7 @@ def test_subscriber_on_http_handler_rejected() -> None:
         return {}
 
     with pytest.raises(
-        ImproperlyConfiguredException,
-        match="cannot decorate an HTTP route handler",
+        ImproperlyConfiguredException, match="cannot decorate an HTTP route handler"
     ):
         collect(route_handlers=[handler], extra_handlers=[])
 
@@ -112,8 +109,7 @@ def test_publisher_on_controller_http_method_rejected() -> None:
             return {}
 
     with pytest.raises(
-        ImproperlyConfiguredException,
-        match="cannot decorate an HTTP route handler",
+        ImproperlyConfiguredException, match="cannot decorate an HTTP route handler"
     ):
         collect(route_handlers=[C], extra_handlers=[])
 

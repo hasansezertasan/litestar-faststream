@@ -1,5 +1,8 @@
 """Litestar CLI subcommands for FastStream BrokerConfig: run / info / status / drain."""
 
+# pylint: disable=broad-exception-caught  # Worker shutdown paths log and
+# continue by design: signal handling and broker.stop() must always run.
+
 import asyncio
 import contextlib
 import json as _json
@@ -11,6 +14,9 @@ from itertools import starmap
 from typing import Any
 
 import click
+
+__all__ = ["register_broker_cli"]
+
 
 logger = logging.getLogger(__name__)
 
@@ -42,10 +48,7 @@ def register_broker_cli(cli: click.Group, plugin: Any) -> None:
 
     @faststream_group.command(name="run")
     @click.option(
-        "--broker",
-        "plugin_name",
-        default=None,
-        help="Run only the named broker.",
+        "--broker", "plugin_name", default=None, help="Run only the named broker."
     )
     def run(plugin_name: str | None) -> None:
         plugins = _select(state["plugins"], plugin_name)
@@ -54,7 +57,7 @@ def register_broker_cli(cli: click.Group, plugin: Any) -> None:
     @faststream_group.command(name="info")
     @click.option("--broker", "plugin_name", default=None)
     def info(plugin_name: str | None) -> None:
-        from .info import render_plugin_info
+        from litestar_faststream.info import render_plugin_info
 
         plugins = _select(state["plugins"], plugin_name)
         for p in plugins:
@@ -62,10 +65,7 @@ def register_broker_cli(cli: click.Group, plugin: Any) -> None:
 
     @faststream_group.command(name="status")
     @click.option(
-        "--broker",
-        "plugin_name",
-        default=None,
-        help="Probe only the named broker.",
+        "--broker", "plugin_name", default=None, help="Probe only the named broker."
     )
     @click.option(
         "--watch",
@@ -109,15 +109,12 @@ def register_broker_cli(cli: click.Group, plugin: Any) -> None:
                 interval=interval,
                 timeout=timeout,
                 as_json=as_json,
-            ),
+            )
         )
 
     @faststream_group.command(name="drain")
     @click.option(
-        "--broker",
-        "plugin_name",
-        default=None,
-        help="Drain only the named broker.",
+        "--broker", "plugin_name", default=None, help="Drain only the named broker."
     )
     @click.option(
         "--timeout",
@@ -144,9 +141,7 @@ def register_broker_cli(cli: click.Group, plugin: Any) -> None:
                 f"drain exceeded --timeout={timeout}s; some in-flight messages "
                 f"may not have completed"
             )
-            raise click.ClickException(
-                msg,
-            )
+            raise click.ClickException(msg)
 
     state["installed"] = True
 
@@ -162,9 +157,7 @@ def _select(registered: Sequence[Any], plugin_name: str | None) -> Sequence[Any]
 
 
 async def _run_brokers_until_signal(
-    plugins: Sequence[Any],
-    *,
-    timeout: float | None = None,
+    plugins: Sequence[Any], *, timeout: float | None = None
 ) -> int:
     # Re-apply Litestar's logging config so worker-process formatting matches
     # the HTTP server (mirrors litestar-saq/cli.py:355-373). Apply for every
@@ -197,7 +190,10 @@ async def _run_brokers_until_signal(
         with contextlib.suppress(NotImplementedError):
             loop.add_signal_handler(sig, _signal_handler)
 
-    from .lifespan import run_broker_lifecycle_shutdown, run_broker_lifecycle_startup
+    from litestar_faststream.lifespan import (
+        run_broker_lifecycle_shutdown,
+        run_broker_lifecycle_startup,
+    )
 
     started: list[Any] = []
     exceeded_deadline = False
@@ -221,8 +217,7 @@ async def _run_brokers_until_signal(
             else:
                 try:
                     await asyncio.wait_for(
-                        asyncio.gather(*shutdown_tasks),
-                        timeout=timeout,
+                        asyncio.gather(*shutdown_tasks), timeout=timeout
                     )
                 except asyncio.TimeoutError:
                     exceeded_deadline = True
@@ -243,7 +238,7 @@ async def _probe_broker(plugin: Any, timeout: float) -> dict[str, Any]:
     """
     broker = plugin.broker
     sub_count = len(getattr(plugin, "_registered_subscribers", []) or []) + len(
-        getattr(plugin, "_pending_controller_subscribers", []) or [],
+        getattr(plugin, "_pending_controller_subscribers", []) or []
     )
     pub_count = len(getattr(plugin, "_registered_response_publishers", []) or [])
     result: dict[str, Any] = {

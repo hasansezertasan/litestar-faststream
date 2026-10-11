@@ -49,9 +49,7 @@ class OrdersController(Controller):
 
     @post("/")
     async def create_order(
-        self,
-        data: Order,
-        kafka: NamedDependency[KafkaBroker],
+        self, data: Order, kafka: NamedDependency[KafkaBroker]
     ) -> dict:
         await kafka.publish(data, "orders.new")
         return {"queued": True}
@@ -65,11 +63,7 @@ class OrdersController(Controller):
     @staticmethod
     @subscriber("orders.new")
     @publisher("orders.processed")
-    async def on_order(
-        payload: Order,
-        message: KafkaMessage,
-        logger: Logger,
-    ) -> dict:
+    async def on_order(payload: Order, message: KafkaMessage, logger: Logger) -> dict:
         logger.info(
             "processing",
             extra={"user_id": payload.user_id, "msg_id": message.message_id},
@@ -79,9 +73,7 @@ class OrdersController(Controller):
     @staticmethod
     @subscriber("orders.processed")
     async def on_processed(
-        payload: dict,
-        producer: KafkaProducer,
-        logger: Logger,
+        payload: dict, producer: KafkaProducer, logger: Logger
     ) -> None:
         # ``KafkaProducer`` is the raw AsyncConfluentFastProducer — useful for
         # publishing outside the @publisher decorator (admin events, DLQs, ...).
@@ -92,10 +84,7 @@ class OrdersController(Controller):
 
 
 plugin = FastStreamPlugin(
-    FastStreamConfig(
-        brokers=[BrokerConfig(broker=broker)],
-        asyncapi_url="/asyncapi",
-    ),
+    FastStreamConfig(brokers=[BrokerConfig(broker=broker)], asyncapi_url="/asyncapi")
 )
 
 
@@ -106,7 +95,4 @@ async def announce(app: Litestar) -> None:
     app.logger.info("confluent broker ready")
 
 
-app = Litestar(
-    plugins=[plugin],
-    route_handlers=[OrdersController],
-)
+app = Litestar(plugins=[plugin], route_handlers=[OrdersController])

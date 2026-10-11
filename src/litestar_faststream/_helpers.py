@@ -7,6 +7,8 @@ Kept separate from ``plugin.py`` so the plugin module stays focused on the
 
 from typing import Any
 
+__all__ = ["qualname"]
+
 
 def qualname(fn: Any) -> str:
     """Best-effort ``__qualname__`` for a possibly-wrapped callable."""
