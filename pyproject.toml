@@ -220,7 +220,14 @@ name = "cz_conventional_commits"
 
 [tool.pytest.ini_options]
 # addopts = "-rXs --strict-config --strict-markers"
-addopts = "-v --tb=short --doctest-glob=README.md"
+# `-p no:unraisableexception`: FastStream's TestBroker + AsyncMock teardown
+# leaves un-awaited internal coroutines that GC finalizes after the test, and
+# pytest groups repeated GC-timing artifacts into an `ExceptionGroup: multiple
+# unraisable exception warnings` that NO warning filter can match (it is
+# raised, not warned) — red on some OSes, green on others, for identical code
+# (seen: ubuntu fails, macOS/Windows pass). The plugin detects GC timing, not
+# bugs; every other warning class still errors via `filterwarnings` below.
+addopts = "-v --tb=short --doctest-glob=README.md -p no:unraisableexception"
 # One marker per component, auto-applied by tests/conftest.py from each test's
 # top-level tests/<dir>/. Enables `pytest -m web` locally and per-component CI
 # jobs (issue #160, ADR-028); `integration` (ADR-008) is one axis of the scheme.
@@ -241,11 +248,6 @@ markers = [
 asyncio_mode = "strict"
 filterwarnings = [
   "error",
-  # FastStream's TestBroker + AsyncMock teardown leaves an un-awaited internal
-  # coroutine that GC finalizes after the test; the resulting
-  # PytestUnraisableExceptionWarning carries no failure (exception None) and
-  # would otherwise fail the suite under the `error` filter above.
-  "ignore:Exception ignored while finalizing coroutine:pytest.PytestUnraisableExceptionWarning",
 ]
 # The project README is the deliberately small Markdown doctest surface. Other
 # Markdown files can use illustrative snippets without becoming pytest inputs.

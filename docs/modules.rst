@@ -66,4 +66,3 @@ Support (``litestar_faststream.exceptions``)
 Errors and shared helpers.
 
 .. automodule:: litestar_faststream.exceptions
-

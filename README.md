@@ -54,9 +54,7 @@ async def handler(user_id: int, logger: Logger) -> str:
 
 
 app = Litestar(
-    plugins=[
-        FastStreamPlugin(FastStreamConfig(brokers=[BrokerConfig(broker=broker)])),
-    ],
+    plugins=[FastStreamPlugin(FastStreamConfig(brokers=[BrokerConfig(broker=broker)]))]
 )
 ```
 
@@ -144,7 +142,12 @@ from litestar import Controller, Litestar, get
 from faststream import Logger
 from faststream.rabbit import RabbitBroker
 
-from litestar_faststream import BrokerConfig, FastStreamConfig, FastStreamPlugin, subscriber
+from litestar_faststream import (
+    BrokerConfig,
+    FastStreamConfig,
+    FastStreamPlugin,
+    subscriber,
+)
 
 broker = RabbitBroker("amqp://guest:guest@localhost:5672/")
 
@@ -202,7 +205,13 @@ from litestar import Litestar
 from faststream import Logger
 from faststream.rabbit import RabbitBroker
 
-from litestar_faststream import BrokerConfig, FastStreamConfig, FastStreamPlugin, publisher, subscriber
+from litestar_faststream import (
+    BrokerConfig,
+    FastStreamConfig,
+    FastStreamPlugin,
+    publisher,
+    subscriber,
+)
 
 broker = RabbitBroker("amqp://guest:guest@localhost:5672/")
 
@@ -215,7 +224,13 @@ async def on_new_order(payload: dict, logger: Logger) -> dict:
 
 
 app = Litestar(
-    plugins=[FastStreamPlugin(FastStreamConfig(brokers=[BrokerConfig(broker=broker, handlers=[on_new_order])]))],
+    plugins=[
+        FastStreamPlugin(
+            FastStreamConfig(
+                brokers=[BrokerConfig(broker=broker, handlers=[on_new_order])]
+            )
+        )
+    ]
 )
 ```
 
@@ -303,6 +318,7 @@ from faststream import Logger
 
 from litestar_faststream import subscriber
 
+
 @subscriber("orders.new")
 async def handle_order(payload: dict, logger: Logger) -> None:
     logger.info("got order", extra={"payload": payload})
@@ -346,7 +362,7 @@ from litestar_faststream import BrokerConfig, FastStreamConfig, FastStreamPlugin
 
 broker = RabbitBroker("amqp://guest:guest@localhost:5672/")
 plugin = FastStreamPlugin(
-    FastStreamConfig(brokers=[BrokerConfig(broker=broker, name="rabbit")]),
+    FastStreamConfig(brokers=[BrokerConfig(broker=broker, name="rabbit")])
 )
 
 
@@ -415,7 +431,7 @@ FastStreamPlugin(
         description="...",
         version="1.0.0",
         tags=[...],
-    ),
+    )
 )
 ```
 
@@ -443,11 +459,16 @@ from litestar.handlers.base import BaseRouteHandler
 
 
 def asyncapi_guard(connection: ASGIConnection, _: BaseRouteHandler) -> None:
-    if connection.url.path.startswith("/asyncapi") and not connection.headers.get("x-internal"):
+    if connection.url.path.startswith("/asyncapi") and not connection.headers.get(
+        "x-internal"
+    ):
         raise NotAuthorizedException
 
 
-app = Litestar(plugins=[FastStreamPlugin(FastStreamConfig(brokers=[BrokerConfig(broker=broker)]))], guards=[asyncapi_guard])
+app = Litestar(
+    plugins=[FastStreamPlugin(FastStreamConfig(brokers=[BrokerConfig(broker=broker)]))],
+    guards=[asyncapi_guard],
+)
 ```
 
 Or disable the route entirely with `asyncapi_url=None` and serve the schema yourself.
@@ -506,9 +527,9 @@ app = Litestar(
                     BrokerConfig(broker=redis_broker, name="redis"),
                 ],
                 asyncapi_url="/asyncapi",
-            ),
-        ),
-    ],
+            )
+        )
+    ]
 )
 ```
 
@@ -519,10 +540,12 @@ By default every `BrokerConfig` in the app claims every `@subscriber` / `@publis
 ```python
 from litestar_faststream import publisher, subscriber
 
-@subscriber("orders.new", plugin="kafka")           # only the kafka BrokerConfig binds this
+
+@subscriber("orders.new", plugin="kafka")  # only the kafka BrokerConfig binds this
 async def consume_order(payload: dict) -> None: ...
 
-@publisher("orders.processed", plugin="kafka")      # publish to kafka only
+
+@publisher("orders.processed", plugin="kafka")  # publish to kafka only
 @subscriber("orders.new", plugin="kafka")
 async def process_order(payload: dict) -> dict: ...
 ```
@@ -551,17 +574,29 @@ from litestar.testing import AsyncTestClient
 
 from faststream.rabbit import RabbitBroker, TestRabbitBroker
 
-from litestar_faststream import BrokerConfig, FastStreamConfig, FastStreamPlugin, subscriber
+from litestar_faststream import (
+    BrokerConfig,
+    FastStreamConfig,
+    FastStreamPlugin,
+    subscriber,
+)
 
 broker = RabbitBroker("amqp://guest:guest@localhost:5672/")
+
 
 @subscriber("ping")
 async def on_ping(name: str) -> str:
     return f"hello {name}"
 
+
 app = Litestar(
-    plugins=[FastStreamPlugin(FastStreamConfig(brokers=[BrokerConfig(broker=broker, handlers=[on_ping])]))],
+    plugins=[
+        FastStreamPlugin(
+            FastStreamConfig(brokers=[BrokerConfig(broker=broker, handlers=[on_ping])])
+        )
+    ]
 )
+
 
 @pytest.mark.asyncio
 async def test_ping_subscriber():
@@ -606,11 +641,13 @@ app = FastAPI()
 
 publisher = router.publisher("response-q")
 
+
 @publisher
 @router.subscriber("test-q")
 async def handler(user_id: int, logger: Logger) -> str:
     logger.info(user_id)
     return f"{user_id} created"
+
 
 app.include_router(router)
 ```
@@ -626,13 +663,17 @@ from litestar_faststream import BrokerConfig, FastStreamConfig, FastStreamPlugin
 
 broker = RabbitBroker("amqp://guest:guest@localhost:5672/")
 
+
 @broker.publisher("response-q")
 @broker.subscriber("test-q")
 async def handler(user_id: int, logger: Logger) -> str:
     logger.info(user_id)
     return f"{user_id} created"
 
-app = Litestar(plugins=[FastStreamPlugin(FastStreamConfig(brokers=[BrokerConfig(broker=broker)]))])
+
+app = Litestar(
+    plugins=[FastStreamPlugin(FastStreamConfig(brokers=[BrokerConfig(broker=broker)]))]
+)
 ```
 
 The diff is small because broker-side decorators are unchanged; only the surrounding HTTP framework wrapper differs.
