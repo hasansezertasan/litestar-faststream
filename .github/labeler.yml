@@ -5,10 +5,12 @@ documentation:
       - any-glob-to-any-file: docs/**
 # Apply area labels from the component and cross-cutting paths a PR changes.
 # Keep each component rule gated so generated projects never receive labels for
-# packages they do not contain.
+# packages they do not contain. This package is flat modules (the template's
+# core/utils skeleton was removed on adoption), so area:core watches the whole
+# package tree plus its tests.
 area:core:
   - changed-files:
-      - any-glob-to-any-file: ['src/litestar_faststream/core/**', 'src/litestar_faststream/utils/**', 'tests/core/**', 'tests/test_*.py']
+      - any-glob-to-any-file: ['src/litestar_faststream/**', 'tests/**/*.py']
 area:docs:
   - changed-files:
       - any-glob-to-any-file: ['docs/**', '**/*.md', '**/*.rst']
