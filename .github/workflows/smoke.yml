@@ -1,0 +1,266 @@
+---
+name: Live broker smoke
+# Service-backed end-to-end validation the pytest suite cannot provide: each
+# job starts a real broker, runs the marker-selected integration tests against
+# it, then drives the matching examples/*/smoke.sh demo end to end. Restored
+# from the pre-adoption pr_tests.yaml smoke jobs (removed in the
+# copier-pyproject adoption) at Codex review request; adapted to the adopted
+# toolchain (uv lockfile, python-version-file, SHA-pinned actions, per-job
+# permissions/timeouts). Runs weekly, on demand, and on PRs touching the
+# examples, integration tests, or this workflow — not on every PR.
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - examples/**
+      - tests/integration/**
+      - .github/workflows/smoke.yml
+      - .github/mosquitto/**
+  push:
+    branches: [main]
+    paths:
+      - examples/**
+      - tests/integration/**
+      - .github/workflows/smoke.yml
+      - .github/mosquitto/**
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+permissions: {}
+jobs:
+  smoke-rabbit:
+    if: ${{ github.event.pull_request.draft != true }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    services:
+      rabbitmq:
+        image: rabbitmq:4-management
+        ports:
+          - 5672:5672
+        options: >-
+          --health-cmd "rabbitmq-diagnostics -q ping" --health-interval 10s --health-timeout 5s --health-retries 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97  # v7.0.0
+        with:
+          python-version-file: .python-version
+      - name: Setup uv
+        uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7  # v10.2.0
+        with:
+          enable-cache: true
+      - name: Sync dependencies
+        run: uv sync --locked
+      - name: Run broker tests
+        run: uv run --locked pytest -m rabbit
+      - name: Smoke example
+        env:
+          SKIP_COMPOSE: "1"
+        run: bash examples/rabbit/smoke.sh
+  smoke-kafka:
+    if: ${{ github.event.pull_request.draft != true }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    services:
+      kafka:
+        image: apache/kafka:4.3.1
+        ports:
+          - 9092:9092
+        env:
+          KAFKA_NODE_ID: "1"
+          KAFKA_PROCESS_ROLES: "broker,controller"
+          KAFKA_LISTENERS: "PLAINTEXT://:9092,CONTROLLER://:9093"
+          KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://localhost:9092"
+          KAFKA_CONTROLLER_QUORUM_VOTERS: "1@localhost:9093"
+          KAFKA_CONTROLLER_LISTENER_NAMES: "CONTROLLER"
+          KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT"
+          KAFKA_INTER_BROKER_LISTENER_NAME: "PLAINTEXT"
+          KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: "1"
+          KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: "1"
+          KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: "1"
+          CLUSTER_ID: "4L6g3nShT-eMCtK--X86sw"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97  # v7.0.0
+        with:
+          python-version-file: .python-version
+      - name: Setup uv
+        uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7  # v10.2.0
+        with:
+          enable-cache: true
+      - name: Sync dependencies
+        run: uv sync --locked
+      - name: Run broker tests
+        run: uv run --locked pytest -m kafka
+      - name: Smoke example
+        env:
+          SKIP_COMPOSE: "1"
+        run: bash examples/kafka/smoke.sh
+  smoke-confluent:
+    if: ${{ github.event.pull_request.draft != true }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    services:
+      kafka:
+        image: apache/kafka:4.3.1
+        ports:
+          - 9092:9092
+        env:
+          KAFKA_NODE_ID: "1"
+          KAFKA_PROCESS_ROLES: "broker,controller"
+          KAFKA_LISTENERS: "PLAINTEXT://:9092,CONTROLLER://:9093"
+          KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://localhost:9092"
+          KAFKA_CONTROLLER_QUORUM_VOTERS: "1@localhost:9093"
+          KAFKA_CONTROLLER_LISTENER_NAMES: "CONTROLLER"
+          KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT"
+          KAFKA_INTER_BROKER_LISTENER_NAME: "PLAINTEXT"
+          KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: "1"
+          KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: "1"
+          KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: "1"
+          CLUSTER_ID: "4L6g3nShT-eMCtK--X86sw"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97  # v7.0.0
+        with:
+          python-version-file: .python-version
+      - name: Setup uv
+        uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7  # v10.2.0
+        with:
+          enable-cache: true
+      - name: Sync dependencies
+        run: uv sync --locked
+      - name: Run broker tests
+        run: uv run --locked pytest -m confluent
+      - name: Smoke example
+        env:
+          SKIP_COMPOSE: "1"
+        run: bash examples/confluent/smoke.sh
+  smoke-nats:
+    if: ${{ github.event.pull_request.draft != true }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    services:
+      nats:
+        image: nats:2.15-alpine
+        ports:
+          - 4222:4222
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97  # v7.0.0
+        with:
+          python-version-file: .python-version
+      - name: Setup uv
+        uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7  # v10.2.0
+        with:
+          enable-cache: true
+      - name: Sync dependencies
+        run: uv sync --locked
+      - name: Run broker tests
+        run: uv run --locked pytest -m nats
+      - name: Smoke example
+        env:
+          SKIP_COMPOSE: "1"
+        run: bash examples/nats/smoke.sh
+  smoke-redis:
+    if: ${{ github.event.pull_request.draft != true }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    services:
+      redis:
+        image: redis:8-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97  # v7.0.0
+        with:
+          python-version-file: .python-version
+      - name: Setup uv
+        uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7  # v10.2.0
+        with:
+          enable-cache: true
+      - name: Sync dependencies
+        run: uv sync --locked
+      - name: Run broker tests
+        run: uv run --locked pytest -m redis
+      - name: Smoke example
+        env:
+          SKIP_COMPOSE: "1"
+        run: bash examples/redis/smoke.sh
+  smoke-mqtt:
+    if: ${{ github.event.pull_request.draft != true }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+        with:
+          persist-credentials: false
+      - name: Start mosquitto (allow anonymous)
+        # eclipse-mosquitto:2 defaults to anonymous=false; run via `docker run`
+        # rather than `services:` so we can mount a config that the workspace
+        # owns (services start before checkout, so they can't see workspace
+        # files). Config allows anonymous connections on the standard port.
+        run: |
+          docker run -d --name mosquitto -p 1883:1883 \
+            -v "${{ github.workspace }}/.github/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro" \
+            eclipse-mosquitto:2
+          # Wait for listener
+          for _ in {1..15}; do
+            if (echo > /dev/tcp/localhost/1883) >/dev/null 2>&1; then
+              echo "mosquitto up"
+              break
+            fi
+            sleep 1
+          done
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97  # v7.0.0
+        with:
+          python-version-file: .python-version
+      - name: Setup uv
+        uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7  # v10.2.0
+        with:
+          enable-cache: true
+      - name: Sync dependencies
+        run: uv sync --locked
+      - name: Run broker tests
+        run: uv run --locked pytest -m mqtt
+      - name: Smoke example
+        env:
+          SKIP_COMPOSE: "1"
+        run: bash examples/mqtt/smoke.sh
