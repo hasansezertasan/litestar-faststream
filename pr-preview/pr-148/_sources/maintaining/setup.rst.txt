@@ -279,7 +279,8 @@ tokens or secrets to manage).
 
 - **PyPI Project Name:** ``litestar_faststream``
 - **Owner:** ``hasansezertasan``
-- **Repository name:** ``litestar_faststream``
+- **Repository name:** ``litestar-faststream`` — the GitHub repository slug
+  (dashes), not the Python package name; PyPI's OIDC check matches it exactly.
 - **Workflow name:** ``release.yml`` — the publish step lives inline in this
   workflow, so this is the filename PyPI's OIDC check matches.
 - **Environment name:** ``publish``
