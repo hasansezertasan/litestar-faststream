@@ -19,13 +19,15 @@ jobs:
         with:
           persist-credentials: false
       # mise installs pipx-backed tools (cobo 0.6.0 needs Python >=3.14), and
-      # the pipx backend resolves its interpreter from PATH: without this step
-      # it falls back to the runner's system Python and the install fails.
+      # the pipx backend builds its venv with the runner's system Python
+      # unless told otherwise. Point it at the 3.14 from the step above.
       # Mirrors the setup-python-first ordering in ci.yml.
       - name: Set up Python
         uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97  # v7.0.0
         with:
           python-version-file: .python-version
+      - name: Point pipx at Python 3.14
+        run: echo "PIPX_DEFAULT_PYTHON=$(which python)" >> "$GITHUB_ENV"
       - name: Install mise tools
         uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c  # v4.3.0
       - name: Set up uv
