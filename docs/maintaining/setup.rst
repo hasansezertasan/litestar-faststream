@@ -53,6 +53,12 @@ head branches**.
 Branch protection
 -----------------
 
+Branch protection and rulesets are free on public repositories, but a
+**private** repository needs a paid GitHub plan (Pro, Team or Enterprise) for
+them to be enforced. On a free-plan private repository mark this section
+**not applicable** and skip its commands and checks.
+Continue with the remaining applicable steps.
+
 Protect ``main`` so a PR can only merge once its checks pass. Mark these check
 contexts as required (the names are the **check runs**, not the workflow files):
 
