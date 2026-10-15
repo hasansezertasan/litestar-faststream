@@ -1,25 +1,78 @@
 # litestar_faststream
 
+<!-- Badges use the dashed repository slug (litestar-faststream): the template's github_repo_name must be a valid Python package name, so a fresh render emits the underscore variant here — keep the dashes on future merges. -->
+[![CI](https://github.com/hasansezertasan/litestar-faststream/actions/workflows/ci.yml/badge.svg)](https://github.com/hasansezertasan/litestar-faststream/actions/workflows/ci.yml)
+[![Coverage](https://img.shields.io/codecov/c/github/hasansezertasan/litestar-faststream)](https://codecov.io/gh/hasansezertasan/litestar-faststream)
+[![Documentation Status](https://img.shields.io/github/deployments/hasansezertasan/litestar-faststream/github-pages?label=docs)](https://hasansezertasan.github.io/litestar-faststream)
+[![PyPI - Version](https://img.shields.io/pypi/v/litestar_faststream.svg)](https://pypi.org/project/litestar_faststream)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/litestar_faststream.svg)](https://pypi.org/project/litestar_faststream)
+[![Python versions](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-blue.svg)](./pyproject.toml)
+[![License - MIT](https://img.shields.io/github/license/hasansezertasan/litestar-faststream.svg)](https://opensource.org/licenses/MIT)
+[![GitHub Stars](https://img.shields.io/github/stars/hasansezertasan/litestar-faststream?style=social)](https://github.com/hasansezertasan/litestar-faststream/stargazers)
+[![Latest Commit](https://img.shields.io/github/last-commit/hasansezertasan/litestar-faststream)](https://github.com/hasansezertasan/litestar-faststream)
+
+[![Checked with mypy](http://www.mypy-lang.org/static/mypy_badge.svg)](http://mypy-lang.org/)
+[![linting - Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/charliermarsh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/hasansezertasan/litestar-faststream/badge)](https://scorecard.dev/viewer/?uri=github.com/hasansezertasan/litestar-faststream)
+[![GitHub Tag](https://img.shields.io/github/tag/hasansezertasan/litestar-faststream?include_prereleases=&sort=semver&color=black)](https://github.com/hasansezertasan/litestar-faststream/releases/)
+
+[![Downloads](https://pepy.tech/badge/litestar_faststream)](https://pepy.tech/project/litestar_faststream)
+[![Downloads/Month](https://pepy.tech/badge/litestar_faststream/month)](https://pepy.tech/project/litestar_faststream)
+[![Downloads/Week](https://pepy.tech/badge/litestar_faststream/week)](https://pepy.tech/project/litestar_faststream)
+
 [**Litestar**](https://litestar.dev/) integration for [**FastStream**](https://faststream.ag2.ai/latest/) message brokers.
 
 Wraps any FastStream broker (RabbitMQ, Kafka, Confluent, NATS, Redis, MQTT) as a Litestar plugin: broker lifecycle is tied to the app lifespan, subscribers/publishers are declared with free decorators, the broker is exposed via Litestar's DI, AsyncAPI docs are mounted automatically, and a `litestar faststream run` CLI subcommand starts a broker-only worker.
 
 > This package is the *Litestar* integration only. For the FastStream framework itself, see [ag2ai/faststream](https://github.com/ag2ai/faststream).
 
-## When to use
+## Table of Contents
+
+- [Motivation](#motivation)
+- [Installation](#installation)
+- [Quickstart](#quickstart)
+- [Features](#features)
+- [Supported brokers](#supported-brokers)
+- [Guide](#guide)
+- [Controllers and free decorators](#controllers-and-free-decorators)
+- [Publishers](#publishers)
+- [Dependencies and DI bridge](#dependencies-and-di-bridge)
+- [Lifespan and hooks](#lifespan-and-hooks)
+- [Deployment shapes (`publish_only`)](#deployment-shapes-publish_only)
+- [AsyncAPI documentation](#asyncapi-documentation)
+- [CLI](#cli)
+- [Multi-broker apps](#multi-broker-apps)
+- [Testing](#testing)
+- [Migrating from the FastAPI integration](#migrating-from-the-fastapi-integration)
+- [Support](#support-heart)
+- [Author](#author-person_with_crown)
+- [Analysis](#analysis)
+- [Contributing](#contributing-heart)
+- [Development](#development-toolbox)
+- [Releasing](#releasing)
+- [Credits](#credits)
+- [License](#license-scroll)
+- [Changelog](#changelog-memo)
+
+## Motivation
 
 - You are building a Litestar HTTP service that also needs to consume or publish broker messages.
 - You want a single `litestar` CLI that can run either the HTTP server or a worker-only process for the broker.
 - You want AsyncAPI docs served alongside Litestar's OpenAPI docs.
 
-[![License](https://img.shields.io/github/license/hasansezertasan/litestar-faststream.svg)](./LICENSE)
-[![Python versions](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-blue.svg)](./pyproject.toml)
-
 ---
 
 ## Installation
 
-```sh
+`litestar_faststream` is a library. Add it to your project as a dependency:
+
+```console
+uv add litestar_faststream
+```
+
+Or with `pip`:
+
+```console
 pip install litestar_faststream
 ```
 
@@ -28,6 +81,26 @@ You also need FastStream with the extra for your broker of choice:
 ```sh
 pip install 'faststream[rabbit]'      # or kafka / confluent / nats / redis / mqtt
 ```
+
+### Verify the installation
+
+The package root is importable after installation:
+
+```pycon
+>>> from litestar_faststream import __doc__
+>>> isinstance(__doc__, str)
+True
+
+```
+
+<!--
+pytest runs the pycon examples in this file (--doctest-glob=README.md).
+doctest cannot see Markdown and ends an example's expected output at the first
+blank line, so leave a blank line before every closing fence -- as the example
+above does. Without it the closing delimiter is read as part of the expected
+output and the example fails ("Expected: 2 / Got: 2"). Examples with no output
+line at all need the blank line too.
+-->
 
 ## Quickstart
 
@@ -692,6 +765,50 @@ These features exist in the Litestar integration only — there is nothing to ma
 - **FastDepends `Context` injection into Litestar HTTP handlers** is not provided. Use Litestar's own DI: declare a parameter named after the `BrokerConfig.name` (default `rabbit`, `kafka`, …) typed with the broker class.
 - **HTTP-scoped Litestar dependencies inside FastStream subscribers** are not available — subscribers run without request scope. Use module-level state, the Controller singleton, or `app.state`.
 
-## License
+## Support :heart:
 
-[LICENSE](./LICENSE).
+If you have any questions or need help, feel free to open an issue on the [GitHub repository][litestar_faststream].
+
+## Author :person_with_crown:
+
+This project is maintained by [Hasan Sezer Taşan][author].
+
+## Analysis
+
+- [Snyk Python Package Health Analysis](https://snyk.io/advisor/python/litestar_faststream)
+- [Libraries.io - PyPI](https://libraries.io/pypi/litestar_faststream)
+- [Safety DB](https://data.safetycli.com/packages/pypi/litestar_faststream)
+- [PePy Download Stats](https://www.pepy.tech/projects/litestar_faststream)
+- [PyPI Download Stats](https://pypistats.org/packages/litestar_faststream)
+- [Pip Trends Download Stats](https://piptrends.com/package/litestar_faststream)
+- [PyPI Map Dependency Graph](https://pypimap.com/package/litestar_faststream)
+
+## Contributing :heart:
+
+Any contributions are welcome! Please follow the [Contributing Guidelines](./.github/CONTRIBUTING.md) to contribute to this project.
+
+## Development :toolbox:
+
+See the [Contributing Guidelines](./.github/CONTRIBUTING.md#your-first-code-contribution)
+for local setup, the common development tasks (exposed via [mise](https://mise.jdx.dev)),
+building and previewing the documentation, and the VS Code debugging configurations.
+
+## Releasing
+
+Versioning and releases are automated with [release-please](https://github.com/googleapis/release-please), driven by [Conventional Commit](https://www.conventionalcommits.org/en/v1.0.0/) PR titles squash-merged into `main`. release-please maintains a release PR that bumps the version and `CHANGELOG.md`; merging it tags the release and publishes to PyPI. See the [Contributing Guidelines](./.github/CONTRIBUTING.md#releasing) for the commit conventions, and the [Repository setup](./docs/maintaining/setup.rst) guide for one-time configuration and optional post-launch integrations such as a social preview, downstream packaging, and Repology.
+
+## Credits
+
+This package was created with [Copier](https://github.com/copier-org/copier) and the [hasansezertasan/copier-pyproject](https://github.com/hasansezertasan/copier-pyproject) project template.
+
+## License :scroll:
+
+[LICENSE](./LICENSE). This project is licensed under the [MIT License](https://spdx.org/licenses/MIT.html).
+
+## Changelog :memo:
+
+For a detailed list of changes, please refer to the [CHANGELOG](./CHANGELOG.md).
+
+<!-- Refs -->
+[author]: https://github.com/hasansezertasan
+[litestar_faststream]: https://github.com/hasansezertasan/litestar-faststream
