@@ -75,14 +75,14 @@ the next push.
 
 .. code-block:: sh
 
-   gh secret set REPO_ADMIN_TOKEN --repo hasansezertasan/litestar_faststream
+   gh secret set REPO_ADMIN_TOKEN --repo hasansezertasan/litestar-faststream
 
 **[AGENT]** Trigger the workflow once (push a change under ``.github/rulesets/``
 or run it directly):
 
 .. code-block:: sh
 
-   gh workflow run ruleset-sync.yml --repo hasansezertasan/litestar_faststream
+   gh workflow run ruleset-sync.yml --repo hasansezertasan/litestar-faststream
 
 **[CHECK]** The ``Protect main`` ruleset is applied and active — verifying the
 end state (not just that the ``REPO_ADMIN_TOKEN`` secret exists), so a repo where
@@ -91,7 +91,7 @@ correctly reported as not-done:
 
 .. code-block:: sh
 
-   gh api --paginate repos/hasansezertasan/litestar_faststream/rulesets \
+   gh api --paginate repos/hasansezertasan/litestar-faststream/rulesets \
      --jq 'any(.[]; .name == "Protect main" and .enforcement == "active")' | grep -qx true
 
 Until the ``REPO_ADMIN_TOKEN`` secret is set the workflow logs a notice and exits
@@ -579,7 +579,7 @@ policy step; a CODEOWNERS file alone does not enforce review.
 .. code-block:: sh
 
 
-   gh api --paginate repos/hasansezertasan/litestar_faststream/rules/branches/main \
+   gh api --paginate repos/hasansezertasan/litestar-faststream/rules/branches/main \
      --jq 'any(.[]; .type == "pull_request" and .parameters.require_code_owner_review == true)' | grep -qx true
 
 **[HUMAN]** Only after the prerequisite check passes, install it once on this repository (or your account) from the

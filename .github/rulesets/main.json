@@ -37,7 +37,13 @@
           { "context": "Verify linked issue" },
           { "context": "Task Completed Checker" },
           { "context": "Dependency audit (pip-audit)" },
-          { "context": "Secret scan (gitleaks)" }
+          { "context": "Secret scan (gitleaks)" },
+          { "context": "smoke-rabbit" },
+          { "context": "smoke-kafka" },
+          { "context": "smoke-confluent" },
+          { "context": "smoke-nats" },
+          { "context": "smoke-redis" },
+          { "context": "smoke-mqtt" }
         ]
       }
     }

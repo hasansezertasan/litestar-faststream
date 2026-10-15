@@ -6,37 +6,21 @@ name: Live broker smoke
 # from the pre-adoption pr_tests.yaml smoke jobs (removed in the
 # copier-pyproject adoption) at Codex review request; adapted to the adopted
 # toolchain (uv lockfile, python-version-file, SHA-pinned actions, per-job
-# permissions/timeouts). Runs weekly, on demand, and on PRs touching the
-# examples, integration tests, or this workflow — not on every PR.
+# permissions/timeouts). Runs weekly, on demand, on every pull request, and on
+# every push to the default branch: the smoke results are required status
+# checks (see .github/rulesets/main.json), and a required check that never
+# runs blocks the merge — so there is deliberately no `paths:` filter.
 on:
   schedule:
     - cron: "0 6 * * 1"
   workflow_dispatch:
   pull_request:
-    # Runtime and dependency changes get live-broker validation too: the
-    # pytest suite covers logic in-memory, so a src/dependency-only PR would
-    # otherwise merge without ever touching a real broker.
-    # `ready_for_review` mirrors ci.yml: without it, a path-matching draft
-    # runs skipped jobs and marking it ready never starts a replacement run.
+    # `ready_for_review` mirrors ci.yml: without it, a draft runs skipped jobs
+    # and marking it ready never starts a replacement run. Drafts report
+    # skipped via each job's `if:`, which still satisfies required checks.
     types: [opened, synchronize, reopened, ready_for_review]
-    paths:
-      - src/litestar_faststream/**
-      - pyproject.toml
-      - uv.lock
-      - examples/**
-      - tests/integration/**
-      - .github/workflows/smoke.yml
-      - .github/mosquitto/**
   push:
     branches: [main]
-    paths:
-      - src/litestar_faststream/**
-      - pyproject.toml
-      - uv.lock
-      - examples/**
-      - tests/integration/**
-      - .github/workflows/smoke.yml
-      - .github/mosquitto/**
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
