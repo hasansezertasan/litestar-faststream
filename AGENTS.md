@@ -46,6 +46,7 @@ architectural boundary before adding it, and extend the contract in the same PR.
   `pyproject.toml`).
 - Versions come from Git tags — do not hand-edit a version literal anywhere.
 - Commit messages follow Conventional Commits; releases are automated by release-please.
+- Confirm Litestar/FastStream API shape against current docs (context7/skills) — do not rely on memory. Check https://github.com/litestar-org/litestar-skills for Litestar idioms.
 
 ## Pull Requests
 
