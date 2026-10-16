@@ -3,11 +3,11 @@ name: Issue Manager
 on:
   schedule:
     - cron: "0 0 * * *"
-  # Reacts to new/edited comments so the manager sees the maintainer's answer
-  # and resets its timers. It is safe here: no repo or PR code is checked out
-  # or executed — the pinned action only reads issues/comments via the API and
-  # posts canned reminders, and the auto-close flow only honors the
-  # maintainer's own replies (`users: ["hasansezertasan"]` below).
+  # Reacts to new/edited comments so the manager processes the issue promptly
+  # instead of waiting for the daily schedule. It is safe here: no repo or PR
+  # code is checked out or executed — the pinned action only reads
+  # issues/comments via the API and posts canned reminders, and the flow can
+  # only start once someone with label permissions applies the label.
   issue_comment:  # zizmor: ignore[dangerous-triggers]
     types:
       - created
@@ -15,7 +15,7 @@ on:
   issues:
     types:
       - labeled
-  # Fires only on the `labeled` event so a maintainer's label triggers the
+  # Fires only on the `labeled` event so applying the label triggers the
   # auto-close reminder on PRs (including forks). It is safe here: no PR code is
   # checked out or executed — the pinned action reads only the label and comments.
   pull_request_target:  # zizmor: ignore[dangerous-triggers]
@@ -36,7 +36,6 @@ jobs:
           config: |
             {
               "answered": {
-                "users": ["hasansezertasan"],
                 "delay": 864000,
                 "message": "Assuming the original issue was solved, it will be automatically closed now. But feel free to add more comments or create new issues.",
                 "remove_label_on_close": true,
