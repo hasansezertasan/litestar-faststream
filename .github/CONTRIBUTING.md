@@ -169,7 +169,6 @@ before it starts work, which installs this same toolchain and syncs dependencies
 in its ephemeral environment. The first sync creates `uv.lock` for a newly
 generated project.
 
-<!-- TODO @hasansezertasan: add any project-specific setup (IDE, services, env vars) -->
 Project-specific setup: none beyond `uv sync`. The test suite uses FastStream's
 in-memory `Test*Broker` stand-ins, so no broker, database, or cache services are
 needed to run `pytest` locally.
@@ -233,7 +232,13 @@ documentation tasks:
 - `mise run docs-serve` (or `uv run --locked tox run -e docs-server`) — serve them locally with live reload.
 - `uv run --locked tox run -e docs-linkcheck` — check for broken links (also runs weekly in CI).
 
-<!-- TODO @hasansezertasan: Updating, improving and correcting the documentation -->
+Page sources live in `docs/*.rst`; the API reference in `docs/modules.rst` is
+generated from the docstrings in `src/litestar_faststream/`, so fix API wording
+at its source. Complete examples belong in tested modules under `docs/examples/`
+and are pulled in with `literalinclude`; inline `>>>` snippets are executed by
+`uv run --locked tox run -e docs-doctest`. The docs build requires the Sphinx
+warnings to match `docs/expected_warnings.txt` exactly. Add only unavoidable
+upstream warnings, and remove entries when those warnings stop occurring.
 
 ## Styleguides
 
