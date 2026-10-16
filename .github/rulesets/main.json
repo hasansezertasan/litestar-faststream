@@ -35,7 +35,6 @@
           { "context": "Validate branch name" },
           { "context": "Validate PR title" },
           { "context": "Verify linked issue" },
-          { "context": "Task Completed Checker" },
           { "context": "Dependency audit (pip-audit)" },
           { "context": "Secret scan (gitleaks)" },
           { "context": "smoke-rabbit" },
