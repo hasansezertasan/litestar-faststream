@@ -6,6 +6,13 @@ on:
   # out or executed — the pinned action only reads the PR description's task list.
   pull_request_target:  # zizmor: ignore[dangerous-triggers]
     types: [opened, edited, synchronize, reopened]
+# Serialize runs per PR: rapid `edited` events on one head SHA otherwise overlap,
+# and a verify step could read a sibling run's verdict instead of its own
+# action step's. Queued (not cancelled) runs complete in event order, so the
+# required job conclusion always reflects the newest event.
+concurrency:
+  group: task-completed-check-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
 jobs:
   task-check:
     name: Check PR task list
