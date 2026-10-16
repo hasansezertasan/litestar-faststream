@@ -18,6 +18,24 @@
   # Consumed by .github/workflows/issue-manager.yml: applying this label starts
   # the reminder and auto-close flow for an issue that has been answered.
   description: Issue has been answered; auto-close timer running
+# Labels applied automatically by the issue templates in .github/ISSUE_TEMPLATE:
+# provisioned here so they exist with curated colors instead of being created
+# ad hoc by GitHub on first use.
+- name: performance
+  color: d93f0b
+  description: Performance problem or investigation
+- name: usage
+  color: bfd4f2
+  description: Question about using the project
+- name: installation
+  color: f9d0c4
+  description: Problem installing the project
+- name: compatibility
+  color: fef2c0
+  description: Compatibility with a version or platform
+- name: discussion
+  color: cc317c
+  description: General discussion topic
 - name: bug
   color: d73a4a
   description: Something isn't working
