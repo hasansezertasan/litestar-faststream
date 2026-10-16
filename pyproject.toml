@@ -312,6 +312,11 @@ fail_under = 92
 # the template's 99 would fail every run (audit of a7293bd). Raise toward 99 as
 # error-path/OTel/CLI/publish-only coverage lands, and re-apply this overlay on
 # every `copier update` (the template re-renders 99).
+# Deliberate scope: `tests` stays in the gate denominator (`source_pkgs`
+# above), so this floor is calibrated on the combined scope (CI measures 93%
+# combined vs 88% src-only). Re-scoping the gate to src-only — to match
+# codecov's `paths: [src]` — is the follow-up once src-only coverage reaches
+# this floor; doing it now would turn a green gate red.
 # Patterns match both the `src/` (editable) and installed (`site-packages`)
 # layouts (see [tool.coverage.run] omit).
 omit = ["*/_version.py"]
