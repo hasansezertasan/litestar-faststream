@@ -5,7 +5,7 @@
 # always runs (documented lifespan composition).
 
 import logging
-from collections.abc import AsyncIterator, Awaitable, Callable, Mapping
+from collections.abc import AsyncGenerator, Awaitable, Callable, Mapping
 from contextlib import AbstractAsyncContextManager, asynccontextmanager
 from typing import Any
 
@@ -87,7 +87,7 @@ class LifespanComposer:
         on_shutdown = self._on_shutdown
 
         @asynccontextmanager
-        async def cm(app: Any) -> AsyncIterator[Mapping[str, Any]]:
+        async def cm(app: Any) -> AsyncGenerator[Mapping[str, Any], None]:
             for hook in pre:
                 await hook(app)
             await run_broker_lifecycle_startup(broker, publish_only=publish_only)

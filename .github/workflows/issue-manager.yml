@@ -3,7 +3,12 @@ name: Issue Manager
 on:
   schedule:
     - cron: "0 0 * * *"
-  issue_comment:
+  # Reacts to new/edited comments so the manager sees the maintainer's answer
+  # and resets its timers. It is safe here: no repo or PR code is checked out
+  # or executed — the pinned action only reads issues/comments via the API and
+  # posts canned reminders, and the auto-close flow only honors the
+  # maintainer's own replies (`users: ["hasansezertasan"]` below).
+  issue_comment:  # zizmor: ignore[dangerous-triggers]
     types:
       - created
       - edited
