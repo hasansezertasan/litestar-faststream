@@ -71,11 +71,27 @@ the next push.
 **Administration: read and write** on this repository (the Actions
 ``GITHUB_TOKEN`` cannot manage rulesets).
 
-**[AGENT]** Store it as a repository secret:
+**[HUMAN]** Create the ``ruleset-admin`` environment with yourself (or another
+admin) as a **required reviewer**, and limit its **deployment branches** to the
+default branch (**Settings → Environments → New environment**). The workflow
+job runs in this environment, so the PAT is released only after that review —
+anyone who can merge a pull request can edit ``ruleset-sync.yml``, but an edited
+workflow cannot reach the PAT without the reviewer's approval. Required
+reviewers are available on **public** repositories (and on private ones only on
+GitHub Enterprise). On a private Free/Pro/Team repository do **not** store the
+PAT: skip the secret below, leave ``ruleset-sync.yml`` inert (it exits cleanly
+without it) and apply ``.github/rulesets/main.json`` by hand instead.
+
+**[AGENT]** Store the token as a secret of that environment, never as a
+repository secret (a repository secret is readable by any workflow edit):
 
 .. code-block:: sh
 
+<<<<<<< before updating
    gh secret set REPO_ADMIN_TOKEN --repo hasansezertasan/litestar-faststream
+=======
+   gh secret set REPO_ADMIN_TOKEN --env ruleset-admin --repo hasansezertasan/litestar_faststream
+>>>>>>> after updating
 
 **[AGENT]** Trigger the workflow once (push a change under ``.github/rulesets/``
 or run it directly):
@@ -94,8 +110,9 @@ correctly reported as not-done:
    gh api --paginate repos/hasansezertasan/litestar-faststream/rulesets \
      --jq 'any(.[]; .name == "Protect main" and .enforcement == "active")' | grep -qx true
 
-Until the ``REPO_ADMIN_TOKEN`` secret is set the workflow logs a notice and exits
-without error, so the repository is never blocked.
+Until the ``REPO_ADMIN_TOKEN`` environment secret is set the workflow logs a
+notice and exits without error, so the repository is never blocked. Each run
+waits for the ``ruleset-admin`` reviewer's approval before it applies anything.
 
 .. _setup-first-pr:
 
@@ -458,7 +475,10 @@ preview for each pull request under ``pr-preview/pr-<N>/`` on the same
 ``gh-pages`` branch and comments the URL on the PR (removed automatically when
 the PR closes). Previews are built only for pull requests opened from branches
 on this repository — a fork PR receives a read-only token and is skipped — and
-require no extra setup beyond Pages.
+require no extra setup beyond Pages. The docs are built by ``docs-preview.yml``
+with a read-only token and published by ``docs-preview-deploy.yml``, a
+``workflow_run`` workflow that always runs from the default branch, so a branch
+or dependency update cannot edit the job that holds the write token.
 
 Automated dependency updates (Renovate)
 ---------------------------------------
