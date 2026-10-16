@@ -236,9 +236,9 @@ Page sources live in `docs/*.rst`; the API reference in `docs/modules.rst` is
 generated from the docstrings in `src/litestar_faststream/`, so fix API wording
 at its source. Complete examples belong in tested modules under `docs/examples/`
 and are pulled in with `literalinclude`; inline `>>>` snippets are executed by
-`uv run --locked tox run -e docs-doctest`. The docs build fails on any Sphinx
-warning not listed in `docs/expected_warnings.txt`, so leave that file empty
-unless an unavoidable upstream warning needs an entry.
+`uv run --locked tox run -e docs-doctest`. The docs build requires the Sphinx
+warnings to match `docs/expected_warnings.txt` exactly. Add only unavoidable
+upstream warnings, and remove entries when those warnings stop occurring.
 
 ## Styleguides
 
