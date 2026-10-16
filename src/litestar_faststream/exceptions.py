@@ -16,6 +16,10 @@ Hierarchy::
           MarkerConfigurationError
 """
 
+# pylint: disable=too-many-ancestors  # The deep hierarchy is the documented
+# discrimination mechanism: callers catch specific subclasses without parsing
+# message strings, all rooted at Litestar's ImproperlyConfiguredException.
+
 from litestar.exceptions import ImproperlyConfiguredException
 
 __all__ = (

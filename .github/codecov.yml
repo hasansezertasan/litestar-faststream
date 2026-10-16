@@ -1,0 +1,22 @@
+---
+coverage:
+  status:
+    project:
+      default:
+        # Ratchet floor matching the pyproject/CI gates (see comment there):
+        # the adopted suite measures 92%; the template renders 99, so
+        # re-apply this overlay on every `copier update`. Raise all three
+        # together as error-path/OTel/CLI/publish-only coverage lands.
+        target: 92%
+        threshold: 0.5%
+        base: auto
+        flags:
+          - unit
+        paths:
+          - src
+        branches:
+          - main
+        if_ci_failed: error
+        informational: false
+        only_pulls: false
+comment: true

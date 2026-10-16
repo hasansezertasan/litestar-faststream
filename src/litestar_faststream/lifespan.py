@@ -1,21 +1,30 @@
 """Lifespan composition for BrokerConfig: wrap user lifespan, run hooks."""
 
+# pylint: disable=broad-exception-caught  # Lifespan/shutdown paths log and
+# continue by design: hook errors must not block teardown and broker.stop()
+# always runs (documented lifespan composition).
+
 import logging
-from collections.abc import AsyncIterator, Awaitable, Callable, Mapping
+from collections.abc import AsyncGenerator, Awaitable, Callable, Mapping
 from contextlib import AbstractAsyncContextManager, asynccontextmanager
 from typing import Any
 
+__all__ = [
+    "LifespanComposer",
+    "run_broker_lifecycle_shutdown",
+    "run_broker_lifecycle_startup",
+]
+
+
 logger = logging.getLogger(__name__)
 
-LifespanHook = Callable[[Any], Awaitable[None]]
+LifespanHook = Callable[[Any], Awaitable[None]]  # noqa: RUF031 -- the canonical two-arg subscript; RUF031's parenthesized rewrite is rejected by zuban.
 
 
 async def run_broker_lifecycle_startup(
-    broker: Any,
-    *,
-    publish_only: bool = False,
+    broker: Any, *, publish_only: bool = False
 ) -> None:
-    """Connect (and optionally start); on failure, attempt stop so resources aren't leaked.
+    """Connect (and optionally start); on failure, attempt stop first.
 
     When ``publish_only=True``, only ``broker.connect()`` is called and the
     subscriber consume-loops are not started. ``broker.publish(...)`` still
@@ -44,11 +53,7 @@ async def run_broker_lifecycle_shutdown(broker: Any) -> None:
 
 class LifespanComposer:
     def __init__(
-        self,
-        broker: Any,
-        *,
-        state_key: str = "broker",
-        publish_only: bool = False,
+        self, broker: Any, *, state_key: str = "broker", publish_only: bool = False
     ) -> None:
         self.broker = broker
         self.state_key = state_key
@@ -73,9 +78,7 @@ class LifespanComposer:
     def add_on_broker_shutdown(self, fn: LifespanHook) -> None:
         self._on_shutdown.append(fn)
 
-    def build(
-        self,
-    ) -> Callable[[Any], AbstractAsyncContextManager[Mapping[str, Any]]]:
+    def build(self) -> Callable[[Any], AbstractAsyncContextManager[Mapping[str, Any]]]:
         broker = self.broker
         state_key = self.state_key
         publish_only = self.publish_only
@@ -84,7 +87,7 @@ class LifespanComposer:
         on_shutdown = self._on_shutdown
 
         @asynccontextmanager
-        async def cm(app: Any) -> AsyncIterator[Mapping[str, Any]]:
+        async def cm(app: Any) -> AsyncGenerator[Mapping[str, Any], None]:
             for hook in pre:
                 await hook(app)
             await run_broker_lifecycle_startup(broker, publish_only=publish_only)

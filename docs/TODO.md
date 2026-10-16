@@ -1,7 +1,7 @@
 # TODO
 
 - Litestar HTTP-scoped deps inside subscribers: Requires per-message DI scope simulation
-* **HTTP-as-publisher** — publishes the validated request body, alongside with cookies, queries, etc. to the broker and returns a fixed response immidiately. Decorated method becomes a subscriber for that message. Useful for fire-and-forget enqueue endpoints.
+- **HTTP-as-publisher** — publishes the validated request body, alongside with cookies, queries, etc. to the broker and returns a fixed response immediately. Decorated method becomes a subscriber for that message. Useful for fire-and-forget enqueue endpoints.
 
 ## Inspiration from litestar-saq
 

@@ -46,9 +46,7 @@ class OrdersController(Controller):
 
     @post("/")
     async def create_order(
-        self,
-        data: Order,
-        rabbit: NamedDependency[RabbitBroker],
+        self, data: Order, rabbit: NamedDependency[RabbitBroker]
     ) -> dict:
         await rabbit.publish(data, "orders.new")
         return {"queued": True, "user_id": data.user_id}
@@ -66,10 +64,10 @@ async def on_order(payload: Order, logger: Logger) -> None:
 plugin = FastStreamPlugin(
     FastStreamConfig(
         brokers=[
-            BrokerConfig(broker=broker, publish_only=PUBLISH_ONLY, handlers=[on_order]),
+            BrokerConfig(broker=broker, publish_only=PUBLISH_ONLY, handlers=[on_order])
         ],
         asyncapi_url="/asyncapi",
-    ),
+    )
 )
 
 app = Litestar(plugins=[plugin], route_handlers=[OrdersController])

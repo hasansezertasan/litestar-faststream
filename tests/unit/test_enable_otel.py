@@ -20,17 +20,15 @@ from litestar_faststream import (
     BrokerConfigurationError,
     FastStreamConfig,
     FastStreamPlugin,
+    host as host_mod,
 )
-from litestar_faststream import host as host_mod
 from litestar_faststream.host import _has_otel_plugin
 
 
 def _fake_broker() -> MagicMock:
     broker = MagicMock()
     broker.middlewares = []
-    broker.add_middleware = MagicMock(
-        side_effect=broker.middlewares.append,
-    )
+    broker.add_middleware = MagicMock(side_effect=broker.middlewares.append)
     return broker
 
 
@@ -42,7 +40,7 @@ def _plugin(*, enable_otel: bool | None, brokers: int = 1) -> FastStreamPlugin:
                 for i in range(brokers)
             ],
             enable_otel=enable_otel,
-        ),
+        )
     )
 
 
@@ -148,9 +146,8 @@ async def test_skip_when_user_already_added_otel_middleware(
     user_broker.middlewares = [OtelMiddleware]
     plugin = FastStreamPlugin(
         FastStreamConfig(
-            brokers=[BrokerConfig(broker=user_broker, name="rabbit")],
-            enable_otel=None,
-        ),
+            brokers=[BrokerConfig(broker=user_broker, name="rabbit")], enable_otel=None
+        )
     )
     plugin.on_app_init(AppConfig())
     await plugin._install_otel_if_enabled(SimpleNamespace())

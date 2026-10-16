@@ -34,7 +34,7 @@ class LitestarAsyncAPITestcase:
             FastStreamConfig(
                 brokers=[BrokerConfig(broker=broker, handlers=[handler])],
                 asyncapi_url="/asyncapi",
-            ),
+            )
         )
 
     @pytest.mark.asyncio()

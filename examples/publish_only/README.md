@@ -2,8 +2,8 @@
 
 One codebase, two processes:
 
-* **API pod** — Litestar HTTP server. Broker is connected for publishing only; no subscriber loops.
-* **Worker pod** — `litestar faststream run`. Broker fully started, subscribers consuming. No HTTP.
+- **API pod** — Litestar HTTP server. Broker is connected for publishing only; no subscriber loops.
+- **Worker pod** — `litestar faststream run`. Broker fully started, subscribers consuming. No HTTP.
 
 This is scenario B from the main [README](../../README.md#deployment-shapes-publish_only).
 

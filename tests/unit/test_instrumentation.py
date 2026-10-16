@@ -6,10 +6,7 @@ from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 
-from litestar_faststream import instrumentation as instr_mod
-from litestar_faststream import (
-    monitored,
-)
+from litestar_faststream import instrumentation as instr_mod, monitored
 from litestar_faststream.instrumentation import OtelMiddleware
 
 
@@ -302,7 +299,7 @@ async def test_monitored_truncates_long_payloads() -> None:
 
     spans = exporter.get_finished_spans()
     preview = str(
-        (spans[-1].attributes or {}).get("messaging.message.body.preview", ""),
+        (spans[-1].attributes or {}).get("messaging.message.body.preview", "")
     )
     # 16 chars + the ellipsis sentinel.
     assert preview.endswith("…")

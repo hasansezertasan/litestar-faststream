@@ -12,6 +12,12 @@ The plugin:
 * validates name collisions across hosted broker configs upfront.
 """
 
+# pylint: disable=broad-exception-caught,protected-access,too-many-instance-attributes
+# broad-exception-caught: broker connect/start resilience — errors are logged and
+#   teardown continues by design. protected-access: the plugin drives its own
+#   BrokerConfig composers (`_composer`, `_apply_to_*`) within the package.
+# too-many-instance-attributes: FastStreamConfig is a config bag by design.
+
 import logging
 from collections.abc import Awaitable, Callable, Sequence
 from dataclasses import dataclass
@@ -21,15 +27,18 @@ from faststream.specification.asyncapi.factory import AsyncAPI
 from litestar.config.app import AppConfig
 from litestar.plugins import CLIPluginProtocol, InitPluginProtocol
 
-from .asyncapi import build_asyncapi_controller
-from .discovery import collect_marker_plugin_filters
-from .exceptions import (
+from litestar_faststream.asyncapi import build_asyncapi_controller
+from litestar_faststream.discovery import collect_marker_plugin_filters
+from litestar_faststream.exceptions import (
     BrokerConfigurationError,
     BrokerNotRegisteredError,
     DuplicateBrokerNameError,
     MarkerConfigurationError,
 )
-from .plugin import BrokerConfig
+from litestar_faststream.plugin import BrokerConfig
+
+__all__ = ["FastStreamConfig", "FastStreamPlugin"]
+
 
 logger = logging.getLogger(__name__)
 
@@ -95,7 +104,7 @@ class FastStreamConfig:
             BrokerConfigurationError: If ``enable_otel=True`` is set but the
                 ``opentelemetry`` package is not importable.
         """
-        from ._otel_typing import OPENTELEMETRY_INSTALLED
+        from litestar_faststream._otel_typing import OPENTELEMETRY_INSTALLED
 
         if self.enable_otel is True:
             if not OPENTELEMETRY_INSTALLED:
@@ -153,8 +162,7 @@ class FastStreamPlugin(InitPluginProtocol, CLIPluginProtocol):
     # ----- hook decorators -----------------------------------------------
 
     def after_startup(
-        self,
-        name: str,
+        self, name: str
     ) -> Callable[[Callable[[Any], Awaitable[None]]], Callable[[Any], Awaitable[None]]]:
         """Return a decorator that registers an after-startup hook for broker ``name``.
 
@@ -168,8 +176,7 @@ class FastStreamPlugin(InitPluginProtocol, CLIPluginProtocol):
         return child.after_startup
 
     def on_broker_shutdown(
-        self,
-        name: str,
+        self, name: str
     ) -> Callable[[Callable[[Any], Awaitable[None]]], Callable[[Any], Awaitable[None]]]:
         """Return a decorator that registers an on-shutdown hook for broker ``name``.
 
@@ -205,7 +212,7 @@ class FastStreamPlugin(InitPluginProtocol, CLIPluginProtocol):
         # rather than at lifespan startup. The auto-detect (None) path is
         # resolved at startup when the live Litestar instance is available.
         if self.config.enable_otel is True:
-            from ._otel_typing import OPENTELEMETRY_INSTALLED
+            from litestar_faststream._otel_typing import OPENTELEMETRY_INSTALLED
 
             if not OPENTELEMETRY_INSTALLED:
                 msg = (
@@ -244,7 +251,7 @@ class FastStreamPlugin(InitPluginProtocol, CLIPluginProtocol):
     async def _install_otel_if_enabled(self, app: Any) -> None:
         if not self.config.should_enable_otel(app):
             return
-        from .instrumentation import OtelMiddleware
+        from litestar_faststream.instrumentation import OtelMiddleware
 
         for child in self._children:
             broker = child.broker
@@ -258,8 +265,7 @@ class FastStreamPlugin(InitPluginProtocol, CLIPluginProtocol):
             )
             if already:
                 logger.debug(
-                    "OtelMiddleware already present on broker %r; skipping",
-                    child.name,
+                    "OtelMiddleware already present on broker %r; skipping", child.name
                 )
                 continue
             broker.add_middleware(OtelMiddleware)
@@ -281,14 +287,14 @@ class FastStreamPlugin(InitPluginProtocol, CLIPluginProtocol):
         If a user dependency already owns ``"brokers"``, warn and leave it
         alone; the per-broker DI keys keep working regardless.
         """
-        from .di import Brokers, build_brokers_provide
+        from litestar_faststream.di import Brokers, build_brokers_provide
 
         deps = dict(app_config.dependencies or {})
         if "brokers" in deps:
             logger.warning(
                 "Litestar dependency 'brokers' already registered; "
                 "FastStreamPlugin will not override. Use per-broker "
-                "dependencies (one per BrokerConfig name) instead.",
+                "dependencies (one per BrokerConfig name) instead."
             )
             return
         registry = Brokers({c.name: c.broker for c in self._children})
@@ -323,8 +329,7 @@ class FastStreamPlugin(InitPluginProtocol, CLIPluginProtocol):
             all_handlers.extend(child.handlers)
             strict = strict or child.strict
         used = collect_marker_plugin_filters(
-            route_handlers=app_config.route_handlers,
-            extra_handlers=all_handlers,
+            route_handlers=app_config.route_handlers, extra_handlers=all_handlers
         )
         unknown = used - registered
         if not unknown:

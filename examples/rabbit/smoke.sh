@@ -22,21 +22,21 @@ if [[ "${SKIP_COMPOSE:-0}" != "1" ]]; then
   echo "==> starting rabbit"
   docker compose -f "$compose_file" up -d
   docker compose -f "$compose_file" run --rm rabbitmq sh -c '
-    for i in 1 2 3 4 5 6 7 8 9 10; do
+    for _ in 1 2 3 4 5 6 7 8 9 10; do
       rabbitmq-diagnostics ping -q && exit 0
       sleep 2
     done
     exit 1
   ' >/dev/null 2>&1 || {
     # Fallback: poll from host
-    for i in 1 2 3 4 5 6 7 8 9 10; do
+    for _ in 1 2 3 4 5 6 7 8 9 10; do
       nc -z localhost 5672 && break
       sleep 2
     done
   }
 else
   echo "==> SKIP_COMPOSE=1, using external rabbit"
-  for i in 1 2 3 4 5 6 7 8 9 10; do
+  for _ in 1 2 3 4 5 6 7 8 9 10; do
     nc -z localhost 5672 && break
     sleep 1
   done
@@ -48,7 +48,7 @@ uv run litestar --app examples.rabbit.app:app run --port 8765 &
 SERVER_PID=$!
 
 # Wait for HTTP server
-for i in 1 2 3 4 5 6 7 8 9 10; do
+for _ in 1 2 3 4 5 6 7 8 9 10; do
   curl -fs http://localhost:8765/asyncapi.json >/dev/null && break
   sleep 1
 done

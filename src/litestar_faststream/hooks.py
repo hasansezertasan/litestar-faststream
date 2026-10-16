@@ -73,7 +73,7 @@ async def startup_banner(app: Any) -> None:
         return
 
 
-async def shutdown_banner(app: Any) -> None:
+async def shutdown_banner(app: Any) -> None:  # pylint: disable=unused-argument  # `app` is required by the Litestar hook signature.
     """Log a one-line message before broker shutdown begins."""
     logger.info("FastStream broker shutting down")
 
@@ -140,4 +140,4 @@ class LoggingMiddleware(BaseMiddleware):
 # Convenience alias: most users only want the timing/logging behaviour, and
 # the class name is what they'll search for. Keep both exports so existing
 # documentation that says "add ``timing_middleware``" reads as a noun.
-timing_middleware = LoggingMiddleware
+timing_middleware = LoggingMiddleware  # pylint: disable=invalid-name  # Deliberate lowercase alias (documented; reads as a noun).

@@ -25,7 +25,7 @@ else
   echo "==> SKIP_COMPOSE=1, using external kafka"
 fi
 
-for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
+for _ in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
   nc -z localhost 9092 && break
   sleep 2
 done
@@ -35,7 +35,7 @@ cd "$repo"
 uv run litestar --app examples.confluent.app:app run --port 8765 &
 SERVER_PID=$!
 
-for i in 1 2 3 4 5 6 7 8 9 10; do
+for _ in 1 2 3 4 5 6 7 8 9 10; do
   curl -fs http://localhost:8765/asyncapi.json >/dev/null && break
   sleep 1
 done

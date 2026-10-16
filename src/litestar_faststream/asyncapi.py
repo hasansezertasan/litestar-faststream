@@ -5,12 +5,11 @@ from typing import Any
 from faststream.specification.asyncapi.site import get_asyncapi_html
 from litestar import Controller, MediaType, Response, get
 
+__all__ = ["build_asyncapi_controller"]
+
 
 def build_asyncapi_controller(
-    *,
-    schema: Any,
-    asyncapi_url: str | None,
-    include_in_schema: bool = False,
+    *, schema: Any, asyncapi_url: str | None, include_in_schema: bool = False
 ) -> type[Controller] | None:
     """Build a Litestar Controller that serves AsyncAPI artefacts.
 

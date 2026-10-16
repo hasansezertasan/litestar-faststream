@@ -36,9 +36,7 @@ def _fake_broker(class_name: str = "RabbitBroker") -> MagicMock:
     # Tests that don't exercise per-broker AsyncAPI rendering use the override
     # to dodge faststream's real schema construction.
     broker._faststream_litestar_schema_override = MagicMock(
-        to_jsonable=dict,
-        to_json=lambda: "{}",
-        to_yaml=lambda: "",
+        to_jsonable=dict, to_json=lambda: "{}", to_yaml=lambda: ""
     )
     return broker
 
@@ -52,8 +50,8 @@ def test_broker_spec_publish_only_propagates() -> None:
             brokers=[
                 BrokerConfig(broker=_fake_broker(), name="pub", publish_only=True),
                 BrokerConfig(broker=_fake_broker("KafkaBroker"), name="full"),
-            ],
-        ),
+            ]
+        )
     )
     children = {c.name: c for c in host.brokers}
     assert children["pub"].publish_only is True
@@ -74,16 +72,13 @@ def test_duplicate_names_rejected() -> None:
                 brokers=[
                     BrokerConfig(broker=_fake_broker(), name="x"),
                     BrokerConfig(broker=_fake_broker(), name="x"),
-                ],
-            ),
+                ]
+            )
         )
 
 
 def test_unknown_entry_type_rejected() -> None:
-    with pytest.raises(
-        ImproperlyConfiguredException,
-        match="BrokerConfig instances",
-    ):
+    with pytest.raises(ImproperlyConfiguredException, match="BrokerConfig instances"):
         FastStreamPlugin(config=FastStreamConfig(brokers=cast("Any", [object()])))
 
 
@@ -108,18 +103,10 @@ def test_each_child_registered_with_its_broker() -> None:
     host = FastStreamPlugin(
         config=FastStreamConfig(
             brokers=[
-                BrokerConfig(
-                    broker=kafka,
-                    name="kafka",
-                    handlers=[kafka_handler],
-                ),
-                BrokerConfig(
-                    broker=redis,
-                    name="redis",
-                    handlers=[redis_handler],
-                ),
-            ],
-        ),
+                BrokerConfig(broker=kafka, name="kafka", handlers=[kafka_handler]),
+                BrokerConfig(broker=redis, name="redis", handlers=[redis_handler]),
+            ]
+        )
     )
     Litestar(plugins=[host])
 
@@ -137,8 +124,8 @@ def test_after_startup_hook_routes_to_named_broker() -> None:
             brokers=[
                 BrokerConfig(broker=_fake_broker(), name="kafka"),
                 BrokerConfig(broker=_fake_broker(), name="redis"),
-            ],
-        ),
+            ]
+        )
     )
 
     @host.after_startup("kafka")
@@ -153,8 +140,8 @@ def test_after_startup_hook_routes_to_named_broker() -> None:
 def test_after_startup_unknown_name_raises() -> None:
     host = FastStreamPlugin(
         config=FastStreamConfig(
-            brokers=[BrokerConfig(broker=_fake_broker(), name="kafka")],
-        ),
+            brokers=[BrokerConfig(broker=_fake_broker(), name="kafka")]
+        )
     )
     with pytest.raises(ImproperlyConfiguredException, match="No broker named 'bogus'"):
         host.after_startup("bogus")
@@ -163,8 +150,8 @@ def test_after_startup_unknown_name_raises() -> None:
 def test_on_broker_shutdown_hook_routes_to_named_broker() -> None:
     host = FastStreamPlugin(
         config=FastStreamConfig(
-            brokers=[BrokerConfig(broker=_fake_broker(), name="kafka")],
-        ),
+            brokers=[BrokerConfig(broker=_fake_broker(), name="kafka")]
+        )
     )
 
     @host.on_broker_shutdown("kafka")
@@ -182,8 +169,8 @@ def test_on_cli_init_fans_out_to_every_child() -> None:
             brokers=[
                 BrokerConfig(broker=kafka, name="kafka"),
                 BrokerConfig(broker=redis, name="redis"),
-            ],
-        ),
+            ]
+        )
     )
     cli = MagicMock(name="cli")
 
@@ -205,18 +192,12 @@ def test_combined_asyncapi_route_mounted() -> None:
     host = FastStreamPlugin(
         config=FastStreamConfig(
             brokers=[
-                BrokerConfig(
-                    broker=_fake_broker("KafkaBroker"),
-                    name="kafka",
-                ),
-                BrokerConfig(
-                    broker=_fake_broker("RedisBroker"),
-                    name="redis",
-                ),
+                BrokerConfig(broker=_fake_broker("KafkaBroker"), name="kafka"),
+                BrokerConfig(broker=_fake_broker("RedisBroker"), name="redis"),
             ],
             asyncapi_url="/asyncapi",
             title="My App",
-        ),
+        )
     )
     app = Litestar(plugins=[host])
     paths = {r.path for r in app.routes}
@@ -237,10 +218,9 @@ def test_publisher_on_http_handler_rejected() -> None:
         return {"ok": True}
 
     host = FastStreamPlugin(
-        config=FastStreamConfig(brokers=[BrokerConfig(broker=kafka, name="kafka")]),
+        config=FastStreamConfig(brokers=[BrokerConfig(broker=kafka, name="kafka")])
     )
     with pytest.raises(
-        ImproperlyConfiguredException,
-        match="cannot decorate an HTTP route handler",
+        ImproperlyConfiguredException, match="cannot decorate an HTTP route handler"
     ):
         Litestar(plugins=[host], route_handlers=[create_order])

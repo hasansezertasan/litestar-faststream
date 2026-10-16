@@ -34,7 +34,9 @@ class LitestarTestcase:
     broker_class: type[Any]
     plugin_class: type[BrokerConfig]
     test_broker_cm: type[Any]
-    broker_url: str = "amqp://guest:guest@localhost:5672/"
+    # RabbitMQ's documented default local credentials (guest/guest@localhost),
+    # not a real secret: tests run against in-memory Test brokers.
+    broker_url: str = "amqp://guest:guest@localhost:5672/"  # pragma: allowlist secret
     destination_kwarg: str = "queue"
 
     def make_broker(self) -> Any:
@@ -52,12 +54,10 @@ class LitestarTestcase:
             plugins=[
                 FastStreamPlugin(
                     FastStreamConfig(
-                        brokers=[
-                            self.plugin_class(broker=broker, handlers=[on_ping]),
-                        ],
-                    ),
-                ),
-            ],
+                        brokers=[self.plugin_class(broker=broker, handlers=[on_ping])]
+                    )
+                )
+            ]
         )
 
         async with self.test_broker_cm(broker), AsyncTestClient(app):

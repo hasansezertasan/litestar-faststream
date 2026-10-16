@@ -23,7 +23,7 @@ def _make_plugin(name: str) -> MagicMock:
     return plugin
 
 
-@pytest.fixture(autouse=True)
+@pytest.fixture()
 def _reset_cli_module_state(monkeypatch) -> None:
     """Reset the per-group CLI registry between tests."""
     from litestar_faststream import cli as cli_mod
@@ -31,6 +31,7 @@ def _reset_cli_module_state(monkeypatch) -> None:
     monkeypatch.setattr(cli_mod, "_REGISTRY", weakref.WeakKeyDictionary())
 
 
+@pytest.mark.usefixtures("_reset_cli_module_state")
 def test_register_creates_faststream_group_with_run_info_status() -> None:
     cli = click.Group("litestar")
     plugin = _make_plugin("rabbit")
@@ -40,6 +41,7 @@ def test_register_creates_faststream_group_with_run_info_status() -> None:
     assert {"run", "info", "status"}.issubset(fs_grp.commands.keys())
 
 
+@pytest.mark.usefixtures("_reset_cli_module_state")
 def test_status_table_reports_each_broker() -> None:
     cli = click.Group("litestar")
     rabbit = _make_plugin("rabbit")
@@ -59,6 +61,7 @@ def test_status_table_reports_each_broker() -> None:
     rabbit.broker.stop.assert_awaited_once()
 
 
+@pytest.mark.usefixtures("_reset_cli_module_state")
 def test_status_json_emits_structured_rows() -> None:
     import json
 
@@ -76,6 +79,7 @@ def test_status_json_emits_structured_rows() -> None:
     assert rows[0]["subscribers"] == 1
 
 
+@pytest.mark.usefixtures("_reset_cli_module_state")
 def test_status_broker_filter() -> None:
     cli = click.Group("litestar")
     rabbit = _make_plugin("rabbit")
@@ -92,6 +96,7 @@ def test_status_broker_filter() -> None:
     redis.broker.connect.assert_awaited_once()
 
 
+@pytest.mark.usefixtures("_reset_cli_module_state")
 def test_drain_invokes_run_loop_with_timeout(monkeypatch) -> None:
     cli = click.Group("litestar")
     plugin = _make_plugin("rabbit")
@@ -115,6 +120,7 @@ def test_drain_invokes_run_loop_with_timeout(monkeypatch) -> None:
     assert captured["plugins"] == [plugin]
 
 
+@pytest.mark.usefixtures("_reset_cli_module_state")
 def test_drain_nonzero_exit_when_deadline_exceeded(monkeypatch) -> None:
     cli = click.Group("litestar")
     plugin = _make_plugin("rabbit")
@@ -134,6 +140,7 @@ def test_drain_nonzero_exit_when_deadline_exceeded(monkeypatch) -> None:
 
 
 @pytest.mark.asyncio()
+@pytest.mark.usefixtures("_reset_cli_module_state")
 async def test_run_loop_bounds_shutdown_when_broker_hangs(monkeypatch) -> None:
     """A hanging ``broker.stop`` must yield to the --timeout deadline."""
     import asyncio
@@ -146,8 +153,7 @@ async def test_run_loop_bounds_shutdown_when_broker_hangs(monkeypatch) -> None:
     async def slow_shutdown(broker) -> None:
         await asyncio.sleep(10)
 
-    from litestar_faststream import cli as cli_mod
-    from litestar_faststream import lifespan as lifespan_mod
+    from litestar_faststream import cli as cli_mod, lifespan as lifespan_mod
 
     monkeypatch.setattr(lifespan_mod, "run_broker_lifecycle_startup", fake_startup)
     monkeypatch.setattr(lifespan_mod, "run_broker_lifecycle_shutdown", slow_shutdown)
@@ -166,6 +172,7 @@ async def test_run_loop_bounds_shutdown_when_broker_hangs(monkeypatch) -> None:
     assert exit_code == 1
 
 
+@pytest.mark.usefixtures("_reset_cli_module_state")
 def test_status_reports_ping_error() -> None:
     cli = click.Group("litestar")
     plugin = _make_plugin("rabbit")
@@ -179,6 +186,7 @@ def test_status_reports_ping_error() -> None:
     assert "RuntimeError: boom" in result.output
 
 
+@pytest.mark.usefixtures("_reset_cli_module_state")
 def test_run_starts_broker_and_returns(monkeypatch) -> None:
     cli = click.Group("litestar")
     plugin = _make_plugin("rabbit")

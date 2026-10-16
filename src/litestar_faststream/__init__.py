@@ -10,11 +10,7 @@ from litestar_faststream.exceptions import (
     HandlerDiscoveryError,
     MarkerConfigurationError,
 )
-from litestar_faststream.hooks import (
-    LoggingMiddleware,
-    shutdown_banner,
-    startup_banner,
-)
+from litestar_faststream.hooks import LoggingMiddleware, shutdown_banner, startup_banner
 from litestar_faststream.host import FastStreamConfig, FastStreamPlugin
 from litestar_faststream.instrumentation import OtelMiddleware, monitored
 from litestar_faststream.plugin import BrokerConfig

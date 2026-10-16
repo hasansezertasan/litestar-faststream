@@ -16,7 +16,7 @@ from litestar_faststream.hooks import (
 
 
 def _fake_app(plugins: list[Any]) -> SimpleNamespace:
-    """A stand-in for ``Litestar``: only ``.plugins`` is read by the hooks."""
+    """Build a stand-in for ``Litestar``: only ``.plugins`` is read by the hooks."""
     return SimpleNamespace(plugins=plugins)
 
 
@@ -26,8 +26,7 @@ def _fake_plugin(*children: Any) -> SimpleNamespace:
 
 def _fake_child(name: str, sub_count: int) -> SimpleNamespace:
     return SimpleNamespace(
-        name=name,
-        _registered_subscribers=[("h", (), {})] * sub_count,
+        name=name, _registered_subscribers=[("h", (), {})] * sub_count
     )
 
 
@@ -35,9 +34,7 @@ def _fake_child(name: str, sub_count: int) -> SimpleNamespace:
 async def test_startup_banner_logs_broker_summary(
     caplog: pytest.LogCaptureFixture,
 ) -> None:
-    app = _fake_app([
-        _fake_plugin(_fake_child("rabbit", 3), _fake_child("redis", 1)),
-    ])
+    app = _fake_app([_fake_plugin(_fake_child("rabbit", 3), _fake_child("redis", 1))])
     with caplog.at_level(logging.INFO, logger="litestar_faststream.hooks"):
         await startup_banner(app)
     assert any("rabbit(3 subs)" in r.message for r in caplog.records)

@@ -17,9 +17,7 @@ def test_publisher_stores_marker_list() -> None:
     async def handler() -> dict:
         return {}
 
-    assert handler.__faststream_publishers__ == [
-        (("out-queue",), {}),
-    ]
+    assert handler.__faststream_publishers__ == [(("out-queue",), {})]
 
 
 def test_publisher_extra_kwargs_passthrough() -> None:
@@ -27,7 +25,7 @@ def test_publisher_extra_kwargs_passthrough() -> None:
     async def handler() -> None: ...
 
     assert handler.__faststream_publishers__ == [
-        (("q",), {"routing_key": "rk", "priority": 5}),
+        (("q",), {"routing_key": "rk", "priority": 5})
     ]
 
 
@@ -35,9 +33,7 @@ def test_subscriber_plugin_filter_stored() -> None:
     @subscriber("q", plugin="kafka")
     async def handler(payload: dict) -> None: ...
 
-    assert handler.__faststream_subscribers__ == [
-        (("q",), {"plugin": "kafka"}),
-    ]
+    assert handler.__faststream_subscribers__ == [(("q",), {"plugin": "kafka"})]
 
 
 def test_subscriber_without_plugin_omits_key() -> None:
@@ -52,6 +48,4 @@ def test_publisher_plugin_filter_stored() -> None:
     async def handler() -> dict:
         return {}
 
-    assert handler.__faststream_publishers__ == [
-        (("q",), {"plugin": "redis"}),
-    ]
+    assert handler.__faststream_publishers__ == [(("q",), {"plugin": "redis"})]

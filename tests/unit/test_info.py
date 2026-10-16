@@ -11,7 +11,7 @@ def test_renders_subscribers_and_publishers() -> None:
         ("process_email", ("send-email",), {}),
     ]
     plugin._registered_response_publishers = [
-        ("OrdersController.on_order", ("orders.processed",), {}),
+        ("OrdersController.on_order", ("orders.processed",), {})
     ]
 
     output = render_plugin_info(plugin)

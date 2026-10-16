@@ -43,9 +43,9 @@ async def test_http_handler_receives_broker_via_di() -> None:
         plugins=[
             FastStreamPlugin(
                 FastStreamConfig(
-                    brokers=[BrokerConfig(broker=broker, handlers=[consumer])],
-                ),
-            ),
+                    brokers=[BrokerConfig(broker=broker, handlers=[consumer])]
+                )
+            )
         ],
         route_handlers=[trigger],
     )

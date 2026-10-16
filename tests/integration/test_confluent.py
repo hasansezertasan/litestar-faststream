@@ -46,13 +46,11 @@ async def test_http_handler_receives_broker_via_di() -> None:
                 FastStreamConfig(
                     brokers=[
                         BrokerConfig(
-                            broker=broker,
-                            name="confluent",
-                            handlers=[consumer],
-                        ),
-                    ],
-                ),
-            ),
+                            broker=broker, name="confluent", handlers=[consumer]
+                        )
+                    ]
+                )
+            )
         ],
         route_handlers=[trigger],
     )
