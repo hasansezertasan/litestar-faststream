@@ -56,7 +56,7 @@ curl -X POST localhost:8000/orders -H 'content-type: application/json' \
      -d '{"user_id": 1, "item": "tea"}'
 ```
 
-Check the combined AsyncAPI viewer at <http://localhost:8000/asyncapi>i>i>.
+Check the combined AsyncAPI viewer at <http://localhost:8000/asyncapi>.
 
 Tear down:
 

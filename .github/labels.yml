@@ -69,9 +69,6 @@
 - name: dependencies
   color: "0366d6"
   description: Updates to project dependencies
-- name: github_actions
-  color: 1d76db
-  description: GitHub Actions workflows and labeler config
 - name: tests
   color: 8a63d2
   description: Test suite changes
@@ -81,30 +78,28 @@
 - name: area:core
   color: "5319e7"
   description: Core package, utilities, or core tests
-- name: area:cli
-  color: 006b75
-  description: Command-line interface code or tests
-- name: area:gui
-  color: b60205
-  description: Graphical user interface code or tests
-- name: area:tui
-  color: d4c5f9
-  description: Terminal user interface code or tests
-- name: area:web
-  color: 0052cc
-  description: Web application code or tests
-- name: area:mcp
-  color: 1d76db
-  description: Model Context Protocol server code or tests
-- name: area:worker
-  color: fbca04
-  description: Message worker code or tests
-- name: area:docs
-  color: 0075ca
-  description: Documentation or project prose
 - name: area:ci
   color: 0e8a16
   description: Continuous integration workflows
-- name: area:deps
-  color: 0366d6
-  description: Dependency declarations or lockfile
+# Broker/transport labels, applied by path rules in .github/labeler.yml.
+- name: aiokafka
+  color: 1f6feb
+  description: aiokafka transport integration
+- name: confluent
+  color: 1f6feb
+  description: confluent-kafka transport integration
+- name: nats
+  color: 1f6feb
+  description: NATS transport integration
+- name: rabbitmq
+  color: 1f6feb
+  description: RabbitMQ transport integration
+- name: redis
+  color: 1f6feb
+  description: Redis transport integration
+- name: mqtt
+  color: 1f6feb
+  description: MQTT transport integration
+- name: "autorelease: pending"
+  color: ededed
+  description: Release PR opened by release-please

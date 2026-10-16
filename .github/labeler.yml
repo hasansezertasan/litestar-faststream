@@ -3,7 +3,7 @@
 documentation:
   - changed-files:
       - any-glob-to-any-file: docs/**
-# Apply area labels from the component and cross-cutting paths a PR changes.
+# Apply area, dependency and broker labels from the paths a PR changes.
 # Keep each component rule gated so generated projects never receive labels for
 # packages they do not contain. This package is flat modules (the template's
 # core/utils skeleton was removed on adoption), so area:core watches the whole
@@ -11,13 +11,10 @@ documentation:
 area:core:
   - changed-files:
       - any-glob-to-any-file: ['src/litestar_faststream/**', 'tests/**/*.py']
-area:docs:
-  - changed-files:
-      - any-glob-to-any-file: ['docs/**', '**/*.md', '**/*.rst']
 area:ci:
   - changed-files:
-      - any-glob-to-any-file: .github/workflows/**
-area:deps:
+      - any-glob-to-any-file: ['.github/workflows/**', '.github/*labeler*.yml']
+dependencies:
   - changed-files:
       - any-glob-to-any-file: ['pyproject.toml', 'uv.lock']
 # Add 'release' label to any PR where the head branch name starts with 'release'
@@ -25,12 +22,27 @@ release:
   - head-branch: ['^release']
 bug:
   - head-branch: ['^bugfix', '^bug/', '^fix/', '^hotfix']
-github_actions:
-  - changed-files:
-      - any-glob-to-any-file: ['.github/workflows/**', '.github/*labeler*.yml']
 tests:
   - changed-files:
       - any-glob-to-any-file: tests/**
 examples:
   - changed-files:
       - any-glob-to-any-file: examples/**
+aiokafka:
+  - changed-files:
+      - any-glob-to-any-file: ['tests/integration/test_kafka.py', 'tests/integration/asyncapi/test_kafka.py', 'examples/kafka/**']
+confluent:
+  - changed-files:
+      - any-glob-to-any-file: ['tests/integration/test_confluent.py', 'tests/integration/asyncapi/test_confluent.py', 'examples/confluent/**']
+nats:
+  - changed-files:
+      - any-glob-to-any-file: ['tests/integration/test_nats.py', 'tests/integration/asyncapi/test_nats.py', 'examples/nats/**']
+rabbitmq:
+  - changed-files:
+      - any-glob-to-any-file: ['tests/integration/test_rabbit.py', 'tests/integration/asyncapi/test_rabbit.py', 'examples/rabbit/**']
+redis:
+  - changed-files:
+      - any-glob-to-any-file: ['tests/integration/test_redis.py', 'tests/integration/asyncapi/test_redis.py', 'examples/redis/**']
+mqtt:
+  - changed-files:
+      - any-glob-to-any-file: ['tests/integration/test_mqtt.py', 'tests/integration/asyncapi/test_mqtt.py', 'examples/mqtt/**']
