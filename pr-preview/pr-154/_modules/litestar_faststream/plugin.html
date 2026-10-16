@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="amber" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>litestar_faststream.plugin - litestar_faststream</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx_paramlinks.css" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="litestar_faststream.plugin"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      
+      
+      <strong>litestar_faststream</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/hasansezertasan/litestar-faststream" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../TODO.html">TODO</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Maintainer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../maintaining/setup.html">Repository setup</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">litestar_faststream</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Module code</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">litestar_faststream.plugin</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <h1>Source code for litestar_faststream.plugin</h1><div class="highlight"><pre>
+<span></span><span data-line="1"><span class="sd">"""BrokerConfig: per-broker configuration consumed by ``FastStreamPlugin``.</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="sd">This module used to define ``BrokerPlugin``, which implemented Litestar's</span>
+</span><span data-line="4"><span class="sd">``InitPluginProtocol``/``CLIPluginProtocol`` directly. The library now follows</span>
+</span><span data-line="5"><span class="sd">the one-plugin / many-configs shape from ``litestar-saq``: a single</span>
+</span><span data-line="6"><span class="sd">``FastStreamPlugin`` drives Litestar wiring, and ``BrokerConfig`` instances</span>
+</span><span data-line="7"><span class="sd">carry per-broker data + lifecycle logic invoked by the host plugin.</span>
+</span><span data-line="8"><span class="sd">"""</span>
+</span><span data-line="9">
+</span><span data-line="10"><span class="kn">import</span><span class="w"> </span><span class="nn">contextlib</span>
+</span><span data-line="11"><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+</span><span data-line="12"><span class="kn">import</span><span class="w"> </span><span class="nn">types</span>
+</span><span data-line="13"><span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Awaitable</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Sequence</span>
+</span><span data-line="14"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">cast</span>
+</span><span data-line="15">
+</span><span data-line="16"><span class="kn">from</span><span class="w"> </span><span class="nn">litestar.config.app</span><span class="w"> </span><span class="kn">import</span> <span class="n">AppConfig</span>
+</span><span data-line="17">
+</span><span data-line="18"><span class="kn">from</span><span class="w"> </span><span class="nn">litestar_faststream._helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">qualname</span>
+</span><span data-line="19"><span class="kn">from</span><span class="w"> </span><span class="nn">litestar_faststream.di</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_broker_provide</span>
+</span><span data-line="20"><span class="kn">from</span><span class="w"> </span><span class="nn">litestar_faststream.discovery</span><span class="w"> </span><span class="kn">import</span> <span class="n">collect</span>
+</span><span data-line="21"><span class="kn">from</span><span class="w"> </span><span class="nn">litestar_faststream.lifespan</span><span class="w"> </span><span class="kn">import</span> <span class="n">LifespanComposer</span>
+</span><span data-line="22">
+</span><span data-line="23"><span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+</span><span data-line="24">    <span class="kn">from</span><span class="w"> </span><span class="nn">faststream._internal.broker</span><span class="w"> </span><span class="kn">import</span> <span class="n">BrokerUsecase</span>
+</span><span data-line="25">
+</span><span data-line="26"><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"BrokerConfig"</span><span class="p">]</span>
+</span><span data-line="27">
+</span><span data-line="28">
+</span><span data-line="29"><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+</span><span data-line="30">
+</span><span data-line="31">
+<div class="viewcode-block" id="BrokerConfig">
+<a class="viewcode-back" href="../../modules.html#litestar_faststream.plugin.BrokerConfig">[docs]</a>
+</span><span data-line="32"><span class="k">class</span><span class="w"> </span><span class="nc">BrokerConfig</span><span class="p">:</span>  <span class="c1"># pylint: disable=too-many-instance-attributes,attribute-defined-outside-init</span>
+</span><span data-line="33"><span class="w">    </span><span class="sd">"""Configure a FastStream broker for use under ``FastStreamPlugin``.</span>
+</span><span data-line="34">
+</span><span data-line="35"><span class="sd">    Pass instances of this class via ``FastStreamConfig.brokers``.</span>
+</span><span data-line="36"><span class="sd">    ``FastStreamPlugin`` invokes the lifecycle methods on each entry;</span>
+</span><span data-line="37"><span class="sd">    ``BrokerConfig`` is not a Litestar plugin and must not be passed to</span>
+</span><span data-line="38"><span class="sd">    ``Litestar(plugins=...)``.</span>
+</span><span data-line="39"><span class="sd">    """</span>
+</span><span data-line="40">
+</span><span data-line="41">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+</span><span data-line="42">        <span class="bp">self</span><span class="p">,</span>
+</span><span data-line="43">        <span class="n">broker</span><span class="p">:</span> <span class="s2">"BrokerUsecase[Any, Any]"</span><span class="p">,</span>
+</span><span data-line="44">        <span class="o">*</span><span class="p">,</span>
+</span><span data-line="45">        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="46">        <span class="n">handlers</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(),</span>
+</span><span data-line="47">        <span class="n">strict</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+</span><span data-line="48">        <span class="n">publish_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+</span><span data-line="49">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="50">        <span class="bp">self</span><span class="o">.</span><span class="n">broker</span> <span class="o">=</span> <span class="n">broker</span>
+</span><span data-line="51">        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">or</span> <span class="n">broker</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">removesuffix</span><span class="p">(</span><span class="s2">"Broker"</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</span><span data-line="52">        <span class="bp">self</span><span class="o">.</span><span class="n">handlers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">handlers</span><span class="p">)</span>
+</span><span data-line="53">        <span class="bp">self</span><span class="o">.</span><span class="n">strict</span> <span class="o">=</span> <span class="n">strict</span>
+</span><span data-line="54">        <span class="bp">self</span><span class="o">.</span><span class="n">publish_only</span> <span class="o">=</span> <span class="n">publish_only</span>
+</span><span data-line="55">        <span class="bp">self</span><span class="o">.</span><span class="n">_composer</span> <span class="o">=</span> <span class="n">LifespanComposer</span><span class="p">(</span>
+</span><span data-line="56">            <span class="n">broker</span><span class="p">,</span> <span class="n">state_key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">publish_only</span><span class="o">=</span><span class="n">publish_only</span>
+</span><span data-line="57">        <span class="p">)</span>
+</span><span data-line="58">        <span class="bp">self</span><span class="o">.</span><span class="n">_registered_subscribers</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span>
+</span><span data-line="59">            <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span>
+</span><span data-line="60">        <span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span data-line="61">        <span class="bp">self</span><span class="o">.</span><span class="n">_registered_response_publishers</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span>
+</span><span data-line="62">            <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span>
+</span><span data-line="63">        <span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span data-line="64">        <span class="c1"># Controller-scoped markers; deferred to lifespan so binding uses</span>
+</span><span data-line="65">        <span class="c1"># Litestar's own Controller singleton. See _bind_and_register_controllers.</span>
+</span><span data-line="66">        <span class="c1"># Second tuple element is the unbound function (already unwrapped from</span>
+</span><span data-line="67">        <span class="c1"># any ``BaseRouteHandler`` at discovery time), not the method name, so</span>
+</span><span data-line="68">        <span class="c1"># methods decorated with both ``@get`` and ``@subscriber`` bind to the</span>
+</span><span data-line="69">        <span class="c1"># user coroutine rather than Litestar's route-handler wrapper.</span>
+</span><span data-line="70">        <span class="bp">self</span><span class="o">.</span><span class="n">_pending_controller_subscribers</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span>
+</span><span data-line="71">            <span class="nb">tuple</span><span class="p">[</span>
+</span><span data-line="72">                <span class="nb">type</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]]</span>
+</span><span data-line="73">            <span class="p">]</span>
+</span><span data-line="74">        <span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span data-line="75">        <span class="bp">self</span><span class="o">.</span><span class="n">_pending_controller_response_publishers</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span>
+</span><span data-line="76">            <span class="nb">tuple</span><span class="p">[</span><span class="nb">type</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span>
+</span><span data-line="77">        <span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span data-line="78">        <span class="bp">self</span><span class="o">.</span><span class="n">_pre_startup_hooked</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span data-line="79">        <span class="bp">self</span><span class="o">.</span><span class="n">_bound</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span data-line="80">
+</span><span data-line="81">    <span class="k">def</span><span class="w"> </span><span class="nf">after_startup</span><span class="p">(</span>
+</span><span data-line="82">        <span class="bp">self</span><span class="p">,</span> <span class="n">fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Any</span><span class="p">],</span> <span class="n">Awaitable</span><span class="p">[</span><span class="kc">None</span><span class="p">]]</span>
+</span><span data-line="83">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Any</span><span class="p">],</span> <span class="n">Awaitable</span><span class="p">[</span><span class="kc">None</span><span class="p">]]:</span>
+</span><span data-line="84">        <span class="bp">self</span><span class="o">.</span><span class="n">_composer</span><span class="o">.</span><span class="n">add_after_startup</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+</span><span data-line="85">        <span class="k">return</span> <span class="n">fn</span>
+</span><span data-line="86">
+</span><span data-line="87">    <span class="k">def</span><span class="w"> </span><span class="nf">on_broker_shutdown</span><span class="p">(</span>
+</span><span data-line="88">        <span class="bp">self</span><span class="p">,</span> <span class="n">fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Any</span><span class="p">],</span> <span class="n">Awaitable</span><span class="p">[</span><span class="kc">None</span><span class="p">]]</span>
+</span><span data-line="89">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Any</span><span class="p">],</span> <span class="n">Awaitable</span><span class="p">[</span><span class="kc">None</span><span class="p">]]:</span>
+</span><span data-line="90">        <span class="bp">self</span><span class="o">.</span><span class="n">_composer</span><span class="o">.</span><span class="n">add_on_broker_shutdown</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+</span><span data-line="91">        <span class="k">return</span> <span class="n">fn</span>
+</span><span data-line="92">
+</span><span data-line="93">    <span class="k">def</span><span class="w"> </span><span class="nf">_apply_to_app_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app_config</span><span class="p">:</span> <span class="n">AppConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AppConfig</span><span class="p">:</span>
+</span><span data-line="94">        <span class="c1"># Litestar may default `route_handlers` to None; normalize to a list</span>
+</span><span data-line="95">        <span class="c1"># so we can safely mutate it (e.g. append route handlers).</span>
+</span><span data-line="96">        <span class="n">app_config</span><span class="o">.</span><span class="n">route_handlers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">app_config</span><span class="o">.</span><span class="n">route_handlers</span> <span class="ow">or</span> <span class="p">[])</span>
+</span><span data-line="97">
+</span><span data-line="98">        <span class="c1"># Idempotency guard: if invoked a second time (e.g. an app being</span>
+</span><span data-line="99">        <span class="c1"># re-constructed in a test fixture), skip broker binding so</span>
+</span><span data-line="100">        <span class="c1"># publishers aren't double-registered. Lifespan + DI still re-run</span>
+</span><span data-line="101">        <span class="c1"># because they target the fresh AppConfig.</span>
+</span><span data-line="102">        <span class="n">first_run</span> <span class="o">=</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bound</span>
+</span><span data-line="103">        <span class="bp">self</span><span class="o">.</span><span class="n">_bound</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span data-line="104">
+</span><span data-line="105">        <span class="n">result</span> <span class="o">=</span> <span class="n">collect</span><span class="p">(</span>
+</span><span data-line="106">            <span class="n">route_handlers</span><span class="o">=</span><span class="n">app_config</span><span class="o">.</span><span class="n">route_handlers</span><span class="p">,</span>
+</span><span data-line="107">            <span class="n">extra_handlers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">handlers</span><span class="p">,</span>
+</span><span data-line="108">            <span class="n">plugin_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+</span><span data-line="109">        <span class="p">)</span>
+</span><span data-line="110">
+</span><span data-line="111">        <span class="bp">self</span><span class="o">.</span><span class="n">_registered_subscribers</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+</span><span data-line="112">        <span class="bp">self</span><span class="o">.</span><span class="n">_registered_response_publishers</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+</span><span data-line="113">        <span class="bp">self</span><span class="o">.</span><span class="n">_pending_controller_subscribers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">controller_subscribers</span><span class="p">)</span>
+</span><span data-line="114">        <span class="bp">self</span><span class="o">.</span><span class="n">_pending_controller_response_publishers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
+</span><span data-line="115">            <span class="n">result</span><span class="o">.</span><span class="n">controller_response_publishers</span>
+</span><span data-line="116">        <span class="p">)</span>
+</span><span data-line="117">        <span class="k">if</span> <span class="p">(</span>
+</span><span data-line="118">            <span class="bp">self</span><span class="o">.</span><span class="n">_pending_controller_subscribers</span>
+</span><span data-line="119">            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pending_controller_response_publishers</span>
+</span><span data-line="120">        <span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pre_startup_hooked</span><span class="p">:</span>
+</span><span data-line="121">            <span class="bp">self</span><span class="o">.</span><span class="n">_composer</span><span class="o">.</span><span class="n">add_pre_startup</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bind_and_register_controllers</span><span class="p">)</span>
+</span><span data-line="122">            <span class="bp">self</span><span class="o">.</span><span class="n">_pre_startup_hooked</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span data-line="123">
+</span><span data-line="124">        <span class="c1"># FastStream's @broker.subscriber and @broker.publisher both wrap the</span>
+</span><span data-line="125">        <span class="c1"># given callable in a HandlerCallWrapper (via ensure_call_wrapper) and</span>
+</span><span data-line="126">        <span class="c1"># attach themselves to that wrapper. For ``@publisher`` to actually</span>
+</span><span data-line="127">        <span class="c1"># publish a subscriber's return value, BOTH must end up on the *same*</span>
+</span><span data-line="128">        <span class="c1"># wrapper -- which means the second call has to receive the wrapper</span>
+</span><span data-line="129">        <span class="c1"># the first call produced, not the raw function. Track wrappers by</span>
+</span><span data-line="130">        <span class="c1"># ``id(fn)`` so both loops cooperate regardless of evaluation order.</span>
+</span><span data-line="131">        <span class="n">wrappers</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span data-line="132">
+</span><span data-line="133">        <span class="k">for</span> <span class="n">fn</span><span class="p">,</span> <span class="n">sub_specs</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">subscribers</span><span class="p">:</span>
+</span><span data-line="134">            <span class="k">for</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span> <span class="ow">in</span> <span class="n">sub_specs</span><span class="p">:</span>
+</span><span data-line="135">                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_already_bound</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+</span><span data-line="136">                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+</span><span data-line="137">                        <span class="s2">"skipping Tier-2 subscriber for </span><span class="si">%s</span><span class="s2">; already bound by Tier-1"</span><span class="p">,</span> <span class="n">fn</span>
+</span><span data-line="138">                    <span class="p">)</span>
+</span><span data-line="139">                    <span class="k">continue</span>
+</span><span data-line="140">                <span class="k">if</span> <span class="n">first_run</span><span class="p">:</span>
+</span><span data-line="141">                    <span class="n">handler</span> <span class="o">=</span> <span class="n">wrappers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">fn</span><span class="p">),</span> <span class="n">fn</span><span class="p">)</span>
+</span><span data-line="142">                    <span class="n">wrapper</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">subscriber</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)(</span><span class="n">handler</span><span class="p">)</span>
+</span><span data-line="143">                    <span class="n">wrappers</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">fn</span><span class="p">)]</span> <span class="o">=</span> <span class="n">wrapper</span>
+</span><span data-line="144">                    <span class="c1"># Expose the HandlerCallWrapper's mock on the user's</span>
+</span><span data-line="145">                    <span class="c1"># function so test code can introspect via `fn.mock` --</span>
+</span><span data-line="146">                    <span class="c1"># mirrors the FastAPI router's `@router.subscriber`.</span>
+</span><span data-line="147">                    <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+</span><span data-line="148">                        <span class="n">cast</span><span class="p">(</span><span class="s2">"Any"</span><span class="p">,</span> <span class="n">fn</span><span class="p">)</span><span class="o">.</span><span class="n">mock</span> <span class="o">=</span> <span class="n">wrapper</span><span class="o">.</span><span class="n">mock</span>
+</span><span data-line="149">                <span class="bp">self</span><span class="o">.</span><span class="n">_registered_subscribers</span><span class="o">.</span><span class="n">append</span><span class="p">((</span>
+</span><span data-line="150">                    <span class="n">qualname</span><span class="p">(</span><span class="n">fn</span><span class="p">),</span>
+</span><span data-line="151">                    <span class="nb">tuple</span><span class="p">(</span><span class="n">args</span><span class="p">),</span>
+</span><span data-line="152">                    <span class="nb">dict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">),</span>
+</span><span data-line="153">                <span class="p">))</span>
+</span><span data-line="154">
+</span><span data-line="155">        <span class="k">for</span> <span class="n">fn</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">response_publishers</span><span class="p">:</span>
+</span><span data-line="156">            <span class="k">if</span> <span class="n">first_run</span><span class="p">:</span>
+</span><span data-line="157">                <span class="n">handler</span> <span class="o">=</span> <span class="n">wrappers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">fn</span><span class="p">),</span> <span class="n">fn</span><span class="p">)</span>
+</span><span data-line="158">                <span class="n">wrappers</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">fn</span><span class="p">)]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">publisher</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)(</span><span class="n">handler</span><span class="p">)</span>
+</span><span data-line="159">            <span class="bp">self</span><span class="o">.</span><span class="n">_registered_response_publishers</span><span class="o">.</span><span class="n">append</span><span class="p">((</span>
+</span><span data-line="160">                <span class="n">qualname</span><span class="p">(</span><span class="n">fn</span><span class="p">),</span>
+</span><span data-line="161">                <span class="nb">tuple</span><span class="p">(</span><span class="n">args</span><span class="p">),</span>
+</span><span data-line="162">                <span class="nb">dict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">),</span>
+</span><span data-line="163">            <span class="p">))</span>
+</span><span data-line="164">
+</span><span data-line="165">        <span class="c1"># Normalize the lifespan sequence defensively: Litestar types this as a</span>
+</span><span data-line="166">        <span class="c1"># list, but a user-supplied AppConfig may carry None or a tuple at</span>
+</span><span data-line="167">        <span class="c1"># runtime. Build a fresh list (rather than appending in place) so a</span>
+</span><span data-line="168">        <span class="c1"># caller-held sequence is never mutated as a side effect.</span>
+</span><span data-line="169">        <span class="n">app_config</span><span class="o">.</span><span class="n">lifespan</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="nb">list</span><span class="p">(</span><span class="n">app_config</span><span class="o">.</span><span class="n">lifespan</span> <span class="ow">or</span> <span class="p">[]),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_composer</span><span class="o">.</span><span class="n">build</span><span class="p">()]</span>
+</span><span data-line="170">
+</span><span data-line="171">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">publish_only</span><span class="p">:</span>
+</span><span data-line="172">            <span class="n">subscriber_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_registered_subscribers</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span>
+</span><span data-line="173">                <span class="bp">self</span><span class="o">.</span><span class="n">_pending_controller_subscribers</span>
+</span><span data-line="174">            <span class="p">)</span>
+</span><span data-line="175">            <span class="k">if</span> <span class="n">subscriber_count</span><span class="p">:</span>
+</span><span data-line="176">                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+</span><span data-line="177">                    <span class="s2">"BrokerConfig(name=</span><span class="si">%r</span><span class="s2">, publish_only=True): </span><span class="si">%d</span><span class="s2"> subscriber(s) "</span>
+</span><span data-line="178">                    <span class="s2">"registered but will not consume in this process. "</span>
+</span><span data-line="179">                    <span class="s2">"broker.start() is skipped; run `litestar faststream run` (or "</span>
+</span><span data-line="180">                    <span class="s2">"another process without publish_only) to consume."</span><span class="p">,</span>
+</span><span data-line="181">                    <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+</span><span data-line="182">                    <span class="n">subscriber_count</span><span class="p">,</span>
+</span><span data-line="183">                <span class="p">)</span>
+</span><span data-line="184">
+</span><span data-line="185">        <span class="n">deps</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">app_config</span><span class="o">.</span><span class="n">dependencies</span> <span class="ow">or</span> <span class="p">{})</span>
+</span><span data-line="186">        <span class="c1"># Register under the broker config's name (defaults to broker class</span>
+</span><span data-line="187">        <span class="c1"># name lower-cased, e.g. ``rabbit``). Handlers can opt-in by declaring</span>
+</span><span data-line="188">        <span class="c1"># a parameter of that name. We deliberately do NOT register under the</span>
+</span><span data-line="189">        <span class="c1"># literal key ``"broker"`` because that collides across multiple</span>
+</span><span data-line="190">        <span class="c1"># ``BrokerConfig`` instances. Users either annotate with the broker</span>
+</span><span data-line="191">        <span class="c1"># class (resolved via ``signature_namespace``) or use the typed helpers</span>
+</span><span data-line="192">        <span class="c1"># like ``RabbitBroker = Annotated[RB, Context("broker")]``.</span>
+</span><span data-line="193">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">deps</span><span class="p">:</span>
+</span><span data-line="194">            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+</span><span data-line="195">                <span class="s2">"Litestar dependency </span><span class="si">%r</span><span class="s2"> already registered; BrokerConfig will "</span>
+</span><span data-line="196">                <span class="s2">"not override. Handlers expecting the broker via this name "</span>
+</span><span data-line="197">                <span class="s2">"will receive the pre-existing dependency. Pass name='...' "</span>
+</span><span data-line="198">                <span class="s2">"to BrokerConfig to disambiguate."</span><span class="p">,</span>
+</span><span data-line="199">                <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+</span><span data-line="200">            <span class="p">)</span>
+</span><span data-line="201">        <span class="k">else</span><span class="p">:</span>
+</span><span data-line="202">            <span class="n">deps</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">build_broker_provide</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="p">)</span>
+</span><span data-line="203">        <span class="n">app_config</span><span class="o">.</span><span class="n">dependencies</span> <span class="o">=</span> <span class="n">deps</span>
+</span><span data-line="204">
+</span><span data-line="205">        <span class="c1"># Extend signature_namespace so type annotations like ``RabbitBroker``</span>
+</span><span data-line="206">        <span class="c1"># resolve at signature-parsing time without explicit imports in user</span>
+</span><span data-line="207">        <span class="c1"># handler modules.</span>
+</span><span data-line="208">        <span class="n">ns</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">app_config</span><span class="o">.</span><span class="n">signature_namespace</span> <span class="ow">or</span> <span class="p">{})</span>
+</span><span data-line="209">        <span class="n">broker_cls_name</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+</span><span data-line="210">        <span class="k">if</span> <span class="n">broker_cls_name</span> <span class="ow">in</span> <span class="n">ns</span><span class="p">:</span>
+</span><span data-line="211">            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+</span><span data-line="212">                <span class="s2">"signature_namespace already has </span><span class="si">%r</span><span class="s2">; BrokerConfig will not override"</span><span class="p">,</span>
+</span><span data-line="213">                <span class="n">broker_cls_name</span><span class="p">,</span>
+</span><span data-line="214">            <span class="p">)</span>
+</span><span data-line="215">        <span class="k">else</span><span class="p">:</span>
+</span><span data-line="216">            <span class="n">ns</span><span class="p">[</span><span class="n">broker_cls_name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="p">)</span>
+</span><span data-line="217">        <span class="n">app_config</span><span class="o">.</span><span class="n">signature_namespace</span> <span class="o">=</span> <span class="n">ns</span>
+</span><span data-line="218">
+</span><span data-line="219">        <span class="c1"># Capture Litestar's logging_config so the CLI worker process can</span>
+</span><span data-line="220">        <span class="c1"># re-apply standard-lib logging matching the HTTP server format.</span>
+</span><span data-line="221">        <span class="bp">self</span><span class="o">.</span><span class="n">_logging_config</span> <span class="o">=</span> <span class="n">app_config</span><span class="o">.</span><span class="n">logging_config</span>
+</span><span data-line="222">
+</span><span data-line="223">        <span class="k">return</span> <span class="n">app_config</span>
+</span><span data-line="224">
+</span><span data-line="225">    <span class="k">def</span><span class="w"> </span><span class="nf">_apply_to_cli</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cli</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="226">        <span class="kn">from</span><span class="w"> </span><span class="nn">litestar_faststream.cli</span><span class="w"> </span><span class="kn">import</span> <span class="n">register_broker_cli</span>
+</span><span data-line="227">
+</span><span data-line="228">        <span class="n">register_broker_cli</span><span class="p">(</span><span class="n">cli</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+</span><span data-line="229">
+</span><span data-line="230">    <span class="k">def</span><span class="w"> </span><span class="nf">_already_bound</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fn</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span data-line="231"><span class="w">        </span><span class="sd">"""Identity-based dedup of Tier-2 subscribers vs Tier-1 broker subscribers.</span>
+</span><span data-line="232">
+</span><span data-line="233"><span class="sd">        Same function bound twice for the same target is suppressed. Same</span>
+</span><span data-line="234"><span class="sd">        function bound to *different* destinations is kept distinct: the</span>
+</span><span data-line="235"><span class="sd">        Litestar Tier-2 marker carries ``args`` (queue/topic spec); when the</span>
+</span><span data-line="236"><span class="sd">        broker subscriber exposes a comparable hint (``_extra_args``, ``args``,</span>
+</span><span data-line="237"><span class="sd">        or ``queue``), require it to match before dedup'ing.</span>
+</span><span data-line="238">
+</span><span data-line="239"><span class="sd">        When no queue-name hint can be extracted from the broker subscriber, we</span>
+</span><span data-line="240"><span class="sd">        fall through to ``return False`` so the Tier-2 registration proceeds.</span>
+</span><span data-line="241"><span class="sd">        Rationale: silently skipping a legitimate registration is harder to</span>
+</span><span data-line="242"><span class="sd">        debug than accepting a (rare) double-bind. FastStream brokers do not</span>
+</span><span data-line="243"><span class="sd">        currently raise on duplicate ``broker.subscriber`` calls for the same</span>
+</span><span data-line="244"><span class="sd">        target; if they grow that behavior later, the duplicate will surface</span>
+</span><span data-line="245"><span class="sd">        with a clear error from the broker itself.</span>
+</span><span data-line="246"><span class="sd">        """</span>
+</span><span data-line="247">        <span class="n">existing</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="p">,</span> <span class="s2">"_subscribers"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]</span>
+</span><span data-line="248">        <span class="n">target</span> <span class="o">=</span> <span class="n">fn</span><span class="o">.</span><span class="vm">__func__</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="s2">"__func__"</span><span class="p">)</span> <span class="k">else</span> <span class="n">fn</span>
+</span><span data-line="249">        <span class="k">for</span> <span class="n">sub</span> <span class="ow">in</span> <span class="n">existing</span><span class="p">:</span>
+</span><span data-line="250">            <span class="n">sub_fn</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="s2">"fn"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</span><span data-line="251">            <span class="k">if</span> <span class="n">sub_fn</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="252">                <span class="n">calls</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="s2">"calls"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</span><span data-line="253">                <span class="k">if</span> <span class="n">calls</span><span class="p">:</span>
+</span><span data-line="254">                    <span class="n">sub_fn</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">calls</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">"handler"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</span><span data-line="255">            <span class="k">if</span> <span class="n">sub_fn</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="256">                <span class="n">sub_fn</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="s2">"_call"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</span><span data-line="257">            <span class="k">if</span> <span class="n">sub_fn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">target</span><span class="p">:</span>
+</span><span data-line="258">                <span class="k">continue</span>
+</span><span data-line="259">            <span class="n">sub_args</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="s2">"_extra_args"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="s2">"args"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</span><span data-line="260">            <span class="k">if</span> <span class="n">sub_args</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="261">                <span class="k">if</span> <span class="n">sub_args</span> <span class="o">==</span> <span class="n">args</span><span class="p">:</span>
+</span><span data-line="262">                    <span class="k">return</span> <span class="kc">True</span>
+</span><span data-line="263">                <span class="k">continue</span>
+</span><span data-line="264">            <span class="c1"># Fallback: try to match against ``queue`` attribute when ``args``</span>
+</span><span data-line="265">            <span class="c1"># is a single-element queue spec.</span>
+</span><span data-line="266">            <span class="k">if</span> <span class="n">args</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+</span><span data-line="267">                <span class="n">queue_obj</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="s2">"queue"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</span><span data-line="268">                <span class="n">queue_name</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">queue_obj</span><span class="p">,</span> <span class="s2">"name"</span><span class="p">,</span> <span class="n">queue_obj</span><span class="p">)</span>
+</span><span data-line="269">                <span class="k">if</span> <span class="n">queue_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">queue_name</span> <span class="o">==</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+</span><span data-line="270">                    <span class="k">return</span> <span class="kc">True</span>
+</span><span data-line="271">                <span class="k">continue</span>
+</span><span data-line="272">            <span class="c1"># No reliable queue-name hint on this candidate: keep scanning</span>
+</span><span data-line="273">            <span class="c1"># the remaining subscribers. A later candidate may still match;</span>
+</span><span data-line="274">            <span class="c1"># only conclude "not bound" once every candidate is exhausted.</span>
+</span><span data-line="275">            <span class="k">continue</span>
+</span><span data-line="276">        <span class="k">return</span> <span class="kc">False</span>
+</span><span data-line="277">
+</span><span data-line="278">    <span class="k">def</span><span class="w"> </span><span class="nf">_collect_controller_instances</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">type</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span data-line="279"><span class="w">        </span><span class="sd">"""Find the Controller singletons Litestar instantiated.</span>
+</span><span data-line="280">
+</span><span data-line="281"><span class="sd">        Walks ``app.routes`` and recovers each unique Controller instance via</span>
+</span><span data-line="282"><span class="sd">        the ``__self__`` of its bound route handler methods. Controllers with</span>
+</span><span data-line="283"><span class="sd">        no HTTP route handlers are *not* instantiated by Litestar in a way</span>
+</span><span data-line="284"><span class="sd">        we can reach (the instance is created during ``Controller.as_router``</span>
+</span><span data-line="285"><span class="sd">        and immediately discarded); those Controllers fall through to the</span>
+</span><span data-line="286"><span class="sd">        ``__new__``-then-``__init__`` instantiation in</span>
+</span><span data-line="287"><span class="sd">        ``_bind_and_register_controllers``.</span>
+</span><span data-line="288"><span class="sd">        """</span>
+</span><span data-line="289">        <span class="n">instances</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">type</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span data-line="290">        <span class="k">for</span> <span class="n">route</span> <span class="ow">in</span> <span class="n">app</span><span class="o">.</span><span class="n">routes</span><span class="p">:</span>
+</span><span data-line="291">            <span class="k">for</span> <span class="n">rh</span> <span class="ow">in</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">route</span><span class="p">,</span> <span class="s2">"route_handlers"</span><span class="p">,</span> <span class="p">[])</span> <span class="ow">or</span> <span class="p">[]:</span>
+</span><span data-line="292">                <span class="n">fn</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">rh</span><span class="p">,</span> <span class="s2">"fn"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</span><span data-line="293">                <span class="n">owner</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="s2">"__self__"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</span><span data-line="294">                <span class="k">if</span> <span class="n">owner</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="295">                    <span class="k">continue</span>
+</span><span data-line="296">                <span class="bp">cls</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">owner</span><span class="p">)</span>
+</span><span data-line="297">                <span class="n">instances</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">owner</span><span class="p">)</span>
+</span><span data-line="298">        <span class="k">return</span> <span class="n">instances</span>
+</span><span data-line="299">
+</span><span data-line="300">    <span class="k">def</span><span class="w"> </span><span class="nf">_resolve_controller_instance</span><span class="p">(</span>
+</span><span data-line="301">        <span class="bp">self</span><span class="p">,</span> <span class="n">controller_cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span> <span class="n">cache</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">type</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+</span><span data-line="302">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+</span><span data-line="303"><span class="w">        </span><span class="sd">"""Return the singleton instance for ``controller_cls``.</span>
+</span><span data-line="304">
+</span><span data-line="305"><span class="sd">        Uses Litestar's instance when reachable (mixed HTTP+stream</span>
+</span><span data-line="306"><span class="sd">        Controller); otherwise creates one with ``owner=None`` and caches it</span>
+</span><span data-line="307"><span class="sd">        for the lifetime of this plugin instance. Stream-only Controllers</span>
+</span><span data-line="308"><span class="sd">        only ever have a single instance either way.</span>
+</span><span data-line="309"><span class="sd">        """</span>
+</span><span data-line="310">        <span class="k">if</span> <span class="n">controller_cls</span> <span class="ow">in</span> <span class="n">cache</span><span class="p">:</span>
+</span><span data-line="311">            <span class="k">return</span> <span class="n">cache</span><span class="p">[</span><span class="n">controller_cls</span><span class="p">]</span>
+</span><span data-line="312">        <span class="c1"># owner is only used for HTTP routing; stream-only Controllers never</span>
+</span><span data-line="313">        <span class="c1"># touch it. ``Controller.__init__`` requires the kwarg but stores</span>
+</span><span data-line="314">        <span class="c1"># it without further dispatch.</span>
+</span><span data-line="315">        <span class="n">instance</span> <span class="o">=</span> <span class="n">controller_cls</span><span class="p">(</span><span class="n">owner</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+</span><span data-line="316">        <span class="n">cache</span><span class="p">[</span><span class="n">controller_cls</span><span class="p">]</span> <span class="o">=</span> <span class="n">instance</span>
+</span><span data-line="317">        <span class="k">return</span> <span class="n">instance</span>
+</span><span data-line="318">
+</span><span data-line="319">    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_bind_and_register_controllers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="320"><span class="w">        </span><span class="sd">"""Pre-startup hook: bind Controller methods, register with broker.</span>
+</span><span data-line="321">
+</span><span data-line="322"><span class="sd">        Runs after Litestar has built ``app.routes`` but before the broker's</span>
+</span><span data-line="323"><span class="sd">        ``connect()/start()``. Looks up the Controller singleton instance</span>
+</span><span data-line="324"><span class="sd">        Litestar already created (so HTTP handlers and stream subscribers</span>
+</span><span data-line="325"><span class="sd">        share state via ``self``), or instantiates one for stream-only</span>
+</span><span data-line="326"><span class="sd">        Controllers, and registers each marked method as a bound method on</span>
+</span><span data-line="327"><span class="sd">        the broker.</span>
+</span><span data-line="328"><span class="sd">        """</span>
+</span><span data-line="329">        <span class="n">cache</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_collect_controller_instances</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+</span><span data-line="330">
+</span><span data-line="331">        <span class="c1"># Bind each (controller_cls, unbound) ONCE so subscriber and publisher</span>
+</span><span data-line="332">        <span class="c1"># passes can share the resulting HandlerCallWrapper. ``types.MethodType``</span>
+</span><span data-line="333">        <span class="c1"># returns a fresh bound method each call, which would otherwise hand</span>
+</span><span data-line="334">        <span class="c1"># FastStream two different objects and create two disjoint wrappers --</span>
+</span><span data-line="335">        <span class="c1"># the same root cause as the staticmethod path.</span>
+</span><span data-line="336">        <span class="n">bound_methods</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">type</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span data-line="337">
+</span><span data-line="338">        <span class="k">def</span><span class="w"> </span><span class="nf">_get_bound</span><span class="p">(</span><span class="n">controller_cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span> <span class="n">unbound</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+</span><span data-line="339">            <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">controller_cls</span><span class="p">,</span> <span class="n">unbound</span><span class="p">)</span>
+</span><span data-line="340">            <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">bound_methods</span><span class="p">:</span>
+</span><span data-line="341">                <span class="n">instance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_controller_instance</span><span class="p">(</span><span class="n">controller_cls</span><span class="p">,</span> <span class="n">cache</span><span class="p">)</span>
+</span><span data-line="342">                <span class="n">bound_methods</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">MethodType</span><span class="p">(</span><span class="n">unbound</span><span class="p">,</span> <span class="n">instance</span><span class="p">)</span>
+</span><span data-line="343">            <span class="k">return</span> <span class="n">bound_methods</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+</span><span data-line="344">
+</span><span data-line="345">        <span class="n">wrappers</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span data-line="346">
+</span><span data-line="347">        <span class="k">for</span> <span class="n">controller_cls</span><span class="p">,</span> <span class="n">unbound</span><span class="p">,</span> <span class="n">sub_specs</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pending_controller_subscribers</span><span class="p">:</span>
+</span><span data-line="348">            <span class="n">bound</span> <span class="o">=</span> <span class="n">_get_bound</span><span class="p">(</span><span class="n">controller_cls</span><span class="p">,</span> <span class="n">unbound</span><span class="p">)</span>
+</span><span data-line="349">            <span class="k">for</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span> <span class="ow">in</span> <span class="n">sub_specs</span><span class="p">:</span>
+</span><span data-line="350">                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_already_bound</span><span class="p">(</span><span class="n">bound</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+</span><span data-line="351">                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+</span><span data-line="352">                        <span class="s2">"skipping Tier-2 subscriber for </span><span class="si">%s</span><span class="s2">.</span><span class="si">%s</span><span class="s2">; already bound"</span><span class="p">,</span>
+</span><span data-line="353">                        <span class="n">controller_cls</span><span class="o">.</span><span class="vm">__qualname__</span><span class="p">,</span>
+</span><span data-line="354">                        <span class="nb">getattr</span><span class="p">(</span><span class="n">unbound</span><span class="p">,</span> <span class="s2">"__name__"</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">unbound</span><span class="p">)),</span>
+</span><span data-line="355">                    <span class="p">)</span>
+</span><span data-line="356">                    <span class="k">continue</span>
+</span><span data-line="357">                <span class="n">handler</span> <span class="o">=</span> <span class="n">wrappers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">bound</span><span class="p">),</span> <span class="n">bound</span><span class="p">)</span>
+</span><span data-line="358">                <span class="n">wrapper</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">subscriber</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)(</span><span class="n">handler</span><span class="p">)</span>
+</span><span data-line="359">                <span class="n">wrappers</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">bound</span><span class="p">)]</span> <span class="o">=</span> <span class="n">wrapper</span>
+</span><span data-line="360">                <span class="c1"># Mirror the non-Controller path: expose ``mock`` on the</span>
+</span><span data-line="361">                <span class="c1"># class-level function so tests can introspect via</span>
+</span><span data-line="362">                <span class="c1"># ``ControllerCls.method_name.mock`` (matching the FastAPI</span>
+</span><span data-line="363">                <span class="c1"># router's ``@router.subscriber`` convention).</span>
+</span><span data-line="364">                <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">AttributeError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+</span><span data-line="365">                    <span class="n">cast</span><span class="p">(</span><span class="s2">"Any"</span><span class="p">,</span> <span class="n">unbound</span><span class="p">)</span><span class="o">.</span><span class="n">mock</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span><span class="s2">"Any"</span><span class="p">,</span> <span class="n">wrapper</span><span class="p">)</span><span class="o">.</span><span class="n">mock</span>
+</span><span data-line="366">                <span class="bp">self</span><span class="o">.</span><span class="n">_registered_subscribers</span><span class="o">.</span><span class="n">append</span><span class="p">((</span>
+</span><span data-line="367">                    <span class="n">qualname</span><span class="p">(</span><span class="n">bound</span><span class="p">),</span>
+</span><span data-line="368">                    <span class="nb">tuple</span><span class="p">(</span><span class="n">args</span><span class="p">),</span>
+</span><span data-line="369">                    <span class="nb">dict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">),</span>
+</span><span data-line="370">                <span class="p">))</span>
+</span><span data-line="371">
+</span><span data-line="372">        <span class="k">for</span> <span class="p">(</span>
+</span><span data-line="373">            <span class="n">controller_cls</span><span class="p">,</span>
+</span><span data-line="374">            <span class="n">unbound</span><span class="p">,</span>
+</span><span data-line="375">            <span class="n">args</span><span class="p">,</span>
+</span><span data-line="376">            <span class="n">kwargs</span><span class="p">,</span>
+</span><span data-line="377">        <span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pending_controller_response_publishers</span><span class="p">:</span>
+</span><span data-line="378">            <span class="n">bound</span> <span class="o">=</span> <span class="n">_get_bound</span><span class="p">(</span><span class="n">controller_cls</span><span class="p">,</span> <span class="n">unbound</span><span class="p">)</span>
+</span><span data-line="379">            <span class="n">handler</span> <span class="o">=</span> <span class="n">wrappers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">bound</span><span class="p">),</span> <span class="n">bound</span><span class="p">)</span>
+</span><span data-line="380">            <span class="n">wrappers</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">bound</span><span class="p">)]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">broker</span><span class="o">.</span><span class="n">publisher</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)(</span>
+</span><span data-line="381">                <span class="n">cast</span><span class="p">(</span><span class="s2">"Callable[..., Any]"</span><span class="p">,</span> <span class="n">handler</span><span class="p">)</span>
+</span><span data-line="382">            <span class="p">)</span>
+</span><span data-line="383">            <span class="bp">self</span><span class="o">.</span><span class="n">_registered_response_publishers</span><span class="o">.</span><span class="n">append</span><span class="p">((</span>
+</span><span data-line="384">                <span class="n">qualname</span><span class="p">(</span><span class="n">bound</span><span class="p">),</span>
+</span><span data-line="385">                <span class="nb">tuple</span><span class="p">(</span><span class="n">args</span><span class="p">),</span>
+</span><span data-line="386">                <span class="nb">dict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">),</span>
+</span><span data-line="387">            <span class="p">))</span></div>
+
+</span></pre></div>
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2026, Hasan Sezer Taşan</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/hasansezertasan/litestar-faststream" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script src="../../_static/shibuya.js?v=50760d75"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script></body>
+</html>
