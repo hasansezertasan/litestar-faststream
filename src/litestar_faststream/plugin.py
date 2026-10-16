@@ -15,7 +15,7 @@ from typing import TYPE_CHECKING, Any, cast
 
 from litestar.config.app import AppConfig
 
-from litestar_faststream._helpers import qualname
+from litestar_faststream._helpers import LazyMock, qualname
 from litestar_faststream.di import build_broker_provide
 from litestar_faststream.discovery import collect
 from litestar_faststream.lifespan import LifespanComposer
@@ -145,7 +145,7 @@ class BrokerConfig:  # pylint: disable=too-many-instance-attributes,attribute-de
                     # function so test code can introspect via `fn.mock` --
                     # mirrors the FastAPI router's `@router.subscriber`.
                     with contextlib.suppress(AttributeError, TypeError):
-                        cast("Any", fn).mock = wrapper.mock
+                        cast("Any", fn).mock = LazyMock(wrapper)
                 self._registered_subscribers.append((
                     qualname(fn),
                     tuple(args),
@@ -362,7 +362,7 @@ class BrokerConfig:  # pylint: disable=too-many-instance-attributes,attribute-de
                 # ``ControllerCls.method_name.mock`` (matching the FastAPI
                 # router's ``@router.subscriber`` convention).
                 with contextlib.suppress(AttributeError, TypeError):
-                    cast("Any", unbound).mock = cast("Any", wrapper).mock
+                    cast("Any", unbound).mock = LazyMock(wrapper)
                 self._registered_subscribers.append((
                     qualname(bound),
                     tuple(args),
