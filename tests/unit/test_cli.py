@@ -1,3 +1,4 @@
+import sys
 import weakref
 from typing import cast
 from unittest.mock import AsyncMock, MagicMock
@@ -237,6 +238,9 @@ def test_unknown_broker_name_is_a_click_error() -> None:
     assert "No BrokerConfig named 'nope'" in result.output
 
 
+@pytest.mark.skipif(
+    sys.platform == "win32", reason="os.kill(SIGTERM) terminates the process on Windows"
+)
 @pytest.mark.asyncio()
 @pytest.mark.usefixtures("_reset_cli_module_state")
 async def test_run_loop_applies_logging_config_and_stops_on_signal(
@@ -287,6 +291,9 @@ async def test_run_loop_drain_within_timeout_exits_zero(monkeypatch) -> None:
     plugin.broker.stop.assert_awaited_once()
 
 
+@pytest.mark.skipif(
+    sys.platform == "win32", reason="os.kill(SIGTERM) terminates the process on Windows"
+)
 @pytest.mark.asyncio()
 @pytest.mark.usefixtures("_reset_cli_module_state")
 async def test_status_watch_refreshes_until_signal(
