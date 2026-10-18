@@ -234,7 +234,7 @@ def test_unknown_broker_name_is_a_click_error() -> None:
 
     runner = click.testing.CliRunner()
     result = runner.invoke(cli, ["faststream", "info", "--broker", "nope"])
-    assert result.exit_code != 0
+    assert result.exit_code == 1
     assert "No BrokerConfig named 'nope'" in result.output
 
 

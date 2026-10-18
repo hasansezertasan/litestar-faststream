@@ -15,4 +15,4 @@ def test_brokers_missing_name_raises_with_registered_names() -> None:
 
     registry = Brokers({})
     with pytest.raises(BrokerNotRegisteredError, match="No broker named 'nope'"):
-        registry["nope"]
+        _ = registry["nope"]
