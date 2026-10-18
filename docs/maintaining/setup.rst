@@ -87,11 +87,7 @@ repository secret (a repository secret is readable by any workflow edit):
 
 .. code-block:: sh
 
-<<<<<<< before updating
-   gh secret set REPO_ADMIN_TOKEN --repo hasansezertasan/litestar-faststream
-=======
-   gh secret set REPO_ADMIN_TOKEN --env ruleset-admin --repo hasansezertasan/litestar_faststream
->>>>>>> after updating
+   gh secret set REPO_ADMIN_TOKEN --env ruleset-admin --repo hasansezertasan/litestar-faststream
 
 **[AGENT]** Trigger the workflow once (push a change under ``.github/rulesets/``
 or run it directly):

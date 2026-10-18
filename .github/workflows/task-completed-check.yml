@@ -32,29 +32,6 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Enforce the task check for human pull requests
         # The action reports through its own `Task Completed Checker` check run
-<<<<<<< before updating
-        # but leaves this job green, so the job name alone cannot gate on it.
-        # Promote a non-success task check into a job failure here: this job's
-        # name (`Check PR task list`) is the required status check, which keeps
-        # human PRs with unticked boxes merge-blocked while bot PRs (skipped
-        # above, satisfied below) stay green.
-        if: ${{ !endsWith(github.event.pull_request.user.login, '[bot]') }}
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # Read through env, never interpolated into the shell — the PR head SHA
-          # is fork-controlled data on a pull_request_target run.
-          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-        run: |
-          conclusion=""
-          for _ in 1 2 3 4 5 6; do
-            conclusion="$(gh api "repos/${GITHUB_REPOSITORY}/commits/${HEAD_SHA}/check-runs?check_name=Task+Completed+Checker&per_page=100" \
-              --jq '[.check_runs[] | select(.name == "Task Completed Checker")] | sort_by(.id) | last | .conclusion // empty')"
-            if [ -n "${conclusion}" ]; then break; fi
-            sleep 10
-          done
-          if [ "${conclusion}" != "success" ]; then
-            echo "::error::Task Completed Checker is '${conclusion:-missing}' — tick every PR task-list box."
-=======
         # but leaves this job green, so this job's name (`Check PR task list`)
         # is the required status check. Evaluate the CURRENT PR body here rather
         # than reading the action's run back: the verdict is then a pure
@@ -71,7 +48,6 @@ jobs:
           stripped="$(printf '%s' "${body}" | python3 -c 'import re,sys; print(re.sub(r"<!-- ignore-task-list-start -->[\s| ]*(- \[[x| ]\] .+[\s| ]*)+<!-- ignore-task-list-end -->", "", sys.stdin.read()))')"
           if printf '%s' "${stripped}" | grep -Eq -- '- \[[ ]\].+'; then
             echo "::error::Unticked task-list boxes remain — tick every PR task-list box."
->>>>>>> after updating
             exit 1
           fi
       - name: Report the task check as satisfied for bot pull requests
@@ -79,12 +55,8 @@ jobs:
         # skipped for them. Publish the informational check run green here; the
         # required gate is this job's own conclusion, which stays green for
         # bots. (A required check on the check-run name stopped being honored
-<<<<<<< before updating
         # by ruleset evaluation on 2026-10-16 — upstream
         # hasansezertasan/copier-pyproject#418.)
-=======
-        # by ruleset evaluation on 2026-10-16 — see issue #418.)
->>>>>>> after updating
         if: ${{ endsWith(github.event.pull_request.user.login, '[bot]') }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
