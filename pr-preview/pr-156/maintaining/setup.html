@@ -208,8 +208,19 @@ the next push.</p>
 <p><strong>[HUMAN]</strong> Create a <code class="docutils literal notranslate"><span class="pre">REPO_ADMIN_TOKEN</span></code> — a fine-grained PAT with
 <strong>Administration: read and write</strong> on this repository (the Actions
 <code class="docutils literal notranslate"><span class="pre">GITHUB_TOKEN</span></code> cannot manage rulesets).</p>
-<p><strong>[AGENT]</strong> Store it as a repository secret:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span data-line="1">gh<span class="w"> </span>secret<span class="w"> </span><span class="nb">set</span><span class="w"> </span>REPO_ADMIN_TOKEN<span class="w"> </span>--repo<span class="w"> </span>hasansezertasan/litestar-faststream
+<p><strong>[HUMAN]</strong> Create the <code class="docutils literal notranslate"><span class="pre">ruleset-admin</span></code> environment with yourself (or another
+admin) as a <strong>required reviewer</strong>, and limit its <strong>deployment branches</strong> to the
+default branch (<strong>Settings → Environments → New environment</strong>). The workflow
+job runs in this environment, so the PAT is released only after that review —
+anyone who can merge a pull request can edit <code class="docutils literal notranslate"><span class="pre">ruleset-sync.yml</span></code>, but an edited
+workflow cannot reach the PAT without the reviewer’s approval. Required
+reviewers are available on <strong>public</strong> repositories (and on private ones only on
+GitHub Enterprise). On a private Free/Pro/Team repository do <strong>not</strong> store the
+PAT: skip the secret below, leave <code class="docutils literal notranslate"><span class="pre">ruleset-sync.yml</span></code> inert (it exits cleanly
+without it) and apply <code class="docutils literal notranslate"><span class="pre">.github/rulesets/main.json</span></code> by hand instead.</p>
+<p><strong>[AGENT]</strong> Store the token as a secret of that environment, never as a
+repository secret (a repository secret is readable by any workflow edit):</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span data-line="1">gh<span class="w"> </span>secret<span class="w"> </span><span class="nb">set</span><span class="w"> </span>REPO_ADMIN_TOKEN<span class="w"> </span>--env<span class="w"> </span>ruleset-admin<span class="w"> </span>--repo<span class="w"> </span>hasansezertasan/litestar-faststream
 </span></pre></div>
 </div>
 <p><strong>[AGENT]</strong> Trigger the workflow once (push a change under <code class="docutils literal notranslate"><span class="pre">.github/rulesets/</span></code>
@@ -225,8 +236,9 @@ correctly reported as not-done:</p>
 </span><span data-line="2"><span class="w">  </span>--jq<span class="w"> </span><span class="s1">'any(.[]; .name == "Protect main" and .enforcement == "active")'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-qx<span class="w"> </span><span class="nb">true</span>
 </span></pre></div>
 </div>
-<p>Until the <code class="docutils literal notranslate"><span class="pre">REPO_ADMIN_TOKEN</span></code> secret is set the workflow logs a notice and exits
-without error, so the repository is never blocked.</p>
+<p>Until the <code class="docutils literal notranslate"><span class="pre">REPO_ADMIN_TOKEN</span></code> environment secret is set the workflow logs a
+notice and exits without error, so the repository is never blocked. Each run
+waits for the <code class="docutils literal notranslate"><span class="pre">ruleset-admin</span></code> reviewer’s approval before it applies anything.</p>
 <section id="apply-protection-after-the-first-merge">
 <span id="setup-first-pr"></span><h3>Apply protection <em>after</em> the first merge<a class="headerlink" href="#apply-protection-after-the-first-merge" title="Link to this heading">#</a></h3>
 <p><code class="docutils literal notranslate"><span class="pre">check-pr-title.yml</span></code>, <code class="docutils literal notranslate"><span class="pre">check-branch-name.yml</span></code>, <code class="docutils literal notranslate"><span class="pre">check-linked-issues.yml</span></code>
@@ -527,7 +539,10 @@ preview for each pull request under <code class="docutils literal notranslate"><
 <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code> branch and comments the URL on the PR (removed automatically when
 the PR closes). Previews are built only for pull requests opened from branches
 on this repository — a fork PR receives a read-only token and is skipped — and
-require no extra setup beyond Pages.</p>
+require no extra setup beyond Pages. The docs are built by <code class="docutils literal notranslate"><span class="pre">docs-preview.yml</span></code>
+with a read-only token and published by <code class="docutils literal notranslate"><span class="pre">docs-preview-deploy.yml</span></code>, a
+<code class="docutils literal notranslate"><span class="pre">workflow_run</span></code> workflow that always runs from the default branch, so a branch
+or dependency update cannot edit the job that holds the write token.</p>
 </section>
 <section id="automated-dependency-updates-renovate">
 <h2>Automated dependency updates (Renovate)<a class="headerlink" href="#automated-dependency-updates-renovate" title="Link to this heading">#</a></h2>
