@@ -336,3 +336,81 @@ async def test_monitored_payload_recording_off_by_default() -> None:
     spans = exporter.get_finished_spans()
     attrs = spans[-1].attributes or {}
     assert "messaging.message.body.preview" not in attrs
+
+
+def test_extract_destination_returns_empty_when_nothing_matches() -> None:
+    assert not instr_mod._extract_destination(SimpleNamespace())
+
+
+@pytest.mark.asyncio()
+async def test_after_processed_is_a_noop() -> None:
+    assert (
+        await _instantiate().after_processed(ValueError, ValueError("x"), None) is None
+    )
+
+
+@pytest.mark.asyncio()
+@pytest.mark.usefixtures("_reset_tracer_cache")
+async def test_publish_records_exception_and_reraises() -> None:
+    mw = _instantiate()
+    call_next = AsyncMock(side_effect=RuntimeError("publish failed"))
+
+    with pytest.raises(RuntimeError, match="publish failed"):
+        await mw.publish_scope(call_next, _fake_msg())
+
+
+def test_set_message_attrs_is_noop_when_otel_missing(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(instr_mod, "OPENTELEMETRY_INSTALLED", False)
+    span = MagicMock()
+
+    OtelMiddleware._set_message_attrs(span, _fake_msg(), operation="publish")
+
+    span.set_attribute.assert_not_called()
+
+
+@pytest.mark.usefixtures("_reset_tracer_cache")
+def test_set_message_attrs_skips_destination_when_unknown() -> None:
+    span = MagicMock()
+
+    OtelMiddleware._set_message_attrs(span, _fake_msg(), operation="publish")
+
+    names = [c.args[0] for c in span.set_attribute.call_args_list]
+    assert "messaging.destination.name" not in names
+    assert "messaging.system" in names
+
+
+@pytest.mark.asyncio()
+@pytest.mark.usefixtures("_reset_tracer_cache")
+@pytest.mark.parametrize("fail", (False, True))
+async def test_monitored_without_otel_still_runs_handler(
+    monkeypatch: pytest.MonkeyPatch, *, fail: bool
+) -> None:
+    monkeypatch.setattr(instr_mod, "OPENTELEMETRY_INSTALLED", False)
+
+    @monitored(attributes={"k": "v"}, record_payload=True)
+    async def handler(msg: object) -> str:
+        if fail:
+            msg_0 = "boom"
+            raise RuntimeError(msg_0)
+        return "ok"
+
+    if fail:
+        with pytest.raises(RuntimeError, match="boom"):
+            await handler("payload")
+    else:
+        assert await handler("payload") == "ok"
+
+
+def test_record_payload_ignores_unprintable_objects() -> None:
+    class _Unprintable:
+        def __str__(self) -> str:
+            msg = "no str"
+            raise ValueError(msg)
+
+    span = MagicMock()
+
+    instr_mod._record_payload(span, _Unprintable(), 10)
+
+    span.set_attribute.assert_not_called()

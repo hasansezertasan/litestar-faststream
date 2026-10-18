@@ -1,9 +1,15 @@
+from types import SimpleNamespace
+from typing import TYPE_CHECKING, cast
+
 import pytest
 from litestar import Controller, get, post
 from litestar.exceptions import ImproperlyConfiguredException
 
 from litestar_faststream.decorators import publisher, subscriber
-from litestar_faststream.discovery import collect
+from litestar_faststream.discovery import collect, collect_marker_plugin_filters
+
+if TYPE_CHECKING:
+    from litestar.handlers import BaseRouteHandler
 
 
 def test_discovers_module_level_subscriber() -> None:
@@ -152,3 +158,69 @@ def test_plugin_filter_publisher_response() -> None:
 
     skipped = collect(route_handlers=[], extra_handlers=[fn], plugin_name="kafka")
     assert skipped.response_publishers == []
+
+
+def test_controller_publisher_is_deferred_to_lifespan() -> None:
+    class C(Controller):
+        path = "/"
+
+        @publisher("out")
+        async def emit(self) -> dict:
+            return {}
+
+    result = collect(route_handlers=[C], extra_handlers=[])
+    assert result.response_publishers == []
+    [(controller_cls, fn, args, kwargs)] = result.controller_response_publishers
+    assert controller_cls is C
+    assert fn is C.__dict__["emit"]
+    assert args == ("out",)
+    assert kwargs == {}
+
+
+def test_walks_nested_route_handlers() -> None:
+    @subscriber("nested-q")
+    async def fn(payload: dict) -> None: ...
+
+    holder = SimpleNamespace(route_handlers=[fn])
+
+    result = collect(route_handlers=[holder], extra_handlers=[])
+    assert [s[0] for s in result.subscribers] == [fn]
+
+
+def test_collect_marker_plugin_filters_walks_controllers_and_nested() -> None:
+    @publisher("b", plugin="redis")
+    async def pub_fn() -> dict:
+        return {}
+
+    @subscriber("c")
+    async def unrouted(payload: dict) -> None: ...
+
+    class C(Controller):
+        path = "/"
+
+        @subscriber("d", plugin="nats")
+        async def stream(self, payload: dict) -> None: ...
+
+    holder = SimpleNamespace(route_handlers=[pub_fn])
+
+    filters = collect_marker_plugin_filters([C, holder, unrouted], [])
+    assert filters == {"redis", "nats"}
+
+
+def test_collect_marker_plugin_filters_dedups_and_skips_http_handlers() -> None:
+    @subscriber("a", plugin="kafka")
+    async def sub_fn(payload: dict) -> None: ...
+
+    @get("/")
+    async def http() -> dict:
+        return {}
+
+    # ``sub_fn`` appears twice, exercising the seen-set.
+    filters = collect_marker_plugin_filters([http, sub_fn], [sub_fn])
+    assert filters == {"kafka"}
+
+
+def test_http_handler_without_fn_is_not_rejected() -> None:
+    from litestar_faststream.discovery import _reject_http_handler_markers
+
+    _reject_http_handler_markers(cast("BaseRouteHandler", SimpleNamespace(fn=None)))

@@ -206,3 +206,106 @@ def test_run_starts_broker_and_returns(monkeypatch) -> None:
     assert result.exit_code == 0
     plugin.broker.start.assert_awaited_once()
     plugin.broker.stop.assert_awaited_once()
+
+
+@pytest.mark.usefixtures("_reset_cli_module_state")
+def test_info_renders_each_selected_plugin(monkeypatch) -> None:
+    from litestar_faststream import info as info_mod
+
+    monkeypatch.setattr(info_mod, "render_plugin_info", lambda p: f"info:{p.name}\n")
+    cli = click.Group("litestar")
+    register_broker_cli(cli, _make_plugin("rabbit"))
+    register_broker_cli(cli, _make_plugin("redis"))
+
+    runner = click.testing.CliRunner()
+    result = runner.invoke(cli, ["faststream", "info"])
+    assert result.exit_code == 0, result.output
+    assert result.output == "info:rabbit\ninfo:redis\n"
+
+    only = runner.invoke(cli, ["faststream", "info", "--broker", "redis"])
+    assert only.output == "info:redis\n"
+
+
+@pytest.mark.usefixtures("_reset_cli_module_state")
+def test_unknown_broker_name_is_a_click_error() -> None:
+    cli = click.Group("litestar")
+    register_broker_cli(cli, _make_plugin("rabbit"))
+
+    runner = click.testing.CliRunner()
+    result = runner.invoke(cli, ["faststream", "info", "--broker", "nope"])
+    assert result.exit_code != 0
+    assert "No BrokerConfig named 'nope'" in result.output
+
+
+@pytest.mark.asyncio()
+@pytest.mark.usefixtures("_reset_cli_module_state")
+async def test_run_loop_applies_logging_config_and_stops_on_signal(
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    import asyncio
+    import os
+    import signal
+
+    from litestar_faststream import cli as cli_mod
+
+    good = _make_plugin("good")
+    good._logging_config = MagicMock()
+    bad = _make_plugin("bad")
+    bad._logging_config = MagicMock()
+    bad._logging_config.configure.side_effect = RuntimeError("bad logging")
+    none = _make_plugin("none")
+    none._logging_config = None
+
+    loop = asyncio.get_running_loop()
+    loop.call_later(0.05, os.kill, os.getpid(), signal.SIGTERM)
+    exit_code = await cli_mod._run_brokers_until_signal([good, bad, none])
+
+    assert exit_code == 0
+    good._logging_config.configure.assert_called_once()
+    assert any("Failed to apply logging_config" in r.message for r in caplog.records)
+    for p in (good, bad, none):
+        p.broker.connect.assert_awaited_once()
+        p.broker.start.assert_awaited_once()
+        p.broker.stop.assert_awaited_once()
+
+
+@pytest.mark.asyncio()
+@pytest.mark.usefixtures("_reset_cli_module_state")
+async def test_run_loop_drain_within_timeout_exits_zero(monkeypatch) -> None:
+    import asyncio
+
+    from litestar_faststream import cli as cli_mod
+
+    async def quick_wait(self) -> None:
+        return None
+
+    monkeypatch.setattr(asyncio.Event, "wait", quick_wait)
+    plugin = _make_plugin("rabbit")
+    plugin._logging_config = None
+
+    assert await cli_mod._run_brokers_until_signal([plugin], timeout=5) == 0
+    plugin.broker.stop.assert_awaited_once()
+
+
+@pytest.mark.asyncio()
+@pytest.mark.usefixtures("_reset_cli_module_state")
+async def test_status_watch_refreshes_until_signal(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    import asyncio
+    import os
+    import signal
+
+    from litestar_faststream import cli as cli_mod
+
+    plugin = _make_plugin("rabbit")
+    asyncio.get_running_loop().call_later(0.15, os.kill, os.getpid(), signal.SIGTERM)
+
+    await cli_mod._status_loop(
+        [plugin], watch=True, interval=0.02, timeout=1.0, as_json=False
+    )
+
+    out = capsys.readouterr().out
+    # click strips the ANSI clear-screen codes when stdout is not a TTY.
+    assert out.count("BROKER") >= 2
+    assert plugin.broker.ping.await_count >= 2

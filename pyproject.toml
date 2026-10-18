@@ -281,7 +281,9 @@ parallel = true
 # absolute-path mismatches. Complements the `[tool.coverage.paths]` remap below
 # (which unifies the src/ vs site-packages layouts). See https://hasansezertasan.github.io/copier-pyproject/context/ci-topology/#a-single-union-coverage-gate-across-the-whole-matrix.
 relative_files = true
-source_pkgs = ["litestar_faststream", "tests"]
+# Gate on `src` only, matching codecov's `paths: [src]`: handler stubs in tests
+# (`async def h(): ...`) are never called and would drag the figure down.
+source_pkgs = ["litestar_faststream"]
 
 
 [tool.coverage.paths]
@@ -307,16 +309,7 @@ exclude_lines = [
   "if __name__ == .__main__.:",
   "if TYPE_CHECKING:",
 ]
-fail_under = 92
-# Ratchet floor, not the template default: the adopted suite measures 92% and
-# the template's 99 would fail every run (audit of a7293bd). Raise toward 99 as
-# error-path/OTel/CLI/publish-only coverage lands, and re-apply this overlay on
-# every `copier update` (the template re-renders 99).
-# Deliberate scope: `tests` stays in the gate denominator (`source_pkgs`
-# above), so this floor is calibrated on the combined scope (CI measures 93%
-# combined vs 88% src-only). Re-scoping the gate to src-only — to match
-# codecov's `paths: [src]` — is the follow-up once src-only coverage reaches
-# this floor; doing it now would turn a green gate red.
+fail_under = 99
 # Patterns match both the `src/` (editable) and installed (`site-packages`)
 # layouts (see [tool.coverage.run] omit).
 omit = ["*/_version.py"]

@@ -99,3 +99,43 @@ async def test_logging_middleware_marks_failure_and_reraises(
 def test_timing_middleware_alias_points_at_logging_middleware() -> None:
     """The convenience alias must stay bound to the real class."""
     assert timing_middleware is LoggingMiddleware
+
+
+@pytest.mark.asyncio()
+async def test_startup_banner_skips_plugins_without_children(
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    app = _fake_app([
+        SimpleNamespace(),
+        _fake_plugin(),
+        _fake_plugin(_fake_child("nats", 2)),
+    ])
+    with caplog.at_level(logging.INFO, logger="litestar_faststream.hooks"):
+        await startup_banner(app)
+    assert [r.message for r in caplog.records] == [
+        "FastStream brokers ready: nats(2 subs)"
+    ]
+
+
+@pytest.mark.asyncio()
+async def test_after_processed_logs_exception(caplog: pytest.LogCaptureFixture) -> None:
+    mw = LoggingMiddleware(None, context=MagicMock())
+    exc = ValueError("bad")
+
+    with caplog.at_level(logging.ERROR, logger="litestar_faststream.hooks"):
+        result = await mw.after_processed(ValueError, exc, None)
+
+    assert result is None
+    [record] = caplog.records
+    assert "consume raised ValueError: bad" in record.message
+    assert record.exc_info is not None
+
+
+@pytest.mark.asyncio()
+async def test_after_processed_without_exception_is_silent(
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    mw = LoggingMiddleware(None, context=MagicMock())
+    with caplog.at_level(logging.ERROR, logger="litestar_faststream.hooks"):
+        assert await mw.after_processed() is None
+    assert caplog.records == []

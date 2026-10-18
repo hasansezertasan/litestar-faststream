@@ -68,3 +68,27 @@ def test_returns_controller_with_three_routes_factory_shape() -> None:
         if member_paths:
             paths.update(member_paths)
     assert paths == {"/asyncapi", "/asyncapi.json", "/asyncapi.yaml"}
+
+
+def test_json_and_yaml_endpoints_serve_schema_duck_typed() -> None:
+    from litestar import Litestar
+    from litestar.testing import TestClient
+
+    ctrl = build_asyncapi_controller(schema=_FakeSchema(), asyncapi_url="/asyncapi")
+    assert ctrl is not None
+    with TestClient(Litestar([ctrl])) as client:
+        assert client.get("/asyncapi.json").json() == {"asyncapi": "3.0.0"}
+        yaml_response = client.get("/asyncapi.yaml")
+    assert yaml_response.text == "asyncapi: 3.0.0\n"
+    assert yaml_response.headers["content-type"].startswith("application/x-yaml")
+
+
+def test_endpoints_resolve_factory_per_request() -> None:
+    from litestar import Litestar
+    from litestar.testing import TestClient
+
+    ctrl = build_asyncapi_controller(schema=_FakeFactory(), asyncapi_url="/spec")
+    assert ctrl is not None
+    with TestClient(Litestar([ctrl])) as client:
+        assert client.get("/spec.json").json() == {"asyncapi": "3.0.0"}
+        assert client.get("/spec.yaml").text == "asyncapi: 3.0.0\n"

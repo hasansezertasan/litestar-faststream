@@ -181,7 +181,9 @@ class OtelMiddleware(BaseMiddleware):
 
 
 @overload
-def monitored(fn: Callable[P, Awaitable[R]]) -> Callable[P, Awaitable[R]]: ...
+def monitored(
+    fn: Callable[P, Awaitable[R]],
+) -> Callable[P, Awaitable[R]]: ...  # pragma: no cover
 
 
 @overload
@@ -191,7 +193,9 @@ def monitored(
     attributes: dict[str, Any] | None = ...,
     record_payload: bool = ...,
     record_payload_max_bytes: int = ...,
-) -> Callable[[Callable[P, Awaitable[R]]], Callable[P, Awaitable[R]]]: ...
+) -> Callable[
+    [Callable[P, Awaitable[R]]], Callable[P, Awaitable[R]]
+]: ...  # pragma: no cover
 
 
 def monitored(

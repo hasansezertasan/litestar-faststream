@@ -224,3 +224,101 @@ def test_publisher_on_http_handler_rejected() -> None:
         ImproperlyConfiguredException, match="cannot decorate an HTTP route handler"
     ):
         Litestar(plugins=[host], route_handlers=[create_order])
+
+
+def test_has_otel_plugin_reflects_app_plugin_lookup(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    import sys
+    from types import SimpleNamespace
+
+    # Stub the optional submodule so the lookup path runs regardless of
+    # whether the otel extra is installed.
+    monkeypatch.setitem(
+        sys.modules,
+        "litestar.plugins.opentelemetry",
+        SimpleNamespace(OpenTelemetryPlugin=object),
+    )
+
+    from litestar_faststream.host import _has_otel_plugin
+
+    found = SimpleNamespace(plugins=SimpleNamespace(get=lambda _cls: object()))
+    missing = SimpleNamespace(plugins=SimpleNamespace(get=lambda _cls: None))
+
+    def _raise(_cls: object) -> None:
+        msg = "lookup failed"
+        raise RuntimeError(msg)
+
+    broken = SimpleNamespace(plugins=SimpleNamespace(get=_raise))
+
+    assert _has_otel_plugin(found) is True
+    assert _has_otel_plugin(missing) is False
+    assert _has_otel_plugin(broken) is False
+
+
+@pytest.mark.parametrize(
+    ("enable_otel", "installed", "app", "expected"),
+    (
+        (False, True, None, False),
+        (None, False, object(), False),
+        (None, True, None, False),
+    ),
+)
+def test_should_enable_otel_short_circuits(
+    monkeypatch: pytest.MonkeyPatch,
+    *,
+    enable_otel: bool | None,
+    installed: bool,
+    app: object,
+    expected: bool,
+) -> None:
+    from litestar_faststream import _otel_typing
+
+    monkeypatch.setattr(_otel_typing, "OPENTELEMETRY_INSTALLED", installed)
+    config = FastStreamConfig(
+        brokers=[BrokerConfig(broker=_fake_broker())], enable_otel=enable_otel
+    )
+
+    assert config.should_enable_otel(app) is expected
+
+
+def test_should_enable_otel_true_requires_opentelemetry(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from litestar_faststream import _otel_typing
+    from litestar_faststream.exceptions import BrokerConfigurationError
+
+    config = FastStreamConfig(
+        brokers=[BrokerConfig(broker=_fake_broker())], enable_otel=True
+    )
+
+    monkeypatch.setattr(_otel_typing, "OPENTELEMETRY_INSTALLED", True)
+    assert config.should_enable_otel() is True
+
+    monkeypatch.setattr(_otel_typing, "OPENTELEMETRY_INSTALLED", False)
+    with pytest.raises(BrokerConfigurationError, match="enable_otel=True"):
+        config.should_enable_otel()
+
+
+def test_register_otel_resolution_is_noop_without_children() -> None:
+    host = FastStreamPlugin(
+        FastStreamConfig(brokers=[BrokerConfig(broker=_fake_broker())])
+    )
+    host._children = []
+
+    host._register_otel_resolution()  # must not raise
+
+
+def test_combined_asyncapi_schema_is_cached() -> None:
+    host = FastStreamPlugin(
+        FastStreamConfig(
+            brokers=[BrokerConfig(broker=_fake_broker())], asyncapi_url="/asyncapi"
+        )
+    )
+    Litestar(plugins=[host])
+    first = host._combined_schema
+
+    host._build_combined_asyncapi()
+
+    assert first is not None
+    assert host._combined_schema is first

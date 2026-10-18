@@ -31,3 +31,13 @@ def test_renders_empty_plugin() -> None:
 
     output = render_plugin_info(plugin)
     assert output == "Broker: empty\n"
+
+
+def test_target_label_prefers_name_attribute() -> None:
+    from types import SimpleNamespace
+
+    from litestar_faststream.info import _target_label
+
+    assert _target_label(SimpleNamespace(name="orders")) == "orders"
+    assert _target_label(SimpleNamespace(name=3)) == "namespace(name=3)"
+    assert _target_label("plain") == "plain"

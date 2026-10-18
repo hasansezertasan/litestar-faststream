@@ -298,10 +298,7 @@ jobs:
         # project. `relative_files` (pyproject) lets cross-runner paths merge.
         run: |
           uv run --locked --only-group test coverage combine
-          # Ratchet floor matching pyproject fail_under (see comment there):
-          # the adopted suite measures 92%; the template renders 99, so
-          # re-apply this overlay on every `copier update`.
-          uv run --locked --only-group test coverage report --show-missing --omit="*/_version.py" --fail-under=92
+          uv run --locked --only-group test coverage report --show-missing --omit="*/_version.py" --fail-under=99
 
   coverage-report:
     name: Combine coverage and publish
