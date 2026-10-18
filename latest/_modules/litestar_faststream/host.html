@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="amber" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>litestar_faststream.host - litestar_faststream</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx_paramlinks.css" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="litestar_faststream.host"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      
+      
+      <strong>litestar_faststream</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="nav-versions">
+    <button type="button" aria-label="Versions">
+      <span class="md:hidden">Versions</span>
+      <span class="hidden md:inline">0.1</span>
+      <i class="i-lucide chevron-down"></i>
+    </button>
+    <div class="nav-versions-choices"><ul><li><a href="/litestar-faststream/latest/">latest</a></li><li><a href="/litestar-faststream/0.1/">0.1</a></li></ul></div>
+  </div><div class="sy-head-socials">
+  <a href="https://github.com/hasansezertasan/litestar-faststream" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../TODO.html">TODO</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Maintainer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../maintaining/setup.html">Repository setup</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">litestar_faststream</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Module code</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">litestar_faststream.host</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <h1>Source code for litestar_faststream.host</h1><div class="highlight"><pre>
+<span></span><span data-line="1"><span class="sd">"""FastStreamPlugin: the sole Litestar plugin for FastStream integration.</span>
+</span><span data-line="2">
+</span><span data-line="3"><span class="sd">Mirrors the ``litestar-saq`` shape: one plugin (``FastStreamPlugin``) consumes</span>
+</span><span data-line="4"><span class="sd">a single config (``FastStreamConfig``) containing N ``BrokerConfig`` entries.</span>
+</span><span data-line="5"><span class="sd">The plugin:</span>
+</span><span data-line="6">
+</span><span data-line="7"><span class="sd">* delegates per-broker lifecycle to each :class:`BrokerConfig` entry</span>
+</span><span data-line="8"><span class="sd">  (discovery, broker binding, lifespan composition, DI registration);</span>
+</span><span data-line="9"><span class="sd">* optionally serves a combined AsyncAPI document built via</span>
+</span><span data-line="10"><span class="sd">  ``AsyncAPI(*all_brokers, ...)`` — FastStream's factory accepts multiple</span>
+</span><span data-line="11"><span class="sd">  brokers natively, so combined output requires no custom merger;</span>
+</span><span data-line="12"><span class="sd">* validates name collisions across hosted broker configs upfront.</span>
+</span><span data-line="13"><span class="sd">"""</span>
+</span><span data-line="14">
+</span><span data-line="15"><span class="c1"># pylint: disable=broad-exception-caught,protected-access,too-many-instance-attributes</span>
+</span><span data-line="16"><span class="c1"># broad-exception-caught: broker connect/start resilience — errors are logged and</span>
+</span><span data-line="17"><span class="c1">#   teardown continues by design. protected-access: the plugin drives its own</span>
+</span><span data-line="18"><span class="c1">#   BrokerConfig composers (`_composer`, `_apply_to_*`) within the package.</span>
+</span><span data-line="19"><span class="c1"># too-many-instance-attributes: FastStreamConfig is a config bag by design.</span>
+</span><span data-line="20">
+</span><span data-line="21"><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+</span><span data-line="22"><span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Awaitable</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Sequence</span>
+</span><span data-line="23"><span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+</span><span data-line="24"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
+</span><span data-line="25">
+</span><span data-line="26"><span class="kn">from</span><span class="w"> </span><span class="nn">faststream.specification.asyncapi.factory</span><span class="w"> </span><span class="kn">import</span> <span class="n">AsyncAPI</span>
+</span><span data-line="27"><span class="kn">from</span><span class="w"> </span><span class="nn">litestar.config.app</span><span class="w"> </span><span class="kn">import</span> <span class="n">AppConfig</span>
+</span><span data-line="28"><span class="kn">from</span><span class="w"> </span><span class="nn">litestar.plugins</span><span class="w"> </span><span class="kn">import</span> <span class="n">CLIPluginProtocol</span><span class="p">,</span> <span class="n">InitPluginProtocol</span>
+</span><span data-line="29">
+</span><span data-line="30"><span class="kn">from</span><span class="w"> </span><span class="nn">litestar_faststream.asyncapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_asyncapi_controller</span>
+</span><span data-line="31"><span class="kn">from</span><span class="w"> </span><span class="nn">litestar_faststream.discovery</span><span class="w"> </span><span class="kn">import</span> <span class="n">collect_marker_plugin_filters</span>
+</span><span data-line="32"><span class="kn">from</span><span class="w"> </span><span class="nn">litestar_faststream.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+</span><span data-line="33">    <span class="n">BrokerConfigurationError</span><span class="p">,</span>
+</span><span data-line="34">    <span class="n">BrokerNotRegisteredError</span><span class="p">,</span>
+</span><span data-line="35">    <span class="n">DuplicateBrokerNameError</span><span class="p">,</span>
+</span><span data-line="36">    <span class="n">MarkerConfigurationError</span><span class="p">,</span>
+</span><span data-line="37"><span class="p">)</span>
+</span><span data-line="38"><span class="kn">from</span><span class="w"> </span><span class="nn">litestar_faststream.plugin</span><span class="w"> </span><span class="kn">import</span> <span class="n">BrokerConfig</span>
+</span><span data-line="39">
+</span><span data-line="40"><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"FastStreamConfig"</span><span class="p">,</span> <span class="s2">"FastStreamPlugin"</span><span class="p">]</span>
+</span><span data-line="41">
+</span><span data-line="42">
+</span><span data-line="43"><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+</span><span data-line="44">
+</span><span data-line="45">
+</span><span data-line="46"><span class="k">def</span><span class="w"> </span><span class="nf">_has_otel_plugin</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span data-line="47"><span class="w">    </span><span class="sd">"""Return True if the Litestar app has ``OpenTelemetryPlugin`` registered.</span>
+</span><span data-line="48">
+</span><span data-line="49"><span class="sd">    Uses Litestar 2.x's typed plugin registry (``app.plugins.get(type)``) so</span>
+</span><span data-line="50"><span class="sd">    subclasses of ``OpenTelemetryPlugin`` also match. The import is wrapped</span>
+</span><span data-line="51"><span class="sd">    in ``try/except ImportError`` because ``litestar-otel`` ships as an</span>
+</span><span data-line="52"><span class="sd">    optional extra; absence of the submodule is "OTel not configured", which</span>
+</span><span data-line="53"><span class="sd">    is the right answer for the auto-detection predicate.</span>
+</span><span data-line="54"><span class="sd">    """</span>
+</span><span data-line="55">    <span class="k">try</span><span class="p">:</span>
+</span><span data-line="56">        <span class="kn">from</span><span class="w"> </span><span class="nn">litestar.plugins.opentelemetry</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenTelemetryPlugin</span>
+</span><span data-line="57">    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+</span><span data-line="58">        <span class="k">return</span> <span class="kc">False</span>
+</span><span data-line="59">    <span class="k">try</span><span class="p">:</span>
+</span><span data-line="60">        <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">OpenTelemetryPlugin</span><span class="p">))</span>
+</span><span data-line="61">    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+</span><span data-line="62">        <span class="k">return</span> <span class="kc">False</span>
+</span><span data-line="63">
+</span><span data-line="64">
+<div class="viewcode-block" id="FastStreamConfig">
+<a class="viewcode-back" href="../../modules.html#litestar_faststream.host.FastStreamConfig">[docs]</a>
+</span><span data-line="65"><span class="nd">@dataclass</span>
+</span><span data-line="66"><span class="k">class</span><span class="w"> </span><span class="nc">FastStreamConfig</span><span class="p">:</span>
+</span><span data-line="67"><span class="w">    </span><span class="sd">"""Top-level configuration for :class:`FastStreamPlugin`.</span>
+</span><span data-line="68">
+</span><span data-line="69"><span class="sd">    Holds the list of :class:`BrokerConfig` entries plus host-level metadata</span>
+</span><span data-line="70"><span class="sd">    used to render the combined AsyncAPI document. Mirrors the</span>
+</span><span data-line="71"><span class="sd">    ``SAQConfig`` / ``SAQPlugin`` split in ``litestar-saq``: the config is a</span>
+</span><span data-line="72"><span class="sd">    pure data carrier; the plugin owns lifecycle.</span>
+</span><span data-line="73"><span class="sd">    """</span>
+</span><span data-line="74">
+</span><span data-line="75">    <span class="n">brokers</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">BrokerConfig</span><span class="p">]</span>
+</span><span data-line="76">    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="77">    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="78">    <span class="n">version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="79">    <span class="n">tags</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">()</span>
+</span><span data-line="80">    <span class="n">asyncapi_url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="81">    <span class="n">asyncapi_include_in_schema</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span data-line="82">    <span class="n">enable_otel</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="83"><span class="w">    </span><span class="sd">"""Auto-inject :class:`OtelMiddleware` into every broker.</span>
+</span><span data-line="84">
+</span><span data-line="85"><span class="sd">    Tri-state, mirroring ``litestar-saq``'s ``SAQConfig.enable_otel``:</span>
+</span><span data-line="86">
+</span><span data-line="87"><span class="sd">    - ``None`` (default): enable if ``opentelemetry`` is importable AND the</span>
+</span><span data-line="88"><span class="sd">      Litestar app has an :class:`OpenTelemetryPlugin` configured.</span>
+</span><span data-line="89"><span class="sd">    - ``True``: enable unconditionally; raise</span>
+</span><span data-line="90"><span class="sd">      :class:`BrokerConfigurationError` at startup if ``opentelemetry``</span>
+</span><span data-line="91"><span class="sd">      is not installed.</span>
+</span><span data-line="92"><span class="sd">    - ``False``: never auto-inject. Users can still add the middleware</span>
+</span><span data-line="93"><span class="sd">      manually for per-broker control.</span>
+</span><span data-line="94"><span class="sd">    """</span>
+</span><span data-line="95">
+<div class="viewcode-block" id="FastStreamConfig.should_enable_otel">
+<a class="viewcode-back" href="../../modules.html#litestar_faststream.host.FastStreamConfig.should_enable_otel">[docs]</a>
+</span><span data-line="96">    <span class="k">def</span><span class="w"> </span><span class="nf">should_enable_otel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app</span><span class="p">:</span> <span class="s2">"Any | None"</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span data-line="97"><span class="w">        </span><span class="sd">"""Resolve :attr:`enable_otel` against the live Litestar app.</span>
+</span><span data-line="98">
+</span><span data-line="99"><span class="sd">        Defers the decision to startup time (when ``app`` is available) so</span>
+</span><span data-line="100"><span class="sd">        that another plugin's late registration of ``OpenTelemetryPlugin``</span>
+</span><span data-line="101"><span class="sd">        is still observed.</span>
+</span><span data-line="102">
+</span><span data-line="103"><span class="sd">        Raises:</span>
+</span><span data-line="104"><span class="sd">            BrokerConfigurationError: If ``enable_otel=True`` is set but the</span>
+</span><span data-line="105"><span class="sd">                ``opentelemetry`` package is not importable.</span>
+</span><span data-line="106"><span class="sd">        """</span>
+</span><span data-line="107">        <span class="kn">from</span><span class="w"> </span><span class="nn">litestar_faststream._otel_typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">OPENTELEMETRY_INSTALLED</span>
+</span><span data-line="108">
+</span><span data-line="109">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">enable_otel</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+</span><span data-line="110">            <span class="k">if</span> <span class="ow">not</span> <span class="n">OPENTELEMETRY_INSTALLED</span><span class="p">:</span>
+</span><span data-line="111">                <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+</span><span data-line="112">                    <span class="s2">"FastStreamConfig.enable_otel=True but ``opentelemetry`` "</span>
+</span><span data-line="113">                    <span class="s2">"is not installed. Install it (or set enable_otel=False)."</span>
+</span><span data-line="114">                <span class="p">)</span>
+</span><span data-line="115">                <span class="k">raise</span> <span class="n">BrokerConfigurationError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</span><span data-line="116">            <span class="k">return</span> <span class="kc">True</span>
+</span><span data-line="117">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">enable_otel</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+</span><span data-line="118">            <span class="k">return</span> <span class="kc">False</span>
+</span><span data-line="119">        <span class="k">if</span> <span class="ow">not</span> <span class="n">OPENTELEMETRY_INSTALLED</span><span class="p">:</span>
+</span><span data-line="120">            <span class="k">return</span> <span class="kc">False</span>
+</span><span data-line="121">        <span class="k">if</span> <span class="n">app</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="122">            <span class="k">return</span> <span class="kc">False</span>
+</span><span data-line="123">        <span class="k">return</span> <span class="n">_has_otel_plugin</span><span class="p">(</span><span class="n">app</span><span class="p">)</span></div>
+</div>
+
+</span><span data-line="124">
+</span><span data-line="125">
+<div class="viewcode-block" id="FastStreamPlugin">
+<a class="viewcode-back" href="../../modules.html#litestar_faststream.host.FastStreamPlugin">[docs]</a>
+</span><span data-line="126"><span class="k">class</span><span class="w"> </span><span class="nc">FastStreamPlugin</span><span class="p">(</span><span class="n">InitPluginProtocol</span><span class="p">,</span> <span class="n">CLIPluginProtocol</span><span class="p">):</span>
+</span><span data-line="127"><span class="w">    </span><span class="sd">"""Litestar plugin hosting one or more FastStream brokers.</span>
+</span><span data-line="128">
+</span><span data-line="129"><span class="sd">    Takes a :class:`FastStreamConfig` whose ``brokers`` is a sequence of</span>
+</span><span data-line="130"><span class="sd">    :class:`BrokerConfig` instances.</span>
+</span><span data-line="131"><span class="sd">    """</span>
+</span><span data-line="132">
+</span><span data-line="133">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">FastStreamConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="134">        <span class="k">if</span> <span class="ow">not</span> <span class="n">config</span><span class="o">.</span><span class="n">brokers</span><span class="p">:</span>
+</span><span data-line="135">            <span class="n">msg</span> <span class="o">=</span> <span class="s2">"FastStreamPlugin requires at least one broker"</span>
+</span><span data-line="136">            <span class="k">raise</span> <span class="n">BrokerConfigurationError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</span><span data-line="137">
+</span><span data-line="138">        <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">brokers</span><span class="p">:</span>
+</span><span data-line="139">            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entry</span><span class="p">,</span> <span class="n">BrokerConfig</span><span class="p">):</span>
+</span><span data-line="140">                <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+</span><span data-line="141">                    <span class="sa">f</span><span class="s2">"FastStreamConfig.brokers entries must be BrokerConfig "</span>
+</span><span data-line="142">                    <span class="sa">f</span><span class="s2">"instances; got </span><span class="si">{</span><span class="n">entry</span><span class="si">!r}</span><span class="s2">"</span>
+</span><span data-line="143">                <span class="p">)</span>
+</span><span data-line="144">                <span class="k">raise</span> <span class="n">BrokerConfigurationError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</span><span data-line="145">
+</span><span data-line="146">        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+</span><span data-line="147">        <span class="bp">self</span><span class="o">.</span><span class="n">_children</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">BrokerConfig</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">brokers</span><span class="p">)</span>
+</span><span data-line="148">        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_children</span><span class="p">()</span>
+</span><span data-line="149">        <span class="bp">self</span><span class="o">.</span><span class="n">_combined_schema</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="150">
+</span><span data-line="151">    <span class="k">def</span><span class="w"> </span><span class="nf">_validate_children</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="152">        <span class="n">seen_names</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">BrokerConfig</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span data-line="153">        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_children</span><span class="p">:</span>
+</span><span data-line="154">            <span class="k">if</span> <span class="n">child</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">seen_names</span><span class="p">:</span>
+</span><span data-line="155">                <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+</span><span data-line="156">                    <span class="sa">f</span><span class="s2">"Duplicate broker name </span><span class="si">{</span><span class="n">child</span><span class="o">.</span><span class="n">name</span><span class="si">!r}</span><span class="s2"> in FastStreamPlugin. "</span>
+</span><span data-line="157">                    <span class="sa">f</span><span class="s2">"Pass a unique name to each BrokerConfig."</span>
+</span><span data-line="158">                <span class="p">)</span>
+</span><span data-line="159">                <span class="k">raise</span> <span class="n">DuplicateBrokerNameError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</span><span data-line="160">            <span class="n">seen_names</span><span class="p">[</span><span class="n">child</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">child</span>
+</span><span data-line="161">
+</span><span data-line="162">    <span class="c1"># ----- hook decorators -----------------------------------------------</span>
+</span><span data-line="163">
+<div class="viewcode-block" id="FastStreamPlugin.after_startup">
+<a class="viewcode-back" href="../../modules.html#litestar_faststream.host.FastStreamPlugin.after_startup">[docs]</a>
+</span><span data-line="164">    <span class="k">def</span><span class="w"> </span><span class="nf">after_startup</span><span class="p">(</span>
+</span><span data-line="165">        <span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+</span><span data-line="166">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">Any</span><span class="p">],</span> <span class="n">Awaitable</span><span class="p">[</span><span class="kc">None</span><span class="p">]]],</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Any</span><span class="p">],</span> <span class="n">Awaitable</span><span class="p">[</span><span class="kc">None</span><span class="p">]]]:</span>
+</span><span data-line="167"><span class="w">        </span><span class="sd">"""Return a decorator that registers an after-startup hook for broker ``name``.</span>
+</span><span data-line="168">
+</span><span data-line="169"><span class="sd">        Two-step shape — the ``name`` selects the child config, the returned</span>
+</span><span data-line="170"><span class="sd">        callable is the actual decorator::</span>
+</span><span data-line="171">
+</span><span data-line="172"><span class="sd">            @plugin.after_startup("kafka")</span>
+</span><span data-line="173"><span class="sd">            async def announce(app) -&gt; None: ...</span>
+</span><span data-line="174"><span class="sd">        """</span>
+</span><span data-line="175">        <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_child</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</span><span data-line="176">        <span class="k">return</span> <span class="n">child</span><span class="o">.</span><span class="n">after_startup</span></div>
+
+</span><span data-line="177">
+<div class="viewcode-block" id="FastStreamPlugin.on_broker_shutdown">
+<a class="viewcode-back" href="../../modules.html#litestar_faststream.host.FastStreamPlugin.on_broker_shutdown">[docs]</a>
+</span><span data-line="178">    <span class="k">def</span><span class="w"> </span><span class="nf">on_broker_shutdown</span><span class="p">(</span>
+</span><span data-line="179">        <span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+</span><span data-line="180">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">Any</span><span class="p">],</span> <span class="n">Awaitable</span><span class="p">[</span><span class="kc">None</span><span class="p">]]],</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Any</span><span class="p">],</span> <span class="n">Awaitable</span><span class="p">[</span><span class="kc">None</span><span class="p">]]]:</span>
+</span><span data-line="181"><span class="w">        </span><span class="sd">"""Return a decorator that registers an on-shutdown hook for broker ``name``.</span>
+</span><span data-line="182">
+</span><span data-line="183"><span class="sd">        Same two-step shape as :meth:`after_startup`.</span>
+</span><span data-line="184"><span class="sd">        """</span>
+</span><span data-line="185">        <span class="n">child</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_child</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</span><span data-line="186">        <span class="k">return</span> <span class="n">child</span><span class="o">.</span><span class="n">on_broker_shutdown</span></div>
+
+</span><span data-line="187">
+</span><span data-line="188">    <span class="k">def</span><span class="w"> </span><span class="nf">_child</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BrokerConfig</span><span class="p">:</span>
+</span><span data-line="189">        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_children</span><span class="p">:</span>
+</span><span data-line="190">            <span class="k">if</span> <span class="n">child</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">name</span><span class="p">:</span>
+</span><span data-line="191">                <span class="k">return</span> <span class="n">child</span>
+</span><span data-line="192">        <span class="n">registered</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_children</span><span class="p">)</span>
+</span><span data-line="193">        <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+</span><span data-line="194">            <span class="sa">f</span><span class="s2">"No broker named </span><span class="si">{</span><span class="n">name</span><span class="si">!r}</span><span class="s2"> registered on FastStreamPlugin; "</span>
+</span><span data-line="195">            <span class="sa">f</span><span class="s2">"registered: </span><span class="si">{</span><span class="n">registered</span><span class="si">}</span><span class="s2">"</span>
+</span><span data-line="196">        <span class="p">)</span>
+</span><span data-line="197">        <span class="k">raise</span> <span class="n">BrokerNotRegisteredError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</span><span data-line="198">
+</span><span data-line="199">    <span class="nd">@property</span>
+</span><span data-line="200">    <span class="k">def</span><span class="w"> </span><span class="nf">brokers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">BrokerConfig</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+</span><span data-line="201"><span class="w">        </span><span class="sd">"""Tuple of internal BrokerConfig children (read-only view)."""</span>
+</span><span data-line="202">        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_children</span><span class="p">)</span>
+</span><span data-line="203">
+</span><span data-line="204">    <span class="c1"># ----- Litestar plugin hooks -----------------------------------------</span>
+</span><span data-line="205">
+<div class="viewcode-block" id="FastStreamPlugin.on_app_init">
+<a class="viewcode-back" href="../../modules.html#litestar_faststream.host.FastStreamPlugin.on_app_init">[docs]</a>
+</span><span data-line="206">    <span class="k">def</span><span class="w"> </span><span class="nf">on_app_init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app_config</span><span class="p">:</span> <span class="n">AppConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AppConfig</span><span class="p">:</span>
+</span><span data-line="207">        <span class="n">app_config</span><span class="o">.</span><span class="n">route_handlers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">app_config</span><span class="o">.</span><span class="n">route_handlers</span> <span class="ow">or</span> <span class="p">[])</span>
+</span><span data-line="208">
+</span><span data-line="209">        <span class="bp">self</span><span class="o">.</span><span class="n">_warn_unknown_plugin_filters</span><span class="p">(</span><span class="n">app_config</span><span class="p">)</span>
+</span><span data-line="210">
+</span><span data-line="211">        <span class="c1"># Fail fast on the True-without-OTel case so users learn at app init</span>
+</span><span data-line="212">        <span class="c1"># rather than at lifespan startup. The auto-detect (None) path is</span>
+</span><span data-line="213">        <span class="c1"># resolved at startup when the live Litestar instance is available.</span>
+</span><span data-line="214">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">enable_otel</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+</span><span data-line="215">            <span class="kn">from</span><span class="w"> </span><span class="nn">litestar_faststream._otel_typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">OPENTELEMETRY_INSTALLED</span>
+</span><span data-line="216">
+</span><span data-line="217">            <span class="k">if</span> <span class="ow">not</span> <span class="n">OPENTELEMETRY_INSTALLED</span><span class="p">:</span>
+</span><span data-line="218">                <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+</span><span data-line="219">                    <span class="s2">"FastStreamConfig.enable_otel=True but ``opentelemetry`` "</span>
+</span><span data-line="220">                    <span class="s2">"is not installed."</span>
+</span><span data-line="221">                <span class="p">)</span>
+</span><span data-line="222">                <span class="k">raise</span> <span class="n">BrokerConfigurationError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</span><span data-line="223">
+</span><span data-line="224">        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_children</span><span class="p">:</span>
+</span><span data-line="225">            <span class="n">app_config</span> <span class="o">=</span> <span class="n">child</span><span class="o">.</span><span class="n">_apply_to_app_config</span><span class="p">(</span><span class="n">app_config</span><span class="p">)</span>
+</span><span data-line="226">
+</span><span data-line="227">        <span class="bp">self</span><span class="o">.</span><span class="n">_register_brokers_dependency</span><span class="p">(</span><span class="n">app_config</span><span class="p">)</span>
+</span><span data-line="228">        <span class="bp">self</span><span class="o">.</span><span class="n">_register_otel_resolution</span><span class="p">()</span>
+</span><span data-line="229">
+</span><span data-line="230">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">asyncapi_url</span><span class="p">:</span>
+</span><span data-line="231">            <span class="n">ctrl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_combined_asyncapi</span><span class="p">()</span>
+</span><span data-line="232">            <span class="k">if</span> <span class="n">ctrl</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="233">                <span class="n">app_config</span><span class="o">.</span><span class="n">route_handlers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ctrl</span><span class="p">)</span>
+</span><span data-line="234">        <span class="k">return</span> <span class="n">app_config</span></div>
+
+</span><span data-line="235">
+</span><span data-line="236">    <span class="k">def</span><span class="w"> </span><span class="nf">_register_otel_resolution</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="237"><span class="w">        </span><span class="sd">"""Resolve and inject ``OtelMiddleware`` at lifespan startup.</span>
+</span><span data-line="238">
+</span><span data-line="239"><span class="sd">        Hooks into the *first* child's ``LifespanComposer`` rather than every</span>
+</span><span data-line="240"><span class="sd">        child, so the per-app resolution runs exactly once even with N</span>
+</span><span data-line="241"><span class="sd">        brokers. The hook receives the live Litestar app, which is the only</span>
+</span><span data-line="242"><span class="sd">        time ``app.plugins.get(OpenTelemetryPlugin)`` returns a meaningful</span>
+</span><span data-line="243"><span class="sd">        answer.</span>
+</span><span data-line="244"><span class="sd">        """</span>
+</span><span data-line="245">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">enable_otel</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+</span><span data-line="246">            <span class="k">return</span>  <span class="c1"># explicit opt-out; nothing to wire</span>
+</span><span data-line="247">        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_children</span><span class="p">:</span>
+</span><span data-line="248">            <span class="k">return</span>
+</span><span data-line="249">        <span class="bp">self</span><span class="o">.</span><span class="n">_children</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">_composer</span><span class="o">.</span><span class="n">add_pre_startup</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_install_otel_if_enabled</span><span class="p">)</span>
+</span><span data-line="250">
+</span><span data-line="251">    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_install_otel_if_enabled</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="252">        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">should_enable_otel</span><span class="p">(</span><span class="n">app</span><span class="p">):</span>
+</span><span data-line="253">            <span class="k">return</span>
+</span><span data-line="254">        <span class="kn">from</span><span class="w"> </span><span class="nn">litestar_faststream.instrumentation</span><span class="w"> </span><span class="kn">import</span> <span class="n">OtelMiddleware</span>
+</span><span data-line="255">
+</span><span data-line="256">        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_children</span><span class="p">:</span>
+</span><span data-line="257">            <span class="n">broker</span> <span class="o">=</span> <span class="n">child</span><span class="o">.</span><span class="n">broker</span>
+</span><span data-line="258">            <span class="n">existing</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">broker</span><span class="p">,</span> <span class="s2">"middlewares"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[])</span>
+</span><span data-line="259">            <span class="c1"># Idempotency: ``middlewares`` may hold middleware classes OR</span>
+</span><span data-line="260">            <span class="c1"># instances. Treat a class match (``is OtelMiddleware``) and an</span>
+</span><span data-line="261">            <span class="c1"># isinstance match (``isinstance(m, OtelMiddleware)``) both as</span>
+</span><span data-line="262">            <span class="c1"># "already installed" so we never double-wrap.</span>
+</span><span data-line="263">            <span class="n">already</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span>
+</span><span data-line="264">                <span class="n">m</span> <span class="ow">is</span> <span class="n">OtelMiddleware</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">OtelMiddleware</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">existing</span>
+</span><span data-line="265">            <span class="p">)</span>
+</span><span data-line="266">            <span class="k">if</span> <span class="n">already</span><span class="p">:</span>
+</span><span data-line="267">                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+</span><span data-line="268">                    <span class="s2">"OtelMiddleware already present on broker </span><span class="si">%r</span><span class="s2">; skipping"</span><span class="p">,</span> <span class="n">child</span><span class="o">.</span><span class="n">name</span>
+</span><span data-line="269">                <span class="p">)</span>
+</span><span data-line="270">                <span class="k">continue</span>
+</span><span data-line="271">            <span class="n">broker</span><span class="o">.</span><span class="n">add_middleware</span><span class="p">(</span><span class="n">OtelMiddleware</span><span class="p">)</span>
+</span><span data-line="272">            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+</span><span data-line="273">                <span class="s2">"Auto-injected OtelMiddleware into broker </span><span class="si">%r</span><span class="s2"> (enable_otel=</span><span class="si">%r</span><span class="s2">)"</span><span class="p">,</span>
+</span><span data-line="274">                <span class="n">child</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+</span><span data-line="275">                <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">enable_otel</span><span class="p">,</span>
+</span><span data-line="276">            <span class="p">)</span>
+</span><span data-line="277">
+</span><span data-line="278">    <span class="k">def</span><span class="w"> </span><span class="nf">_register_brokers_dependency</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app_config</span><span class="p">:</span> <span class="n">AppConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="279"><span class="w">        </span><span class="sd">"""Expose a ``Brokers`` registry under the literal DI key ``"brokers"``.</span>
+</span><span data-line="280">
+</span><span data-line="281"><span class="sd">        Lets handlers that pick a broker at runtime write</span>
+</span><span data-line="282"><span class="sd">        ``brokers.get("rabbit").publish(...)`` instead of declaring N typed</span>
+</span><span data-line="283"><span class="sd">        parameters. The per-broker named dependencies registered by each</span>
+</span><span data-line="284"><span class="sd">        ``BrokerConfig._apply_to_app_config`` are still there -- this is an</span>
+</span><span data-line="285"><span class="sd">        additional access path, not a replacement.</span>
+</span><span data-line="286">
+</span><span data-line="287"><span class="sd">        If a user dependency already owns ``"brokers"``, warn and leave it</span>
+</span><span data-line="288"><span class="sd">        alone; the per-broker DI keys keep working regardless.</span>
+</span><span data-line="289"><span class="sd">        """</span>
+</span><span data-line="290">        <span class="kn">from</span><span class="w"> </span><span class="nn">litestar_faststream.di</span><span class="w"> </span><span class="kn">import</span> <span class="n">Brokers</span><span class="p">,</span> <span class="n">build_brokers_provide</span>
+</span><span data-line="291">
+</span><span data-line="292">        <span class="n">deps</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">app_config</span><span class="o">.</span><span class="n">dependencies</span> <span class="ow">or</span> <span class="p">{})</span>
+</span><span data-line="293">        <span class="k">if</span> <span class="s2">"brokers"</span> <span class="ow">in</span> <span class="n">deps</span><span class="p">:</span>
+</span><span data-line="294">            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+</span><span data-line="295">                <span class="s2">"Litestar dependency 'brokers' already registered; "</span>
+</span><span data-line="296">                <span class="s2">"FastStreamPlugin will not override. Use per-broker "</span>
+</span><span data-line="297">                <span class="s2">"dependencies (one per BrokerConfig name) instead."</span>
+</span><span data-line="298">            <span class="p">)</span>
+</span><span data-line="299">            <span class="k">return</span>
+</span><span data-line="300">        <span class="n">registry</span> <span class="o">=</span> <span class="n">Brokers</span><span class="p">({</span><span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">broker</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_children</span><span class="p">})</span>
+</span><span data-line="301">        <span class="n">deps</span><span class="p">[</span><span class="s2">"brokers"</span><span class="p">]</span> <span class="o">=</span> <span class="n">build_brokers_provide</span><span class="p">(</span><span class="n">registry</span><span class="p">)</span>
+</span><span data-line="302">        <span class="n">app_config</span><span class="o">.</span><span class="n">dependencies</span> <span class="o">=</span> <span class="n">deps</span>
+</span><span data-line="303">
+</span><span data-line="304">        <span class="n">ns</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">app_config</span><span class="o">.</span><span class="n">signature_namespace</span> <span class="ow">or</span> <span class="p">{})</span>
+</span><span data-line="305">        <span class="n">ns</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">"Brokers"</span><span class="p">,</span> <span class="n">Brokers</span><span class="p">)</span>
+</span><span data-line="306">        <span class="n">app_config</span><span class="o">.</span><span class="n">signature_namespace</span> <span class="o">=</span> <span class="n">ns</span>
+</span><span data-line="307">
+<div class="viewcode-block" id="FastStreamPlugin.on_cli_init">
+<a class="viewcode-back" href="../../modules.html#litestar_faststream.host.FastStreamPlugin.on_cli_init">[docs]</a>
+</span><span data-line="308">    <span class="k">def</span><span class="w"> </span><span class="nf">on_cli_init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cli</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="309">        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_children</span><span class="p">:</span>
+</span><span data-line="310">            <span class="n">child</span><span class="o">.</span><span class="n">_apply_to_cli</span><span class="p">(</span><span class="n">cli</span><span class="p">)</span></div>
+
+</span><span data-line="311">
+</span><span data-line="312">    <span class="c1"># ----- unknown-marker warning ----------------------------------------</span>
+</span><span data-line="313">
+</span><span data-line="314">    <span class="k">def</span><span class="w"> </span><span class="nf">_warn_unknown_plugin_filters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app_config</span><span class="p">:</span> <span class="n">AppConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="315"><span class="w">        </span><span class="sd">"""Warn (or raise if any child is strict) on marker names not registered.</span>
+</span><span data-line="316">
+</span><span data-line="317"><span class="sd">        Aggregates ``handlers`` and ``strict`` across all child configs and</span>
+</span><span data-line="318"><span class="sd">        scans route handlers / extra handlers for ``plugin=`` filters that</span>
+</span><span data-line="319"><span class="sd">        reference unknown broker names.</span>
+</span><span data-line="320">
+</span><span data-line="321"><span class="sd">        Raises:</span>
+</span><span data-line="322"><span class="sd">            MarkerConfigurationError: When any child has ``strict=True`` and</span>
+</span><span data-line="323"><span class="sd">                a marker references an unknown broker name.</span>
+</span><span data-line="324"><span class="sd">        """</span>
+</span><span data-line="325">        <span class="n">registered</span> <span class="o">=</span> <span class="p">{</span><span class="n">child</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_children</span><span class="p">}</span>
+</span><span data-line="326">        <span class="n">all_handlers</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span data-line="327">        <span class="n">strict</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span data-line="328">        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_children</span><span class="p">:</span>
+</span><span data-line="329">            <span class="n">all_handlers</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">child</span><span class="o">.</span><span class="n">handlers</span><span class="p">)</span>
+</span><span data-line="330">            <span class="n">strict</span> <span class="o">=</span> <span class="n">strict</span> <span class="ow">or</span> <span class="n">child</span><span class="o">.</span><span class="n">strict</span>
+</span><span data-line="331">        <span class="n">used</span> <span class="o">=</span> <span class="n">collect_marker_plugin_filters</span><span class="p">(</span>
+</span><span data-line="332">            <span class="n">route_handlers</span><span class="o">=</span><span class="n">app_config</span><span class="o">.</span><span class="n">route_handlers</span><span class="p">,</span> <span class="n">extra_handlers</span><span class="o">=</span><span class="n">all_handlers</span>
+</span><span data-line="333">        <span class="p">)</span>
+</span><span data-line="334">        <span class="n">unknown</span> <span class="o">=</span> <span class="n">used</span> <span class="o">-</span> <span class="n">registered</span>
+</span><span data-line="335">        <span class="k">if</span> <span class="ow">not</span> <span class="n">unknown</span><span class="p">:</span>
+</span><span data-line="336">            <span class="k">return</span>
+</span><span data-line="337">        <span class="k">if</span> <span class="n">strict</span><span class="p">:</span>
+</span><span data-line="338">            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+</span><span data-line="339">                <span class="sa">f</span><span class="s2">"FastStream marker(s) reference broker name(s) </span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="n">unknown</span><span class="p">)</span><span class="si">}</span><span class="s2">, "</span>
+</span><span data-line="340">                <span class="sa">f</span><span class="s2">"but no BrokerConfig is registered under those name(s). "</span>
+</span><span data-line="341">                <span class="sa">f</span><span class="s2">"Registered names: </span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="n">registered</span><span class="p">)</span><span class="si">}</span><span class="s2">. "</span>
+</span><span data-line="342">                <span class="sa">f</span><span class="s2">"strict=True on at least one BrokerConfig promotes this to an "</span>
+</span><span data-line="343">                <span class="sa">f</span><span class="s2">"init-time error."</span>
+</span><span data-line="344">            <span class="p">)</span>
+</span><span data-line="345">            <span class="k">raise</span> <span class="n">MarkerConfigurationError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</span><span data-line="346">        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+</span><span data-line="347">            <span class="s2">"FastStream marker(s) reference broker name(s) </span><span class="si">%s</span><span class="s2">, but no "</span>
+</span><span data-line="348">            <span class="s2">"BrokerConfig is registered under those name(s). Registered "</span>
+</span><span data-line="349">            <span class="s2">"names: </span><span class="si">%s</span><span class="s2">. The markers will be silently ignored. "</span>
+</span><span data-line="350">            <span class="s2">"Pass strict=True to BrokerConfig to fail fast on unknown names."</span><span class="p">,</span>
+</span><span data-line="351">            <span class="nb">sorted</span><span class="p">(</span><span class="n">unknown</span><span class="p">),</span>
+</span><span data-line="352">            <span class="nb">sorted</span><span class="p">(</span><span class="n">registered</span><span class="p">),</span>
+</span><span data-line="353">        <span class="p">)</span>
+</span><span data-line="354">
+</span><span data-line="355">    <span class="c1"># ----- combined AsyncAPI ---------------------------------------------</span>
+</span><span data-line="356">
+</span><span data-line="357">    <span class="k">def</span><span class="w"> </span><span class="nf">_build_combined_asyncapi</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+</span><span data-line="358">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_combined_schema</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="359">            <span class="bp">self</span><span class="o">.</span><span class="n">_combined_schema</span> <span class="o">=</span> <span class="n">AsyncAPI</span><span class="p">(</span>
+</span><span data-line="360">                <span class="o">*</span><span class="p">[</span><span class="n">child</span><span class="o">.</span><span class="n">broker</span> <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_children</span><span class="p">],</span>
+</span><span data-line="361">                <span class="n">title</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">title</span> <span class="ow">or</span> <span class="s2">"FastStream"</span><span class="p">,</span>
+</span><span data-line="362">                <span class="n">version</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">version</span> <span class="ow">or</span> <span class="s2">"0.1.0"</span><span class="p">,</span>
+</span><span data-line="363">                <span class="n">description</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
+</span><span data-line="364">                <span class="n">tags</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">tags</span><span class="p">),</span>
+</span><span data-line="365">            <span class="p">)</span>
+</span><span data-line="366">        <span class="k">return</span> <span class="n">build_asyncapi_controller</span><span class="p">(</span>
+</span><span data-line="367">            <span class="n">schema</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_combined_schema</span><span class="p">,</span>
+</span><span data-line="368">            <span class="n">asyncapi_url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">asyncapi_url</span><span class="p">,</span>
+</span><span data-line="369">            <span class="n">include_in_schema</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">asyncapi_include_in_schema</span><span class="p">,</span>
+</span><span data-line="370">        <span class="p">)</span></div>
+
+</span></pre></div>
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2026, Hasan Sezer Taşan</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/hasansezertasan/litestar-faststream" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script src="../../_static/shibuya.js?v=50760d75"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script></body>
+</html>
