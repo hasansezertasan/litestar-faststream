@@ -1,13 +1,15 @@
 import asyncio
+from types import SimpleNamespace
 from typing import Any
 from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 from litestar import Controller, Litestar
+from litestar.di import Provide
 from litestar.exceptions import ImproperlyConfiguredException
 
 from litestar_faststream import FastStreamConfig, FastStreamPlugin
-from litestar_faststream.decorators import subscriber
+from litestar_faststream.decorators import publisher, subscriber
 from litestar_faststream.plugin import BrokerConfig
 
 
@@ -273,4 +275,109 @@ def test_already_bound_scans_all_candidates_when_first_lacks_hint() -> None:
     Litestar(plugins=[_host(plugin)])
 
     # Loop must reach the matching candidate; no re-registration happens.
+    broker.subscriber.assert_not_called()
+
+
+def _plugin_with_subscribers(*subs: Any) -> BrokerConfig:
+    broker = _fake_broker()
+    broker._subscribers = list(subs)
+    return BrokerConfig(broker=broker)
+
+
+def test_already_bound_resolves_fn_via_calls_handler_and_call_attr() -> None:
+    async def handler(payload: dict) -> None: ...
+
+    via_calls = SimpleNamespace(
+        fn=None, calls=[SimpleNamespace(handler=handler)], _extra_args=("q",)
+    )
+    via_call_attr = SimpleNamespace(fn=None, calls=None, _call=handler, args=("q2",))
+
+    assert _plugin_with_subscribers(via_calls)._already_bound(handler, ("q",))
+    assert _plugin_with_subscribers(via_call_attr)._already_bound(handler, ("q2",))
+
+
+def test_already_bound_args_mismatch_is_not_bound() -> None:
+    async def handler(payload: dict) -> None: ...
+
+    sub = SimpleNamespace(fn=handler, _extra_args=("other",))
+
+    assert not _plugin_with_subscribers(sub)._already_bound(handler, ("q",))
+
+
+def test_already_bound_falls_back_to_queue_name() -> None:
+    async def handler(payload: dict) -> None: ...
+
+    named = SimpleNamespace(
+        fn=handler, _extra_args=None, args=None, queue=SimpleNamespace(name="q")
+    )
+    other = SimpleNamespace(fn=handler, _extra_args=None, args=None, queue="x")
+    unnamed = SimpleNamespace(fn=handler, _extra_args=None, args=None, queue=None)
+
+    assert _plugin_with_subscribers(named)._already_bound(handler, ("q",))
+    assert not _plugin_with_subscribers(other)._already_bound(handler, ("q",))
+    assert not _plugin_with_subscribers(unnamed)._already_bound(handler, ("q",))
+    # Multi-element specs carry no single queue name to compare.
+    assert not _plugin_with_subscribers(named)._already_bound(handler, ("q", "r"))
+
+
+def test_existing_dependency_is_not_overridden_and_warns(caplog) -> None:
+    plugin = BrokerConfig(broker=_fake_broker())
+    sentinel = Provide(lambda: "mine", sync_to_thread=False)
+
+    with caplog.at_level("WARNING"):
+        app = Litestar(plugins=[_host(plugin)], dependencies={"rabbit": sentinel})
+
+    assert app.dependencies["rabbit"] is sentinel
+    assert any("already registered" in r.message for r in caplog.records)
+
+
+def test_apply_to_cli_registers_faststream_group() -> None:
+    import click
+
+    plugin = BrokerConfig(broker=_fake_broker())
+    cli = click.Group("litestar")
+
+    plugin._apply_to_cli(cli)
+
+    assert "faststream" in cli.commands
+
+
+def test_controller_publisher_and_subscriber_share_one_binding() -> None:
+    class Both(Controller):
+        path = "/both"
+
+        @subscriber("in-q")
+        @publisher("out-q")
+        async def relay(self, payload: dict) -> dict:
+            return payload
+
+    broker = _fake_broker()
+    plugin = BrokerConfig(broker=broker, handlers=[Both])
+    app = Litestar(plugins=[_host(plugin)])
+
+    asyncio.run(plugin._bind_and_register_controllers(app))
+
+    broker.subscriber.assert_called_with("in-q")
+    broker.publisher.assert_called_with("out-q")
+    assert [q for q, _a, _k in plugin._registered_response_publishers] == [
+        plugin._registered_subscribers[0][0]
+    ]
+
+
+def test_controller_subscriber_already_bound_is_skipped() -> None:
+    class C(Controller):
+        path = "/c"
+
+        @subscriber("in-q")
+        async def consume(self, payload: dict) -> None: ...
+
+    broker = _fake_broker()
+    broker._subscribers = [
+        SimpleNamespace(fn=C.__dict__["consume"], _extra_args=("in-q",))
+    ]
+    plugin = BrokerConfig(broker=broker, handlers=[C])
+    app = Litestar(plugins=[_host(plugin)])
+
+    asyncio.run(plugin._bind_and_register_controllers(app))
+
     broker.subscriber.assert_not_called()

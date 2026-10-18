@@ -98,11 +98,11 @@ class Brokers(Mapping[str, "BrokerUsecase[Any, Any]"]):
         return f"Brokers({sorted(self._items)!r})"
 
     @overload
-    def get(self, name: object) -> "BrokerUsecase[Any, Any]": ...
+    def get(self, name: object) -> "BrokerUsecase[Any, Any]": ...  # pragma: no cover
     @overload
     def get(
         self, name: object, default: "BrokerUsecase[Any, Any] | _T"
-    ) -> "BrokerUsecase[Any, Any] | _T": ...
+    ) -> "BrokerUsecase[Any, Any] | _T": ...  # pragma: no cover
     def get(self, name: object, default: "Any" = _MISSING) -> "Any":
         """Return broker ``name`` or raise :class:`BrokerNotRegisteredError`.
 

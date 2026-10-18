@@ -1,3 +1,8 @@
+from collections.abc import Callable
+from typing import Any
+
+import pytest
+
 from litestar_faststream.decorators import publisher, subscriber
 
 
@@ -49,3 +54,9 @@ def test_publisher_plugin_filter_stored() -> None:
         return {}
 
     assert handler.__faststream_publishers__ == [(("q",), {"plugin": "redis"})]
+
+
+@pytest.mark.parametrize("deco", (subscriber, publisher))
+def test_rejects_non_writable_callable(deco: Callable[..., Any]) -> None:
+    with pytest.raises(TypeError, match="can only decorate writable callables"):
+        deco("queue")(len)
