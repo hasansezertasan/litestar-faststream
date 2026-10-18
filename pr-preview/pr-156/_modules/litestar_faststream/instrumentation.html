@@ -315,145 +315,149 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="181">
 </span><span data-line="182">
 </span><span data-line="183"><span class="nd">@overload</span>
-</span><span data-line="184"><span class="k">def</span><span class="w"> </span><span class="nf">monitored</span><span class="p">(</span><span class="n">fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">R</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">R</span><span class="p">]]:</span> <span class="o">...</span>
-</span><span data-line="185">
-</span><span data-line="186">
-</span><span data-line="187"><span class="nd">@overload</span>
-</span><span data-line="188"><span class="k">def</span><span class="w"> </span><span class="nf">monitored</span><span class="p">(</span>
-</span><span data-line="189">    <span class="o">*</span><span class="p">,</span>
-</span><span data-line="190">    <span class="n">span_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
-</span><span data-line="191">    <span class="n">attributes</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
-</span><span data-line="192">    <span class="n">record_payload</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
-</span><span data-line="193">    <span class="n">record_payload_max_bytes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
-</span><span data-line="194"><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">R</span><span class="p">]]],</span> <span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">R</span><span class="p">]]]:</span> <span class="o">...</span>
-</span><span data-line="195">
-</span><span data-line="196">
+</span><span data-line="184"><span class="k">def</span><span class="w"> </span><span class="nf">monitored</span><span class="p">(</span>
+</span><span data-line="185">    <span class="n">fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">R</span><span class="p">]],</span>
+</span><span data-line="186"><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">R</span><span class="p">]]:</span> <span class="o">...</span>  <span class="c1"># pragma: no cover</span>
+</span><span data-line="187">
+</span><span data-line="188">
+</span><span data-line="189"><span class="nd">@overload</span>
+</span><span data-line="190"><span class="k">def</span><span class="w"> </span><span class="nf">monitored</span><span class="p">(</span>
+</span><span data-line="191">    <span class="o">*</span><span class="p">,</span>
+</span><span data-line="192">    <span class="n">span_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+</span><span data-line="193">    <span class="n">attributes</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+</span><span data-line="194">    <span class="n">record_payload</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+</span><span data-line="195">    <span class="n">record_payload_max_bytes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">...</span><span class="p">,</span>
+</span><span data-line="196"><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[</span>
+</span><span data-line="197">    <span class="p">[</span><span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">R</span><span class="p">]]],</span> <span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">R</span><span class="p">]]</span>
+</span><span data-line="198"><span class="p">]:</span> <span class="o">...</span>  <span class="c1"># pragma: no cover</span>
+</span><span data-line="199">
+</span><span data-line="200">
 <div class="viewcode-block" id="monitored">
 <a class="viewcode-back" href="../../modules.html#litestar_faststream.instrumentation.monitored">[docs]</a>
-</span><span data-line="197"><span class="k">def</span><span class="w"> </span><span class="nf">monitored</span><span class="p">(</span>
-</span><span data-line="198">    <span class="n">fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">R</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="199">    <span class="o">*</span><span class="p">,</span>
-</span><span data-line="200">    <span class="n">span_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="201">    <span class="n">attributes</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="202">    <span class="n">record_payload</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-</span><span data-line="203">    <span class="n">record_payload_max_bytes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">_DEFAULT_PAYLOAD_TRUNCATION</span><span class="p">,</span>
-</span><span data-line="204"><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span>
-</span><span data-line="205">    <span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">R</span><span class="p">]]</span>
-</span><span data-line="206">    <span class="o">|</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">R</span><span class="p">]]],</span> <span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">R</span><span class="p">]]]</span>
-</span><span data-line="207"><span class="p">):</span>
-</span><span data-line="208"><span class="w">    </span><span class="sd">"""Opt-in per-handler instrumentation: OTel span + structured log + timing.</span>
-</span><span data-line="209">
-</span><span data-line="210"><span class="sd">    Complements broker-wide :class:`OtelMiddleware` / ``LoggingMiddleware`` --</span>
-</span><span data-line="211"><span class="sd">    use this decorator on individual subscribers when you only want</span>
-</span><span data-line="212"><span class="sd">    instrumentation for a subset of handlers, or want to attach</span>
-</span><span data-line="213"><span class="sd">    handler-specific attributes that don't belong on every consume.</span>
-</span><span data-line="214">
-</span><span data-line="215"><span class="sd">    Args:</span>
-</span><span data-line="216"><span class="sd">        fn: The handler function (only populated for the bare ``@monitored``</span>
-</span><span data-line="217"><span class="sd">            form; ``None`` when used as ``@monitored(...)``).</span>
-</span><span data-line="218"><span class="sd">        span_name: Span name. Defaults to the wrapped function's ``__qualname__``.</span>
-</span><span data-line="219"><span class="sd">        attributes: Extra OTel attributes recorded on the span and emitted in</span>
-</span><span data-line="220"><span class="sd">            the structured log line's ``extra=``. Use this for handler-scoped</span>
-</span><span data-line="221"><span class="sd">            tags ("tier": "critical", "team": "billing").</span>
-</span><span data-line="222"><span class="sd">        record_payload: If True, attach ``str(msg)[:record_payload_max_bytes]``</span>
-</span><span data-line="223"><span class="sd">            as the ``messaging.message.body.preview`` span attribute. Off by</span>
-</span><span data-line="224"><span class="sd">            default -- payloads frequently contain PII; opt in explicitly per</span>
-</span><span data-line="225"><span class="sd">            handler.</span>
-</span><span data-line="226"><span class="sd">        record_payload_max_bytes: Truncation cap for the recorded payload.</span>
-</span><span data-line="227"><span class="sd">            Defaults to 1024 bytes (OTel messaging guidance).</span>
-</span><span data-line="228">
-</span><span data-line="229"><span class="sd">    Returns:</span>
-</span><span data-line="230"><span class="sd">        A wrapped coroutine function with the same signature as the original.</span>
-</span><span data-line="231">
-</span><span data-line="232"><span class="sd">    Example::</span>
-</span><span data-line="233">
-</span><span data-line="234"><span class="sd">        @broker.subscriber("orders")</span>
-</span><span data-line="235"><span class="sd">        @monitored(</span>
-</span><span data-line="236"><span class="sd">            span_name="process_order",</span>
-</span><span data-line="237"><span class="sd">            attributes={"tier": "critical"},</span>
-</span><span data-line="238"><span class="sd">            record_payload=True,</span>
-</span><span data-line="239"><span class="sd">        )</span>
-</span><span data-line="240"><span class="sd">        async def handle_order(msg: Order) -&gt; None: ...</span>
-</span><span data-line="241">
-</span><span data-line="242"><span class="sd">    Notes:</span>
-</span><span data-line="243"><span class="sd">        * Span kind is INTERNAL: it's expected to nest under the CONSUMER</span>
-</span><span data-line="244"><span class="sd">          span created by :class:`OtelMiddleware`. If middleware is absent the</span>
-</span><span data-line="245"><span class="sd">          INTERNAL span is the root -- still emitted but less semantically</span>
-</span><span data-line="246"><span class="sd">          rich than middleware + decorator together.</span>
-</span><span data-line="247"><span class="sd">        * When ``opentelemetry`` is not installed the span work is a no-op</span>
-</span><span data-line="248"><span class="sd">          (via :data:`_otel_typing.OPENTELEMETRY_INSTALLED`); the timing log</span>
-</span><span data-line="249"><span class="sd">          line is always emitted.</span>
-</span><span data-line="250"><span class="sd">    """</span>
-</span><span data-line="251">
-</span><span data-line="252">    <span class="k">def</span><span class="w"> </span><span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">R</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">R</span><span class="p">]]:</span>
-</span><span data-line="253">        <span class="n">resolved_name</span> <span class="o">=</span> <span class="n">span_name</span> <span class="ow">or</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="s2">"__qualname__"</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">func</span><span class="p">))</span>
-</span><span data-line="254">        <span class="n">attrs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">attributes</span> <span class="ow">or</span> <span class="p">{})</span>
+</span><span data-line="201"><span class="k">def</span><span class="w"> </span><span class="nf">monitored</span><span class="p">(</span>
+</span><span data-line="202">    <span class="n">fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">R</span><span class="p">]]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="203">    <span class="o">*</span><span class="p">,</span>
+</span><span data-line="204">    <span class="n">span_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="205">    <span class="n">attributes</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="206">    <span class="n">record_payload</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+</span><span data-line="207">    <span class="n">record_payload_max_bytes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">_DEFAULT_PAYLOAD_TRUNCATION</span><span class="p">,</span>
+</span><span data-line="208"><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span>
+</span><span data-line="209">    <span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">R</span><span class="p">]]</span>
+</span><span data-line="210">    <span class="o">|</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">R</span><span class="p">]]],</span> <span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">R</span><span class="p">]]]</span>
+</span><span data-line="211"><span class="p">):</span>
+</span><span data-line="212"><span class="w">    </span><span class="sd">"""Opt-in per-handler instrumentation: OTel span + structured log + timing.</span>
+</span><span data-line="213">
+</span><span data-line="214"><span class="sd">    Complements broker-wide :class:`OtelMiddleware` / ``LoggingMiddleware`` --</span>
+</span><span data-line="215"><span class="sd">    use this decorator on individual subscribers when you only want</span>
+</span><span data-line="216"><span class="sd">    instrumentation for a subset of handlers, or want to attach</span>
+</span><span data-line="217"><span class="sd">    handler-specific attributes that don't belong on every consume.</span>
+</span><span data-line="218">
+</span><span data-line="219"><span class="sd">    Args:</span>
+</span><span data-line="220"><span class="sd">        fn: The handler function (only populated for the bare ``@monitored``</span>
+</span><span data-line="221"><span class="sd">            form; ``None`` when used as ``@monitored(...)``).</span>
+</span><span data-line="222"><span class="sd">        span_name: Span name. Defaults to the wrapped function's ``__qualname__``.</span>
+</span><span data-line="223"><span class="sd">        attributes: Extra OTel attributes recorded on the span and emitted in</span>
+</span><span data-line="224"><span class="sd">            the structured log line's ``extra=``. Use this for handler-scoped</span>
+</span><span data-line="225"><span class="sd">            tags ("tier": "critical", "team": "billing").</span>
+</span><span data-line="226"><span class="sd">        record_payload: If True, attach ``str(msg)[:record_payload_max_bytes]``</span>
+</span><span data-line="227"><span class="sd">            as the ``messaging.message.body.preview`` span attribute. Off by</span>
+</span><span data-line="228"><span class="sd">            default -- payloads frequently contain PII; opt in explicitly per</span>
+</span><span data-line="229"><span class="sd">            handler.</span>
+</span><span data-line="230"><span class="sd">        record_payload_max_bytes: Truncation cap for the recorded payload.</span>
+</span><span data-line="231"><span class="sd">            Defaults to 1024 bytes (OTel messaging guidance).</span>
+</span><span data-line="232">
+</span><span data-line="233"><span class="sd">    Returns:</span>
+</span><span data-line="234"><span class="sd">        A wrapped coroutine function with the same signature as the original.</span>
+</span><span data-line="235">
+</span><span data-line="236"><span class="sd">    Example::</span>
+</span><span data-line="237">
+</span><span data-line="238"><span class="sd">        @broker.subscriber("orders")</span>
+</span><span data-line="239"><span class="sd">        @monitored(</span>
+</span><span data-line="240"><span class="sd">            span_name="process_order",</span>
+</span><span data-line="241"><span class="sd">            attributes={"tier": "critical"},</span>
+</span><span data-line="242"><span class="sd">            record_payload=True,</span>
+</span><span data-line="243"><span class="sd">        )</span>
+</span><span data-line="244"><span class="sd">        async def handle_order(msg: Order) -&gt; None: ...</span>
+</span><span data-line="245">
+</span><span data-line="246"><span class="sd">    Notes:</span>
+</span><span data-line="247"><span class="sd">        * Span kind is INTERNAL: it's expected to nest under the CONSUMER</span>
+</span><span data-line="248"><span class="sd">          span created by :class:`OtelMiddleware`. If middleware is absent the</span>
+</span><span data-line="249"><span class="sd">          INTERNAL span is the root -- still emitted but less semantically</span>
+</span><span data-line="250"><span class="sd">          rich than middleware + decorator together.</span>
+</span><span data-line="251"><span class="sd">        * When ``opentelemetry`` is not installed the span work is a no-op</span>
+</span><span data-line="252"><span class="sd">          (via :data:`_otel_typing.OPENTELEMETRY_INSTALLED`); the timing log</span>
+</span><span data-line="253"><span class="sd">          line is always emitted.</span>
+</span><span data-line="254"><span class="sd">    """</span>
 </span><span data-line="255">
-</span><span data-line="256">        <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
-</span><span data-line="257">        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">P</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">P</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">R</span><span class="p">:</span>
-</span><span data-line="258">            <span class="n">tracer</span> <span class="o">=</span> <span class="n">get_tracer</span><span class="p">()</span>
-</span><span data-line="259">            <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">monotonic</span><span class="p">()</span>
-</span><span data-line="260">            <span class="n">ok</span> <span class="o">=</span> <span class="kc">True</span>
-</span><span data-line="261">            <span class="c1"># First positional arg is conventionally the message; SAFE to be</span>
-</span><span data-line="262">            <span class="c1"># absent (e.g. handler signatures with no args), in which case we</span>
-</span><span data-line="263">            <span class="c1"># skip payload recording entirely.</span>
-</span><span data-line="264">            <span class="n">msg</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">args</span> <span class="k">else</span> <span class="kc">None</span>
-</span><span data-line="265">
-</span><span data-line="266">            <span class="k">with</span> <span class="n">tracer</span><span class="o">.</span><span class="n">start_as_current_span</span><span class="p">(</span>
-</span><span data-line="267">                <span class="n">resolved_name</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="n">SpanKind</span><span class="o">.</span><span class="n">INTERNAL</span>
-</span><span data-line="268">            <span class="p">)</span> <span class="k">as</span> <span class="n">span</span><span class="p">:</span>
-</span><span data-line="269">                <span class="k">if</span> <span class="n">OPENTELEMETRY_INSTALLED</span><span class="p">:</span>
-</span><span data-line="270">                    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">attrs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-</span><span data-line="271">                        <span class="n">span</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
-</span><span data-line="272">                    <span class="k">if</span> <span class="n">record_payload</span> <span class="ow">and</span> <span class="n">msg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-</span><span data-line="273">                        <span class="n">_record_payload</span><span class="p">(</span><span class="n">span</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">record_payload_max_bytes</span><span class="p">)</span>
-</span><span data-line="274">                <span class="k">try</span><span class="p">:</span>
-</span><span data-line="275">                    <span class="k">return</span> <span class="k">await</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</span><span data-line="276">                <span class="k">except</span> <span class="ne">BaseException</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-</span><span data-line="277">                    <span class="n">ok</span> <span class="o">=</span> <span class="kc">False</span>
-</span><span data-line="278">                    <span class="k">if</span> <span class="n">OPENTELEMETRY_INSTALLED</span><span class="p">:</span>
-</span><span data-line="279">                        <span class="n">span</span><span class="o">.</span><span class="n">record_exception</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span>
-</span><span data-line="280">                        <span class="n">span</span><span class="o">.</span><span class="n">set_status</span><span class="p">(</span><span class="n">Status</span><span class="p">(</span><span class="n">StatusCode</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">exc</span><span class="p">)))</span>
-</span><span data-line="281">                    <span class="k">raise</span>
-</span><span data-line="282">                <span class="k">finally</span><span class="p">:</span>
-</span><span data-line="283">                    <span class="n">elapsed_ms</span> <span class="o">=</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">monotonic</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1000.0</span>
-</span><span data-line="284">                    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-</span><span data-line="285">                        <span class="s2">"handler </span><span class="si">%s</span><span class="s2"> ok=</span><span class="si">%s</span><span class="s2"> in </span><span class="si">%.2f</span><span class="s2">ms"</span><span class="p">,</span>
-</span><span data-line="286">                        <span class="n">resolved_name</span><span class="p">,</span>
-</span><span data-line="287">                        <span class="n">ok</span><span class="p">,</span>
-</span><span data-line="288">                        <span class="n">elapsed_ms</span><span class="p">,</span>
-</span><span data-line="289">                        <span class="n">extra</span><span class="o">=</span><span class="p">{</span>
-</span><span data-line="290">                            <span class="s2">"handler"</span><span class="p">:</span> <span class="n">resolved_name</span><span class="p">,</span>
-</span><span data-line="291">                            <span class="s2">"duration_ms"</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">elapsed_ms</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
-</span><span data-line="292">                            <span class="s2">"ok"</span><span class="p">:</span> <span class="n">ok</span><span class="p">,</span>
-</span><span data-line="293">                            <span class="o">**</span><span class="n">attrs</span><span class="p">,</span>
-</span><span data-line="294">                        <span class="p">},</span>
-</span><span data-line="295">                    <span class="p">)</span>
-</span><span data-line="296">
-</span><span data-line="297">        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="s2">"Callable[P, Awaitable[R]]"</span><span class="p">,</span> <span class="n">wrapper</span><span class="p">)</span>
-</span><span data-line="298">
-</span><span data-line="299">    <span class="k">if</span> <span class="n">fn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-</span><span data-line="300">        <span class="c1"># Bare ``@monitored`` (no parens) -- ``fn`` is the handler itself.</span>
-</span><span data-line="301">        <span class="k">return</span> <span class="n">decorator</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
-</span><span data-line="302">    <span class="k">return</span> <span class="n">decorator</span></div>
+</span><span data-line="256">    <span class="k">def</span><span class="w"> </span><span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">R</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">R</span><span class="p">]]:</span>
+</span><span data-line="257">        <span class="n">resolved_name</span> <span class="o">=</span> <span class="n">span_name</span> <span class="ow">or</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="s2">"__qualname__"</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">func</span><span class="p">))</span>
+</span><span data-line="258">        <span class="n">attrs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">attributes</span> <span class="ow">or</span> <span class="p">{})</span>
+</span><span data-line="259">
+</span><span data-line="260">        <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+</span><span data-line="261">        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">P</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">P</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">R</span><span class="p">:</span>
+</span><span data-line="262">            <span class="n">tracer</span> <span class="o">=</span> <span class="n">get_tracer</span><span class="p">()</span>
+</span><span data-line="263">            <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">monotonic</span><span class="p">()</span>
+</span><span data-line="264">            <span class="n">ok</span> <span class="o">=</span> <span class="kc">True</span>
+</span><span data-line="265">            <span class="c1"># First positional arg is conventionally the message; SAFE to be</span>
+</span><span data-line="266">            <span class="c1"># absent (e.g. handler signatures with no args), in which case we</span>
+</span><span data-line="267">            <span class="c1"># skip payload recording entirely.</span>
+</span><span data-line="268">            <span class="n">msg</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">args</span> <span class="k">else</span> <span class="kc">None</span>
+</span><span data-line="269">
+</span><span data-line="270">            <span class="k">with</span> <span class="n">tracer</span><span class="o">.</span><span class="n">start_as_current_span</span><span class="p">(</span>
+</span><span data-line="271">                <span class="n">resolved_name</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="n">SpanKind</span><span class="o">.</span><span class="n">INTERNAL</span>
+</span><span data-line="272">            <span class="p">)</span> <span class="k">as</span> <span class="n">span</span><span class="p">:</span>
+</span><span data-line="273">                <span class="k">if</span> <span class="n">OPENTELEMETRY_INSTALLED</span><span class="p">:</span>
+</span><span data-line="274">                    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">attrs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span><span data-line="275">                        <span class="n">span</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+</span><span data-line="276">                    <span class="k">if</span> <span class="n">record_payload</span> <span class="ow">and</span> <span class="n">msg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="277">                        <span class="n">_record_payload</span><span class="p">(</span><span class="n">span</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">record_payload_max_bytes</span><span class="p">)</span>
+</span><span data-line="278">                <span class="k">try</span><span class="p">:</span>
+</span><span data-line="279">                    <span class="k">return</span> <span class="k">await</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span data-line="280">                <span class="k">except</span> <span class="ne">BaseException</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+</span><span data-line="281">                    <span class="n">ok</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span data-line="282">                    <span class="k">if</span> <span class="n">OPENTELEMETRY_INSTALLED</span><span class="p">:</span>
+</span><span data-line="283">                        <span class="n">span</span><span class="o">.</span><span class="n">record_exception</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span>
+</span><span data-line="284">                        <span class="n">span</span><span class="o">.</span><span class="n">set_status</span><span class="p">(</span><span class="n">Status</span><span class="p">(</span><span class="n">StatusCode</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">exc</span><span class="p">)))</span>
+</span><span data-line="285">                    <span class="k">raise</span>
+</span><span data-line="286">                <span class="k">finally</span><span class="p">:</span>
+</span><span data-line="287">                    <span class="n">elapsed_ms</span> <span class="o">=</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">monotonic</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1000.0</span>
+</span><span data-line="288">                    <span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+</span><span data-line="289">                        <span class="s2">"handler </span><span class="si">%s</span><span class="s2"> ok=</span><span class="si">%s</span><span class="s2"> in </span><span class="si">%.2f</span><span class="s2">ms"</span><span class="p">,</span>
+</span><span data-line="290">                        <span class="n">resolved_name</span><span class="p">,</span>
+</span><span data-line="291">                        <span class="n">ok</span><span class="p">,</span>
+</span><span data-line="292">                        <span class="n">elapsed_ms</span><span class="p">,</span>
+</span><span data-line="293">                        <span class="n">extra</span><span class="o">=</span><span class="p">{</span>
+</span><span data-line="294">                            <span class="s2">"handler"</span><span class="p">:</span> <span class="n">resolved_name</span><span class="p">,</span>
+</span><span data-line="295">                            <span class="s2">"duration_ms"</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">elapsed_ms</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+</span><span data-line="296">                            <span class="s2">"ok"</span><span class="p">:</span> <span class="n">ok</span><span class="p">,</span>
+</span><span data-line="297">                            <span class="o">**</span><span class="n">attrs</span><span class="p">,</span>
+</span><span data-line="298">                        <span class="p">},</span>
+</span><span data-line="299">                    <span class="p">)</span>
+</span><span data-line="300">
+</span><span data-line="301">        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="s2">"Callable[P, Awaitable[R]]"</span><span class="p">,</span> <span class="n">wrapper</span><span class="p">)</span>
+</span><span data-line="302">
+</span><span data-line="303">    <span class="k">if</span> <span class="n">fn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="304">        <span class="c1"># Bare ``@monitored`` (no parens) -- ``fn`` is the handler itself.</span>
+</span><span data-line="305">        <span class="k">return</span> <span class="n">decorator</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+</span><span data-line="306">    <span class="k">return</span> <span class="n">decorator</span></div>
 
-</span><span data-line="303">
-</span><span data-line="304">
-</span><span data-line="305"><span class="k">def</span><span class="w"> </span><span class="nf">_record_payload</span><span class="p">(</span><span class="n">span</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">max_bytes</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span data-line="306"><span class="w">    </span><span class="sd">"""Attach a truncated string preview of the message body to the span.</span>
 </span><span data-line="307">
-</span><span data-line="308"><span class="sd">    Defensive: ``str(msg)`` can raise on weird objects; never fail the handler</span>
-</span><span data-line="309"><span class="sd">    because we couldn't snapshot the payload. The truncation cap is in *str</span>
-</span><span data-line="310"><span class="sd">    length* (not bytes); for OTel attributes this is close enough given</span>
-</span><span data-line="311"><span class="sd">    most payloads are ASCII-ish JSON.</span>
-</span><span data-line="312"><span class="sd">    """</span>
-</span><span data-line="313">    <span class="k">try</span><span class="p">:</span>
-</span><span data-line="314">        <span class="n">preview</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-</span><span data-line="315">    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-</span><span data-line="316">        <span class="k">return</span>
-</span><span data-line="317">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">preview</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">max_bytes</span><span class="p">:</span>
-</span><span data-line="318">        <span class="n">preview</span> <span class="o">=</span> <span class="n">preview</span><span class="p">[:</span><span class="n">max_bytes</span><span class="p">]</span> <span class="o">+</span> <span class="s2">"…"</span>
-</span><span data-line="319">    <span class="n">span</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s2">"messaging.message.body.preview"</span><span class="p">,</span> <span class="n">preview</span><span class="p">)</span>
+</span><span data-line="308">
+</span><span data-line="309"><span class="k">def</span><span class="w"> </span><span class="nf">_record_payload</span><span class="p">(</span><span class="n">span</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">max_bytes</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="310"><span class="w">    </span><span class="sd">"""Attach a truncated string preview of the message body to the span.</span>
+</span><span data-line="311">
+</span><span data-line="312"><span class="sd">    Defensive: ``str(msg)`` can raise on weird objects; never fail the handler</span>
+</span><span data-line="313"><span class="sd">    because we couldn't snapshot the payload. The truncation cap is in *str</span>
+</span><span data-line="314"><span class="sd">    length* (not bytes); for OTel attributes this is close enough given</span>
+</span><span data-line="315"><span class="sd">    most payloads are ASCII-ish JSON.</span>
+</span><span data-line="316"><span class="sd">    """</span>
+</span><span data-line="317">    <span class="k">try</span><span class="p">:</span>
+</span><span data-line="318">        <span class="n">preview</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</span><span data-line="319">    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+</span><span data-line="320">        <span class="k">return</span>
+</span><span data-line="321">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">preview</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">max_bytes</span><span class="p">:</span>
+</span><span data-line="322">        <span class="n">preview</span> <span class="o">=</span> <span class="n">preview</span><span class="p">[:</span><span class="n">max_bytes</span><span class="p">]</span> <span class="o">+</span> <span class="s2">"…"</span>
+</span><span data-line="323">    <span class="n">span</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s2">"messaging.message.body.preview"</span><span class="p">,</span> <span class="n">preview</span><span class="p">)</span>
 </span></pre></div>
         </article><button class="back-to-top" type="button">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
