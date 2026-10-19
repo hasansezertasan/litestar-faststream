@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="amber" data-content_root="./">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Modules - litestar_faststream</title><link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="TODO" href="TODO.html" /><link rel="prev" title="Usage" href="usage.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="_static/shibuya.css?v=2ceb65ce" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx_paramlinks.css" />
+    <link media="print" rel="stylesheet" type="text/css" href="_static/print.css?v=20ff2c19" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="Modules"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="index.html">
+      
+      
+      <strong>litestar_faststream</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/hasansezertasan/litestar-faststream" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="TODO.html">TODO</a></li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Maintainer guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="maintaining/setup.html">Repository setup</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#plugin-litestar-faststream-plugin">Plugin (<code class="docutils literal notranslate"><span class="pre">litestar_faststream.plugin</span></code>)</a><ul>
+<li><a class="reference internal" href="#litestar_faststream.plugin.BrokerConfig"><code class="docutils literal notranslate"><span class="pre">BrokerConfig</span></code></a></li>
+<li><a class="reference internal" href="#litestar_faststream.host.FastStreamConfig"><code class="docutils literal notranslate"><span class="pre">FastStreamConfig</span></code></a><ul>
+<li><a class="reference internal" href="#litestar_faststream.host.FastStreamConfig.enable_otel"><code class="docutils literal notranslate"><span class="pre">FastStreamConfig.enable_otel</span></code></a></li>
+<li><a class="reference internal" href="#litestar_faststream.host.FastStreamConfig.should_enable_otel"><code class="docutils literal notranslate"><span class="pre">FastStreamConfig.should_enable_otel()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#litestar_faststream.host.FastStreamPlugin"><code class="docutils literal notranslate"><span class="pre">FastStreamPlugin</span></code></a><ul>
+<li><a class="reference internal" href="#litestar_faststream.host.FastStreamPlugin.after_startup"><code class="docutils literal notranslate"><span class="pre">FastStreamPlugin.after_startup()</span></code></a></li>
+<li><a class="reference internal" href="#litestar_faststream.host.FastStreamPlugin.on_broker_shutdown"><code class="docutils literal notranslate"><span class="pre">FastStreamPlugin.on_broker_shutdown()</span></code></a></li>
+<li><a class="reference internal" href="#litestar_faststream.host.FastStreamPlugin.brokers"><code class="docutils literal notranslate"><span class="pre">FastStreamPlugin.brokers</span></code></a></li>
+<li><a class="reference internal" href="#litestar_faststream.host.FastStreamPlugin.on_app_init"><code class="docutils literal notranslate"><span class="pre">FastStreamPlugin.on_app_init()</span></code></a></li>
+<li><a class="reference internal" href="#litestar_faststream.host.FastStreamPlugin.on_cli_init"><code class="docutils literal notranslate"><span class="pre">FastStreamPlugin.on_cli_init()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#litestar_faststream.lifespan.run_broker_lifecycle_startup"><code class="docutils literal notranslate"><span class="pre">run_broker_lifecycle_startup()</span></code></a></li>
+<li><a class="reference internal" href="#litestar_faststream.hooks.LoggingMiddleware"><code class="docutils literal notranslate"><span class="pre">LoggingMiddleware</span></code></a><ul>
+<li><a class="reference internal" href="#litestar_faststream.hooks.LoggingMiddleware.consume_scope"><code class="docutils literal notranslate"><span class="pre">LoggingMiddleware.consume_scope()</span></code></a></li>
+<li><a class="reference internal" href="#litestar_faststream.hooks.LoggingMiddleware.after_processed"><code class="docutils literal notranslate"><span class="pre">LoggingMiddleware.after_processed()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#litestar_faststream.hooks.shutdown_banner"><code class="docutils literal notranslate"><span class="pre">shutdown_banner()</span></code></a></li>
+<li><a class="reference internal" href="#litestar_faststream.hooks.startup_banner"><code class="docutils literal notranslate"><span class="pre">startup_banner()</span></code></a></li>
+<li><a class="reference internal" href="#litestar_faststream.hooks.timing_middleware"><code class="docutils literal notranslate"><span class="pre">timing_middleware</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#handlers-litestar-faststream-decorators">Handlers (<code class="docutils literal notranslate"><span class="pre">litestar_faststream.decorators</span></code>)</a><ul>
+<li><a class="reference internal" href="#litestar_faststream.discovery.DiscoveryResult"><code class="docutils literal notranslate"><span class="pre">DiscoveryResult</span></code></a></li>
+<li><a class="reference internal" href="#litestar_faststream.discovery.collect_marker_plugin_filters"><code class="docutils literal notranslate"><span class="pre">collect_marker_plugin_filters()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#dependency-injection-litestar-faststream-di">Dependency injection (<code class="docutils literal notranslate"><span class="pre">litestar_faststream.di</span></code>)</a><ul>
+<li><a class="reference internal" href="#litestar_faststream.di.Brokers"><code class="docutils literal notranslate"><span class="pre">Brokers</span></code></a><ul>
+<li><a class="reference internal" href="#litestar_faststream.di.Brokers.get"><code class="docutils literal notranslate"><span class="pre">Brokers.get()</span></code></a></li>
+<li><a class="reference internal" href="#litestar_faststream.di.Brokers.names"><code class="docutils literal notranslate"><span class="pre">Brokers.names()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#asyncapi-litestar-faststream-asyncapi">AsyncAPI (<code class="docutils literal notranslate"><span class="pre">litestar_faststream.asyncapi</span></code>)</a><ul>
+<li><a class="reference internal" href="#litestar_faststream.asyncapi.build_asyncapi_controller"><code class="docutils literal notranslate"><span class="pre">build_asyncapi_controller()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#observability-litestar-faststream-instrumentation">Observability (<code class="docutils literal notranslate"><span class="pre">litestar_faststream.instrumentation</span></code>)</a><ul>
+<li><a class="reference internal" href="#litestar_faststream.instrumentation.OtelMiddleware"><code class="docutils literal notranslate"><span class="pre">OtelMiddleware</span></code></a><ul>
+<li><a class="reference internal" href="#litestar_faststream.instrumentation.OtelMiddleware.consume_scope"><code class="docutils literal notranslate"><span class="pre">OtelMiddleware.consume_scope()</span></code></a></li>
+<li><a class="reference internal" href="#litestar_faststream.instrumentation.OtelMiddleware.publish_scope"><code class="docutils literal notranslate"><span class="pre">OtelMiddleware.publish_scope()</span></code></a></li>
+<li><a class="reference internal" href="#litestar_faststream.instrumentation.OtelMiddleware.after_processed"><code class="docutils literal notranslate"><span class="pre">OtelMiddleware.after_processed()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#litestar_faststream.instrumentation.get_tracer"><code class="docutils literal notranslate"><span class="pre">get_tracer()</span></code></a></li>
+<li><a class="reference internal" href="#litestar_faststream.instrumentation.monitored"><code class="docutils literal notranslate"><span class="pre">monitored()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#cli-and-info-litestar-faststream-cli">CLI and info (<code class="docutils literal notranslate"><span class="pre">litestar_faststream.cli</span></code>)</a><ul>
+<li><a class="reference internal" href="#litestar_faststream.info.render_plugin_info"><code class="docutils literal notranslate"><span class="pre">render_plugin_info()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#support-litestar-faststream-exceptions">Support (<code class="docutils literal notranslate"><span class="pre">litestar_faststream.exceptions</span></code>)</a><ul>
+<li><a class="reference internal" href="#litestar_faststream.exceptions.BrokerConfigurationError"><code class="docutils literal notranslate"><span class="pre">BrokerConfigurationError</span></code></a></li>
+<li><a class="reference internal" href="#litestar_faststream.exceptions.BrokerNotRegisteredError"><code class="docutils literal notranslate"><span class="pre">BrokerNotRegisteredError</span></code></a></li>
+<li><a class="reference internal" href="#litestar_faststream.exceptions.DuplicateBrokerNameError"><code class="docutils literal notranslate"><span class="pre">DuplicateBrokerNameError</span></code></a></li>
+<li><a class="reference internal" href="#litestar_faststream.exceptions.FastStreamPluginError"><code class="docutils literal notranslate"><span class="pre">FastStreamPluginError</span></code></a></li>
+<li><a class="reference internal" href="#litestar_faststream.exceptions.HandlerDiscoveryError"><code class="docutils literal notranslate"><span class="pre">HandlerDiscoveryError</span></code></a></li>
+<li><a class="reference internal" href="#litestar_faststream.exceptions.MarkerConfigurationError"><code class="docutils literal notranslate"><span class="pre">MarkerConfigurationError</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="index.html"><span itemprop="name">litestar_faststream</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Modules</strong>
+        <meta itemprop="position" content="2" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="modules">
+<h1>Modules<a class="headerlink" href="#modules" title="Link to this heading">#</a></h1>
+<p>An overview of the packages that make up <code class="docutils literal notranslate"><span class="pre">litestar_faststream</span></code>.
+The API reference below is generated automatically from the source docstrings.</p>
+<section id="plugin-litestar-faststream-plugin">
+<h2>Plugin (<code class="docutils literal notranslate"><span class="pre">litestar_faststream.plugin</span></code>)<a class="headerlink" href="#plugin-litestar-faststream-plugin" title="Link to this heading">#</a></h2>
+<p>Host, configuration, and lifespan wiring.</p>
+<p id="module-litestar_faststream.plugin">BrokerConfig: per-broker configuration consumed by <code class="docutils literal notranslate"><span class="pre">FastStreamPlugin</span></code>.</p>
+<p>This module used to define <code class="docutils literal notranslate"><span class="pre">BrokerPlugin</span></code>, which implemented Litestar’s
+<code class="docutils literal notranslate"><span class="pre">InitPluginProtocol</span></code>/<code class="docutils literal notranslate"><span class="pre">CLIPluginProtocol</span></code> directly. The library now follows
+the one-plugin / many-configs shape from <code class="docutils literal notranslate"><span class="pre">litestar-saq</span></code>: a single
+<code class="docutils literal notranslate"><span class="pre">FastStreamPlugin</span></code> drives Litestar wiring, and <code class="docutils literal notranslate"><span class="pre">BrokerConfig</span></code> instances
+carry per-broker data + lifecycle logic invoked by the host plugin.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="litestar_faststream.plugin.BrokerConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">litestar_faststream.plugin.</span></span><span class="sig-name descname"><span class="pre">BrokerConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">broker</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handlers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">publish_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/litestar_faststream/plugin.html#BrokerConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#litestar_faststream.plugin.BrokerConfig" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Configure a FastStream broker for use under <code class="docutils literal notranslate"><span class="pre">FastStreamPlugin</span></code>.</p>
+<p>Pass instances of this class via <code class="docutils literal notranslate"><span class="pre">FastStreamConfig.brokers</span></code>.
+<code class="docutils literal notranslate"><span class="pre">FastStreamPlugin</span></code> invokes the lifecycle methods on each entry;
+<code class="docutils literal notranslate"><span class="pre">BrokerConfig</span></code> is not a Litestar plugin and must not be passed to
+<code class="docutils literal notranslate"><span class="pre">Litestar(plugins=...)</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>broker</strong> (<em>BrokerUsecase</em><em>[</em><em>Any</em><em>, </em><em>Any</em><em>]</em>)</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>handlers</strong> (<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.15)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.15)"><em>Callable</em></a><em>[</em><em>[</em><em>...</em><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a><em>]</em><em>]</em>)</p></li>
+<li><p><strong>strict</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>)</p></li>
+<li><p><strong>publish_only</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<p id="module-litestar_faststream.host">FastStreamPlugin: the sole Litestar plugin for FastStream integration.</p>
+<p>Mirrors the <code class="docutils literal notranslate"><span class="pre">litestar-saq</span></code> shape: one plugin (<code class="docutils literal notranslate"><span class="pre">FastStreamPlugin</span></code>) consumes
+a single config (<code class="docutils literal notranslate"><span class="pre">FastStreamConfig</span></code>) containing N <code class="docutils literal notranslate"><span class="pre">BrokerConfig</span></code> entries.
+The plugin:</p>
+<ul class="simple">
+<li><p>delegates per-broker lifecycle to each <code class="xref py py-class docutils literal notranslate"><span class="pre">BrokerConfig</span></code> entry
+(discovery, broker binding, lifespan composition, DI registration);</p></li>
+<li><p>optionally serves a combined AsyncAPI document built via
+<code class="docutils literal notranslate"><span class="pre">AsyncAPI(*all_brokers,</span> <span class="pre">...)</span></code> — FastStream’s factory accepts multiple
+brokers natively, so combined output requires no custom merger;</p></li>
+<li><p>validates name collisions across hosted broker configs upfront.</p></li>
+</ul>
+<dl class="py class">
+<dt class="sig sig-object py" id="litestar_faststream.host.FastStreamConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">litestar_faststream.host.</span></span><span class="sig-name descname"><span class="pre">FastStreamConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">brokers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asyncapi_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asyncapi_include_in_schema</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable_otel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/litestar_faststream/host.html#FastStreamConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#litestar_faststream.host.FastStreamConfig" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Top-level configuration for <a class="reference internal" href="#litestar_faststream.host.FastStreamPlugin" title="litestar_faststream.host.FastStreamPlugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">FastStreamPlugin</span></code></a>.</p>
+<p>Holds the list of <code class="xref py py-class docutils literal notranslate"><span class="pre">BrokerConfig</span></code> entries plus host-level metadata
+used to render the combined AsyncAPI document. Mirrors the
+<code class="docutils literal notranslate"><span class="pre">SAQConfig</span></code> / <code class="docutils literal notranslate"><span class="pre">SAQPlugin</span></code> split in <code class="docutils literal notranslate"><span class="pre">litestar-saq</span></code>: the config is a
+pure data carrier; the plugin owns lifecycle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>brokers</strong> (<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.15)"><em>Sequence</em></a><em>[</em><a class="reference internal" href="#litestar_faststream.plugin.BrokerConfig" title="litestar_faststream.plugin.BrokerConfig"><em>BrokerConfig</em></a><em>]</em>)</p></li>
+<li><p><strong>title</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>description</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>version</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>tags</strong> (<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.15)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a><em>]</em>)</p></li>
+<li><p><strong>asyncapi_url</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>asyncapi_include_in_schema</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>)</p></li>
+<li><p><strong>enable_otel</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="litestar_faststream.host.FastStreamConfig.enable_otel">
+<span class="sig-name descname"><span class="pre">enable_otel</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><span class="pre">bool</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#litestar_faststream.host.FastStreamConfig.enable_otel" title="Link to this definition">#</a></dt>
+<dd><p>Auto-inject <code class="xref py py-class docutils literal notranslate"><span class="pre">OtelMiddleware</span></code> into every broker.</p>
+<p>Tri-state, mirroring <code class="docutils literal notranslate"><span class="pre">litestar-saq</span></code>’s <code class="docutils literal notranslate"><span class="pre">SAQConfig.enable_otel</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">None</span></code> (default): enable if <code class="docutils literal notranslate"><span class="pre">opentelemetry</span></code> is importable AND the
+Litestar app has an <code class="xref py py-class docutils literal notranslate"><span class="pre">OpenTelemetryPlugin</span></code> configured.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">True</span></code>: enable unconditionally; raise
+<code class="xref py py-class docutils literal notranslate"><span class="pre">BrokerConfigurationError</span></code> at startup if <code class="docutils literal notranslate"><span class="pre">opentelemetry</span></code>
+is not installed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">False</span></code>: never auto-inject. Users can still add the middleware
+manually for per-broker control.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="litestar_faststream.host.FastStreamConfig.should_enable_otel">
+<span class="sig-name descname"><span class="pre">should_enable_otel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/litestar_faststream/host.html#FastStreamConfig.should_enable_otel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#litestar_faststream.host.FastStreamConfig.should_enable_otel" title="Link to this definition">#</a></dt>
+<dd><p>Resolve <a class="reference internal" href="#litestar_faststream.host.FastStreamConfig.enable_otel" title="litestar_faststream.host.FastStreamConfig.enable_otel"><code class="xref py py-attr docutils literal notranslate"><span class="pre">enable_otel</span></code></a> against the live Litestar app.</p>
+<p>Defers the decision to startup time (when <code class="docutils literal notranslate"><span class="pre">app</span></code> is available) so
+that another plugin’s late registration of <code class="docutils literal notranslate"><span class="pre">OpenTelemetryPlugin</span></code>
+is still observed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#litestar_faststream.exceptions.BrokerConfigurationError" title="litestar_faststream.exceptions.BrokerConfigurationError"><strong>BrokerConfigurationError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">enable_otel=True</span></code> is set but the
+    <code class="docutils literal notranslate"><span class="pre">opentelemetry</span></code> package is not importable.</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>app</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a><em> | </em><em>None</em>)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="litestar_faststream.host.FastStreamPlugin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">litestar_faststream.host.</span></span><span class="sig-name descname"><span class="pre">FastStreamPlugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/litestar_faststream/host.html#FastStreamPlugin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#litestar_faststream.host.FastStreamPlugin" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">InitPluginProtocol</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">CLIPluginProtocol</span></code></p>
+<p>Litestar plugin hosting one or more FastStream brokers.</p>
+<p>Takes a <a class="reference internal" href="#litestar_faststream.host.FastStreamConfig" title="litestar_faststream.host.FastStreamConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">FastStreamConfig</span></code></a> whose <code class="docutils literal notranslate"><span class="pre">brokers</span></code> is a sequence of
+<code class="xref py py-class docutils literal notranslate"><span class="pre">BrokerConfig</span></code> instances.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config</strong> (<a class="reference internal" href="#litestar_faststream.host.FastStreamConfig" title="litestar_faststream.host.FastStreamConfig"><em>FastStreamConfig</em></a>)</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="litestar_faststream.host.FastStreamPlugin.after_startup">
+<span class="sig-name descname"><span class="pre">after_startup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/litestar_faststream/host.html#FastStreamPlugin.after_startup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#litestar_faststream.host.FastStreamPlugin.after_startup" title="Link to this definition">#</a></dt>
+<dd><p>Return a decorator that registers an after-startup hook for broker <code class="docutils literal notranslate"><span class="pre">name</span></code>.</p>
+<p>Two-step shape — the <code class="docutils literal notranslate"><span class="pre">name</span></code> selects the child config, the returned
+callable is the actual decorator:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="nd">@plugin</span><span class="o">.</span><span class="n">after_startup</span><span class="p">(</span><span class="s2">"kafka"</span><span class="p">)</span>
+</span><span data-line="2"><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">announce</span><span class="p">(</span><span class="n">app</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+</span></pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.15)"><em>Callable</em></a>[[<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.15)"><em>Callable</em></a>[[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>], <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Awaitable" title="(in Python v3.15)"><em>Awaitable</em></a>[None]]], <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.15)"><em>Callable</em></a>[[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>], <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Awaitable" title="(in Python v3.15)"><em>Awaitable</em></a>[None]]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="litestar_faststream.host.FastStreamPlugin.on_broker_shutdown">
+<span class="sig-name descname"><span class="pre">on_broker_shutdown</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/litestar_faststream/host.html#FastStreamPlugin.on_broker_shutdown"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#litestar_faststream.host.FastStreamPlugin.on_broker_shutdown" title="Link to this definition">#</a></dt>
+<dd><p>Return a decorator that registers an on-shutdown hook for broker <code class="docutils literal notranslate"><span class="pre">name</span></code>.</p>
+<p>Same two-step shape as <a class="reference internal" href="#litestar_faststream.host.FastStreamPlugin.after_startup" title="litestar_faststream.host.FastStreamPlugin.after_startup"><code class="xref py py-meth docutils literal notranslate"><span class="pre">after_startup()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.15)"><em>Callable</em></a>[[<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.15)"><em>Callable</em></a>[[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>], <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Awaitable" title="(in Python v3.15)"><em>Awaitable</em></a>[None]]], <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.15)"><em>Callable</em></a>[[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>], <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Awaitable" title="(in Python v3.15)"><em>Awaitable</em></a>[None]]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="litestar_faststream.host.FastStreamPlugin.brokers">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">brokers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#litestar_faststream.plugin.BrokerConfig" title="litestar_faststream.plugin.BrokerConfig"><span class="pre">BrokerConfig</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#litestar_faststream.host.FastStreamPlugin.brokers" title="Link to this definition">#</a></dt>
+<dd><p>Tuple of internal BrokerConfig children (read-only view).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="litestar_faststream.host.FastStreamPlugin.on_app_init">
+<span class="sig-name descname"><span class="pre">on_app_init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/litestar_faststream/host.html#FastStreamPlugin.on_app_init"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#litestar_faststream.host.FastStreamPlugin.on_app_init" title="Link to this definition">#</a></dt>
+<dd><p>Receive the <code class="xref py py-class docutils literal notranslate"><span class="pre">AppConfig</span></code> instance after <cite>on_app_init</cite> hooks have been called.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">litestar</span><span class="w"> </span><span class="kn">import</span> <span class="n">Litestar</span><span class="p">,</span> <span class="n">get</span>
+</span><span data-line="2"><span class="kn">from</span><span class="w"> </span><span class="nn">litestar.di</span><span class="w"> </span><span class="kn">import</span> <span class="n">Provide</span>
+</span><span data-line="3"><span class="kn">from</span><span class="w"> </span><span class="nn">litestar.plugins</span><span class="w"> </span><span class="kn">import</span> <span class="n">InitPluginProtocol</span>
+</span><span data-line="4">
+</span><span data-line="5">
+</span><span data-line="6"><span class="k">def</span><span class="w"> </span><span class="nf">get_name</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span data-line="7">    <span class="k">return</span> <span class="s2">"world"</span>
+</span><span data-line="8">
+</span><span data-line="9">
+</span><span data-line="10"><span class="nd">@get</span><span class="p">(</span><span class="s2">"/my-path"</span><span class="p">)</span>
+</span><span data-line="11"><span class="k">def</span><span class="w"> </span><span class="nf">my_route_handler</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+</span><span data-line="12">    <span class="k">return</span> <span class="p">{</span><span class="s2">"hello"</span><span class="p">:</span> <span class="n">name</span><span class="p">}</span>
+</span><span data-line="13">
+</span><span data-line="14">
+</span><span data-line="15"><span class="k">class</span><span class="w"> </span><span class="nc">MyPlugin</span><span class="p">(</span><span class="n">InitPluginProtocol</span><span class="p">):</span>
+</span><span data-line="16">    <span class="k">def</span><span class="w"> </span><span class="nf">on_app_init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app_config</span><span class="p">:</span> <span class="n">AppConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AppConfig</span><span class="p">:</span>
+</span><span data-line="17">        <span class="n">app_config</span><span class="o">.</span><span class="n">dependencies</span><span class="p">[</span><span class="s2">"name"</span><span class="p">]</span> <span class="o">=</span> <span class="n">Provide</span><span class="p">(</span><span class="n">get_name</span><span class="p">)</span>
+</span><span data-line="18">        <span class="n">app_config</span><span class="o">.</span><span class="n">route_handlers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">my_route_handler</span><span class="p">)</span>
+</span><span data-line="19">        <span class="k">return</span> <span class="n">app_config</span>
+</span><span data-line="20">
+</span><span data-line="21">
+</span><span data-line="22"><span class="n">app</span> <span class="o">=</span> <span class="n">Litestar</span><span class="p">(</span><span class="n">plugins</span><span class="o">=</span><span class="p">[</span><span class="n">MyPlugin</span><span class="p">()])</span>
+</span></pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="litestar_faststream.host.FastStreamPlugin.on_app_init.params.app_config"></span><strong>app_config</strong><a class="paramlink headerlink reference internal" href="#litestar_faststream.host.FastStreamPlugin.on_app_init.params.app_config">¶</a> – The <code class="xref py py-class docutils literal notranslate"><span class="pre">AppConfig</span></code> instance.</p></li>
+<li><p><strong>app_config</strong> (<em>AppConfig</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The app config object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>AppConfig</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="litestar_faststream.host.FastStreamPlugin.on_cli_init">
+<span class="sig-name descname"><span class="pre">on_cli_init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cli</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/litestar_faststream/host.html#FastStreamPlugin.on_cli_init"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#litestar_faststream.host.FastStreamPlugin.on_cli_init" title="Link to this definition">#</a></dt>
+<dd><p>Called when the CLI is initialized.</p>
+<p>This can be used to extend or override existing commands.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="litestar_faststream.host.FastStreamPlugin.on_cli_init.params.cli"></span><strong>cli</strong><a class="paramlink headerlink reference internal" href="#litestar_faststream.host.FastStreamPlugin.on_cli_init.params.cli">¶</a> – The root <code class="xref py py-class docutils literal notranslate"><span class="pre">click.Group</span></code> of the Litestar CLI</p></li>
+<li><p><strong>cli</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">litestar</span><span class="w"> </span><span class="kn">import</span> <span class="n">Litestar</span>
+</span><span data-line="2"><span class="kn">from</span><span class="w"> </span><span class="nn">litestar.plugins</span><span class="w"> </span><span class="kn">import</span> <span class="n">CLIPluginProtocol</span>
+</span><span data-line="3"><span class="kn">from</span><span class="w"> </span><span class="nn">click</span><span class="w"> </span><span class="kn">import</span> <span class="n">Group</span>
+</span><span data-line="4">
+</span><span data-line="5">
+</span><span data-line="6"><span class="k">class</span><span class="w"> </span><span class="nc">CLIPlugin</span><span class="p">(</span><span class="n">CLIPluginProtocol</span><span class="p">):</span>
+</span><span data-line="7">    <span class="k">def</span><span class="w"> </span><span class="nf">on_cli_init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cli</span><span class="p">:</span> <span class="n">Group</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="8">        <span class="nd">@cli</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
+</span><span data-line="9">        <span class="k">def</span><span class="w"> </span><span class="nf">is_debug_mode</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">Litestar</span><span class="p">):</span>
+</span><span data-line="10">            <span class="nb">print</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">debug</span><span class="p">)</span>
+</span><span data-line="11">
+</span><span data-line="12">
+</span><span data-line="13"><span class="n">app</span> <span class="o">=</span> <span class="n">Litestar</span><span class="p">(</span><span class="n">plugins</span><span class="o">=</span><span class="p">[</span><span class="n">CLIPlugin</span><span class="p">()])</span>
+</span></pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-litestar_faststream.lifespan">Lifespan composition for BrokerConfig: wrap user lifespan, run hooks.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="litestar_faststream.lifespan.run_broker_lifecycle_startup">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">litestar_faststream.lifespan.</span></span><span class="sig-name descname"><span class="pre">run_broker_lifecycle_startup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">broker</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">publish_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/litestar_faststream/lifespan.html#run_broker_lifecycle_startup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#litestar_faststream.lifespan.run_broker_lifecycle_startup" title="Link to this definition">#</a></dt>
+<dd><p>Connect (and optionally start); on failure, attempt stop first.</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">publish_only=True</span></code>, only <code class="docutils literal notranslate"><span class="pre">broker.connect()</span></code> is called and the
+subscriber consume-loops are not started. <code class="docutils literal notranslate"><span class="pre">broker.publish(...)</span></code> still
+works because it requires only an open connection. Subscribers already
+registered on the broker are left in place (so AsyncAPI reflects the full
+surface) but will not consume messages in this process.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>broker</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>)</p></li>
+<li><p><strong>publish_only</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p id="module-litestar_faststream.hooks">Drop-in lifecycle hooks and middleware for <code class="docutils literal notranslate"><span class="pre">BrokerConfig</span></code>.</p>
+<p>Two flavors live here:</p>
+<ul class="simple">
+<li><p><strong>Lifecycle hooks</strong> – coroutines with signature <code class="docutils literal notranslate"><span class="pre">(app)</span> <span class="pre">-&gt;</span> <span class="pre">None</span></code>, registered
+via <code class="docutils literal notranslate"><span class="pre">BrokerConfig.after_startup</span></code> / <code class="docutils literal notranslate"><span class="pre">BrokerConfig.on_broker_shutdown</span></code>.
+They run once per broker per Litestar app, at startup/shutdown.</p></li>
+<li><p><strong>Middleware</strong> – a <code class="docutils literal notranslate"><span class="pre">LoggingMiddleware</span></code> that wraps each consume/publish
+call. Attach it to the FastStream broker itself (<code class="docutils literal notranslate"><span class="pre">RabbitBroker(middlewares=[</span>
+<span class="pre">LoggingMiddleware])</span></code>) so it runs per-message.</p></li>
+</ul>
+<p>Both are intentionally small and example-shaped: their job is to give users
+a working starting point and to demonstrate the right hook surface, not to
+replace a production observability stack.</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">faststream.rabbit</span><span class="w"> </span><span class="kn">import</span> <span class="n">RabbitBroker</span>
+</span><span data-line="2"><span class="kn">from</span><span class="w"> </span><span class="nn">litestar_faststream</span><span class="w"> </span><span class="kn">import</span> <span class="n">BrokerConfig</span>
+</span><span data-line="3"><span class="kn">from</span><span class="w"> </span><span class="nn">litestar_faststream.hooks</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+</span><span data-line="4">    <span class="n">LoggingMiddleware</span><span class="p">,</span>
+</span><span data-line="5">    <span class="n">shutdown_banner</span><span class="p">,</span>
+</span><span data-line="6">    <span class="n">startup_banner</span><span class="p">,</span>
+</span><span data-line="7"><span class="p">)</span>
+</span><span data-line="8">
+</span><span data-line="9"><span class="n">broker</span> <span class="o">=</span> <span class="n">RabbitBroker</span><span class="p">(</span><span class="s2">"amqp://localhost"</span><span class="p">,</span> <span class="n">middlewares</span><span class="o">=</span><span class="p">[</span><span class="n">LoggingMiddleware</span><span class="p">])</span>
+</span><span data-line="10"><span class="n">cfg</span> <span class="o">=</span> <span class="n">BrokerConfig</span><span class="p">(</span><span class="n">broker</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"rabbit"</span><span class="p">)</span>
+</span><span data-line="11"><span class="n">cfg</span><span class="o">.</span><span class="n">after_startup</span><span class="p">(</span><span class="n">startup_banner</span><span class="p">)</span>
+</span><span data-line="12"><span class="n">cfg</span><span class="o">.</span><span class="n">on_broker_shutdown</span><span class="p">(</span><span class="n">shutdown_banner</span><span class="p">)</span>
+</span></pre></div>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="litestar_faststream.hooks.LoggingMiddleware">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">litestar_faststream.hooks.</span></span><span class="sig-name descname"><span class="pre">LoggingMiddleware</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/litestar_faststream/hooks.html#LoggingMiddleware"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#litestar_faststream.hooks.LoggingMiddleware" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseMiddleware</span></code></p>
+<p>Log + time each consumed message.</p>
+<p>Attaches per-broker (<code class="docutils literal notranslate"><span class="pre">Broker(middlewares=[LoggingMiddleware])</span></code>) so every
+subscriber gets timing + structured log lines without touching handler
+code. Mirrors SAQ’s <code class="docutils literal notranslate"><span class="pre">timing_before_process</span></code> / <code class="docutils literal notranslate"><span class="pre">timing_after_process</span></code>
+pair but uses FastStream’s middleware lifecycle (<code class="docutils literal notranslate"><span class="pre">consume_scope</span></code> wraps
+the entire dispatch) so the timing covers handler + framework overhead in
+one span.</p>
+<p>Log records carry an <code class="docutils literal notranslate"><span class="pre">extra</span></code> dict (<code class="docutils literal notranslate"><span class="pre">duration_ms</span></code>, <code class="docutils literal notranslate"><span class="pre">message_class</span></code>,
+<code class="docutils literal notranslate"><span class="pre">ok</span></code>) so a structured-logging processor (structlog, logfire, etc.) can
+project them into fields without parsing the message.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>msg</strong> (<em>AnyMsg</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>context</strong> (<em>ContextRepo</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="litestar_faststream.hooks.LoggingMiddleware.consume_scope">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">consume_scope</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">call_next</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/litestar_faststream/hooks.html#LoggingMiddleware.consume_scope"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#litestar_faststream.hooks.LoggingMiddleware.consume_scope" title="Link to this definition">#</a></dt>
+<dd><p>Asynchronously consumes a message and returns an asynchronous iterator of decoded messages.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>call_next</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>)</p></li>
+<li><p><strong>msg</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="litestar_faststream.hooks.LoggingMiddleware.after_processed">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">after_processed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exc_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_val</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_tb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/litestar_faststream/hooks.html#LoggingMiddleware.after_processed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#litestar_faststream.hooks.LoggingMiddleware.after_processed" title="Link to this definition">#</a></dt>
+<dd><p>Asynchronously called after processing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>exc_type</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#type" title="(in Python v3.15)"><em>type</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#BaseException" title="(in Python v3.15)"><em>BaseException</em></a><em>] </em><em>| </em><em>None</em>)</p></li>
+<li><p><strong>exc_val</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#BaseException" title="(in Python v3.15)"><em>BaseException</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>exc_tb</strong> (<em>TracebackType</em><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)">bool</a> | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="litestar_faststream.hooks.shutdown_banner">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">litestar_faststream.hooks.</span></span><span class="sig-name descname"><span class="pre">shutdown_banner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/litestar_faststream/hooks.html#shutdown_banner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#litestar_faststream.hooks.shutdown_banner" title="Link to this definition">#</a></dt>
+<dd><p>Log a one-line message before broker shutdown begins.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>app</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="litestar_faststream.hooks.startup_banner">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">litestar_faststream.hooks.</span></span><span class="sig-name descname"><span class="pre">startup_banner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/litestar_faststream/hooks.html#startup_banner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#litestar_faststream.hooks.startup_banner" title="Link to this definition">#</a></dt>
+<dd><p>Log a one-line summary when the broker has started.</p>
+<p>Walks the Litestar app’s plugins to find <code class="docutils literal notranslate"><span class="pre">FastStreamPlugin</span></code> and reports
+each <code class="docutils literal notranslate"><span class="pre">BrokerConfig</span></code> it owns plus its subscriber count. Safe to register
+on multiple <code class="docutils literal notranslate"><span class="pre">BrokerConfig</span></code> instances; the banner is per-app, not
+per-broker, so duplicates are de-duplicated in the same lifespan.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>app</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="litestar_faststream.hooks.timing_middleware">
+<span class="sig-prename descclassname"><span class="pre">litestar_faststream.hooks.</span></span><span class="sig-name descname"><span class="pre">timing_middleware</span></span><a class="headerlink" href="#litestar_faststream.hooks.timing_middleware" title="Link to this definition">#</a></dt>
+<dd><p>alias of <a class="reference internal" href="#litestar_faststream.hooks.LoggingMiddleware" title="litestar_faststream.hooks.LoggingMiddleware"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoggingMiddleware</span></code></a></p>
+</dd></dl>
+
+</section>
+<section id="handlers-litestar-faststream-decorators">
+<h2>Handlers (<code class="docutils literal notranslate"><span class="pre">litestar_faststream.decorators</span></code>)<a class="headerlink" href="#handlers-litestar-faststream-decorators" title="Link to this heading">#</a></h2>
+<p>Free <code class="docutils literal notranslate"><span class="pre">&#64;subscriber</span></code> / <code class="docutils literal notranslate"><span class="pre">&#64;publisher</span></code> markers and discovery.</p>
+<p id="module-litestar_faststream.decorators">Free decorators for FastStream Litestar integration.</p>
+<p>These decorators stash metadata on the wrapped function. The plugin’s
+discovery pass walks <cite>app_config.route_handlers</cite> at <cite>on_app_init</cite> and
+binds marked callables to the broker.</p>
+<p id="module-litestar_faststream.discovery">Walk Litestar <cite>route_handlers</cite> and explicit handler/module lists.</p>
+<p>Collects FastStream marker metadata and emits a structured result.</p>
+<p><code class="docutils literal notranslate"><span class="pre">&#64;subscriber</span></code> / <code class="docutils literal notranslate"><span class="pre">&#64;publisher</span></code> mark <em>broker</em> handlers. They cannot
+decorate a Litestar HTTP route handler — if a method carrying <code class="docutils literal notranslate"><span class="pre">&#64;get</span></code> /
+<code class="docutils literal notranslate"><span class="pre">&#64;post</span></code> / etc. also has these markers, app init fails with
+<code class="docutils literal notranslate"><span class="pre">MarkerConfigurationError</span></code>. HTTP handlers that need to publish should
+inject the broker via Litestar DI and call <code class="docutils literal notranslate"><span class="pre">broker.publish(...)</span></code> directly.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="litestar_faststream.discovery.DiscoveryResult">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">litestar_faststream.discovery.</span></span><span class="sig-name descname"><span class="pre">DiscoveryResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">subscribers:</span> <span class="pre">list[tuple[collections.abc.Callable[...,</span> <span class="pre">typing.Any],</span> <span class="pre">list[tuple[tuple[typing.Any,</span> <span class="pre">...],</span> <span class="pre">dict[str,</span> <span class="pre">typing.Any]]]]]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;,</span> <span class="pre">response_publishers:</span> <span class="pre">list[tuple[collections.abc.Callable[...,</span> <span class="pre">typing.Any],</span> <span class="pre">tuple[typing.Any,</span> <span class="pre">...],</span> <span class="pre">dict[str,</span> <span class="pre">typing.Any]]]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;,</span> <span class="pre">controller_subscribers:</span> <span class="pre">list[tuple[type,</span> <span class="pre">collections.abc.Callable[...,</span> <span class="pre">typing.Any],</span> <span class="pre">list[tuple[tuple[typing.Any,</span> <span class="pre">...],</span> <span class="pre">dict[str,</span> <span class="pre">typing.Any]]]]]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;,</span> <span class="pre">controller_response_publishers:</span> <span class="pre">list[tuple[type,</span> <span class="pre">collections.abc.Callable[...,</span> <span class="pre">typing.Any],</span> <span class="pre">tuple[typing.Any,</span> <span class="pre">...],</span> <span class="pre">dict[str,</span> <span class="pre">typing.Any]]]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/litestar_faststream/discovery.html#DiscoveryResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#litestar_faststream.discovery.DiscoveryResult" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>subscribers</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.15)"><em>Callable</em></a><em>[</em><em>[</em><em>...</em><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a><em>, </em><em>...</em><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a><em>]</em><em>]</em><em>]</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>response_publishers</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.15)"><em>Callable</em></a><em>[</em><em>[</em><em>...</em><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a><em>, </em><em>...</em><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a><em>]</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>controller_subscribers</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#type" title="(in Python v3.15)"><em>type</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.15)"><em>Callable</em></a><em>[</em><em>[</em><em>...</em><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a><em>, </em><em>...</em><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a><em>]</em><em>]</em><em>]</em><em>]</em><em>]</em>)</p></li>
+<li><p><strong>controller_response_publishers</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#type" title="(in Python v3.15)"><em>type</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.15)"><em>Callable</em></a><em>[</em><em>[</em><em>...</em><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a><em>, </em><em>...</em><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a><em>]</em><em>]</em><em>]</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="litestar_faststream.discovery.collect_marker_plugin_filters">
+<span class="sig-prename descclassname"><span class="pre">litestar_faststream.discovery.</span></span><span class="sig-name descname"><span class="pre">collect_marker_plugin_filters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">route_handlers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_handlers</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/litestar_faststream/discovery.html#collect_marker_plugin_filters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#litestar_faststream.discovery.collect_marker_plugin_filters" title="Link to this definition">#</a></dt>
+<dd><p>Return the set of non-None <code class="docutils literal notranslate"><span class="pre">plugin=</span></code> filters present in markers.</p>
+<p>Used by <code class="docutils literal notranslate"><span class="pre">FastStreamPlugin</span></code> to warn when a marker references an
+unregistered broker name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>route_handlers</strong> (<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.15)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a><em>]</em>)</p></li>
+<li><p><strong>extra_handlers</strong> (<a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.15)"><em>Sequence</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.15)"><em>Callable</em></a><em>[</em><em>[</em><em>...</em><em>]</em><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a><em>]</em><em>]</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#set" title="(in Python v3.15)">set</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="dependency-injection-litestar-faststream-di">
+<h2>Dependency injection (<code class="docutils literal notranslate"><span class="pre">litestar_faststream.di</span></code>)<a class="headerlink" href="#dependency-injection-litestar-faststream-di" title="Link to this heading">#</a></h2>
+<p>Litestar DI bridge and broker registry.</p>
+<p id="module-litestar_faststream.di">DI bridge primitives between Litestar <code class="docutils literal notranslate"><span class="pre">Provide</span></code> and FastStream brokers.</p>
+<p>Two flavours live here:</p>
+<ul class="simple">
+<li><p><code class="xref py py-func docutils literal notranslate"><span class="pre">build_broker_provide()</span></code> — one <code class="docutils literal notranslate"><span class="pre">Provide</span></code> per broker, registered under
+the <code class="docutils literal notranslate"><span class="pre">BrokerConfig.name</span></code> so handlers can declare a typed parameter for a
+specific broker (e.g. <code class="docutils literal notranslate"><span class="pre">rabbit:</span> <span class="pre">RabbitBroker</span></code>).</p></li>
+<li><p><a class="reference internal" href="#litestar_faststream.di.Brokers" title="litestar_faststream.di.Brokers"><code class="xref py py-class docutils literal notranslate"><span class="pre">Brokers</span></code></a> + <code class="xref py py-func docutils literal notranslate"><span class="pre">build_brokers_provide()</span></code> — a single aggregate
+<code class="docutils literal notranslate"><span class="pre">Provide</span></code> exposed under the literal key <code class="docutils literal notranslate"><span class="pre">&quot;brokers&quot;</span></code> so handlers that
+choose a broker at runtime can write <code class="docutils literal notranslate"><span class="pre">brokers.get(&quot;rabbit&quot;).publish(...)</span></code>.
+Mirrors <code class="docutils literal notranslate"><span class="pre">litestar-saq</span></code>’s <code class="docutils literal notranslate"><span class="pre">TaskQueues</span></code> pattern.</p></li>
+</ul>
+<dl class="py class">
+<dt class="sig sig-object py" id="litestar_faststream.di.Brokers">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">litestar_faststream.di.</span></span><span class="sig-name descname"><span class="pre">Brokers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/litestar_faststream/di.html#Brokers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#litestar_faststream.di.Brokers" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Mapping</span></code></a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, BrokerUsecase[Any, Any]]</p>
+<p>Read-only registry of brokers keyed by <code class="docutils literal notranslate"><span class="pre">BrokerConfig.name</span></code>.</p>
+<p>Implements <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Mapping" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">collections.abc.Mapping</span></code></a>, so standard <code class="docutils literal notranslate"><span class="pre">in</span></code>, <code class="docutils literal notranslate"><span class="pre">len</span></code>,
+iteration, <code class="docutils literal notranslate"><span class="pre">.keys()</span></code> / <code class="docutils literal notranslate"><span class="pre">.items()</span></code> / <code class="docutils literal notranslate"><span class="pre">.values()</span></code> all work without
+extra surface. The only addition is <a class="reference internal" href="#litestar_faststream.di.Brokers.get" title="litestar_faststream.di.Brokers.get"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get()</span></code></a> raising
+<code class="xref py py-class docutils literal notranslate"><span class="pre">BrokerNotRegisteredError</span></code> (instead of returning <code class="docutils literal notranslate"><span class="pre">None</span></code>) so
+typos surface immediately rather than as <code class="docutils literal notranslate"><span class="pre">AttributeError</span></code> on the next
+line. The default-arg form of <a class="reference internal" href="#litestar_faststream.di.Brokers.get" title="litestar_faststream.di.Brokers.get"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get()</span></code></a> is preserved for callers that
+want the <code class="docutils literal notranslate"><span class="pre">Mapping.get</span></code> semantics explicitly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>items</strong> (<em>Mapping</em><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><em>BrokerUsecase</em><em>[</em><em>Any</em><em>, </em><em>Any</em><em>]</em><em>]</em>)</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="litestar_faststream.di.Brokers.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><span class="pre">object</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">BrokerUsecase</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/litestar_faststream/di.html#Brokers.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#litestar_faststream.di.Brokers.get" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><span class="pre">object</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">BrokerUsecase</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_T</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">BrokerUsecase</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_T</span></span></span></dt>
+<dd><p>Return broker <code class="docutils literal notranslate"><span class="pre">name</span></code> or raise <code class="xref py py-class docutils literal notranslate"><span class="pre">BrokerNotRegisteredError</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">name</span></code> is typed as <code class="docutils literal notranslate"><span class="pre">object</span></code> to stay compatible with
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">Mapping.get()</span></code> (whose key parameter is <code class="docutils literal notranslate"><span class="pre">object</span></code>); registered
+keys are always strings, so a non-string <code class="docutils literal notranslate"><span class="pre">name</span></code> simply misses.</p>
+<p><code class="docutils literal notranslate"><span class="pre">default</span></code> keeps <code class="xref py py-class docutils literal notranslate"><span class="pre">Mapping.get</span></code> semantics: pass any value
+(including <code class="docutils literal notranslate"><span class="pre">None</span></code>) to fall back instead of raising. Overloads
+narrow the return type so callers using the default-arg form get
+<code class="docutils literal notranslate"><span class="pre">BrokerUsecase</span> <span class="pre">|</span> <span class="pre">T</span></code> rather than a lie.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="litestar_faststream.di.Brokers.names">
+<span class="sig-name descname"><span class="pre">names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/litestar_faststream/di.html#Brokers.names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#litestar_faststream.di.Brokers.names" title="Link to this definition">#</a></dt>
+<dd><p>Tuple of registered broker names (sorted, stable).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#tuple" title="(in Python v3.15)">tuple</a>[<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a>, …]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="asyncapi-litestar-faststream-asyncapi">
+<h2>AsyncAPI (<code class="docutils literal notranslate"><span class="pre">litestar_faststream.asyncapi</span></code>)<a class="headerlink" href="#asyncapi-litestar-faststream-asyncapi" title="Link to this heading">#</a></h2>
+<p>Combined AsyncAPI document rendering.</p>
+<p id="module-litestar_faststream.asyncapi">Mount AsyncAPI HTML viewer + JSON/YAML schema endpoints as a Litestar Controller.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="litestar_faststream.asyncapi.build_asyncapi_controller">
+<span class="sig-prename descclassname"><span class="pre">litestar_faststream.asyncapi.</span></span><span class="sig-name descname"><span class="pre">build_asyncapi_controller</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asyncapi_url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_in_schema</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/litestar_faststream/asyncapi.html#build_asyncapi_controller"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#litestar_faststream.asyncapi.build_asyncapi_controller" title="Link to this definition">#</a></dt>
+<dd><p>Build a Litestar Controller that serves AsyncAPI artefacts.</p>
+<p><code class="docutils literal notranslate"><span class="pre">schema</span></code> may be either:</p>
+<ul class="simple">
+<li><p>an <code class="docutils literal notranslate"><span class="pre">AsyncAPI</span></code> factory (production path) — <code class="docutils literal notranslate"><span class="pre">to_specification()</span></code> is
+resolved fresh per request so subscribers added during <code class="docutils literal notranslate"><span class="pre">on_app_init</span></code>
+are reflected in the rendered output;</p></li>
+<li><p>or any object exposing <code class="docutils literal notranslate"><span class="pre">to_json</span></code>/<code class="docutils literal notranslate"><span class="pre">to_yaml</span></code> (and optionally
+<code class="docutils literal notranslate"><span class="pre">to_specification</span></code> / <code class="docutils literal notranslate"><span class="pre">to_jsonable</span></code>). The duck-typed surface is
+retained deliberately so unit tests can supply a lightweight stub
+without standing up a full <code class="docutils literal notranslate"><span class="pre">AsyncAPI</span></code> factory + <code class="docutils literal notranslate"><span class="pre">Specification</span></code>
+pair (see <code class="docutils literal notranslate"><span class="pre">tests/unit/test_asyncapi.py</span></code>).</p></li>
+</ul>
+<p>For the HTML viewer we prefer <code class="docutils literal notranslate"><span class="pre">schema.to_specification()</span></code> because
+<code class="docutils literal notranslate"><span class="pre">get_asyncapi_html</span></code> requires the full Specification object. If neither
+<code class="docutils literal notranslate"><span class="pre">to_specification</span></code> nor a Specification-shaped object is available, we
+fall back to <code class="docutils literal notranslate"><span class="pre">schema</span></code> as-is.</p>
+<p><code class="docutils literal notranslate"><span class="pre">include_in_schema</span></code> controls whether the AsyncAPI routes appear in
+Litestar’s OpenAPI schema; defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code> because AsyncAPI
+HTML/JSON/YAML are meta-docs about the broker, not part of the HTTP API.
+Pass <code class="docutils literal notranslate"><span class="pre">True</span></code> to surface the URLs in the OpenAPI document.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>schema</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>)</p></li>
+<li><p><strong>asyncapi_url</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>include_in_schema</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><em>bool</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#type" title="(in Python v3.15)">type</a>[<em>Controller</em>] | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="observability-litestar-faststream-instrumentation">
+<h2>Observability (<code class="docutils literal notranslate"><span class="pre">litestar_faststream.instrumentation</span></code>)<a class="headerlink" href="#observability-litestar-faststream-instrumentation" title="Link to this heading">#</a></h2>
+<p>OpenTelemetry middleware and helpers.</p>
+<p id="module-litestar_faststream.instrumentation">OpenTelemetry instrumentation for litestar-faststream.</p>
+<p>Provides <a class="reference internal" href="#litestar_faststream.instrumentation.OtelMiddleware" title="litestar_faststream.instrumentation.OtelMiddleware"><code class="xref py py-class docutils literal notranslate"><span class="pre">OtelMiddleware</span></code></a>, a FastStream middleware that:</p>
+<ul class="simple">
+<li><p>On <strong>publish</strong>, starts a PRODUCER span and injects the current W3C trace
+context into the outgoing message headers (<code class="docutils literal notranslate"><span class="pre">cmd.headers</span></code>). The consumer
+(in this process or a downstream service) can then continue the trace.</p></li>
+<li><p>On <strong>consume</strong>, extracts the trace context from incoming message headers
+and starts a CONSUMER span as a child of that context. A Litestar HTTP
+request that publishes a message therefore produces a single connected
+trace spanning HTTP -&gt; publish -&gt; consume -&gt; handler.</p></li>
+</ul>
+<p>Attribute names follow the OpenTelemetry semantic conventions for messaging
+systems (<code class="docutils literal notranslate"><span class="pre">messaging.system</span></code>, <code class="docutils literal notranslate"><span class="pre">messaging.destination.name</span></code>,
+<code class="docutils literal notranslate"><span class="pre">messaging.operation</span></code>). The middleware is a no-op when <code class="docutils literal notranslate"><span class="pre">opentelemetry</span></code>
+is not installed, so it’s safe to register unconditionally.</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">faststream.rabbit</span><span class="w"> </span><span class="kn">import</span> <span class="n">RabbitBroker</span>
+</span><span data-line="2"><span class="kn">from</span><span class="w"> </span><span class="nn">litestar_faststream</span><span class="w"> </span><span class="kn">import</span> <span class="n">BrokerConfig</span>
+</span><span data-line="3"><span class="kn">from</span><span class="w"> </span><span class="nn">litestar_faststream.instrumentation</span><span class="w"> </span><span class="kn">import</span> <span class="n">OtelMiddleware</span>
+</span><span data-line="4">
+</span><span data-line="5"><span class="n">broker</span> <span class="o">=</span> <span class="n">RabbitBroker</span><span class="p">(</span><span class="s2">"amqp://localhost"</span><span class="p">,</span> <span class="n">middlewares</span><span class="o">=</span><span class="p">[</span><span class="n">OtelMiddleware</span><span class="p">])</span>
+</span><span data-line="6"><span class="n">cfg</span> <span class="o">=</span> <span class="n">BrokerConfig</span><span class="p">(</span><span class="n">broker</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"rabbit"</span><span class="p">)</span>
+</span></pre></div>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="litestar_faststream.instrumentation.OtelMiddleware">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">litestar_faststream.instrumentation.</span></span><span class="sig-name descname"><span class="pre">OtelMiddleware</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/litestar_faststream/instrumentation.html#OtelMiddleware"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#litestar_faststream.instrumentation.OtelMiddleware" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseMiddleware</span></code></p>
+<p>Trace consume + publish operations with W3C context propagation.</p>
+<p>Spans created here use OTel messaging semantic conventions:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">messaging</span><span class="o">.</span><span class="n">system</span>           <span class="o">=</span> <span class="s2">"faststream"</span>
+</span><span data-line="2"><span class="n">messaging</span><span class="o">.</span><span class="n">destination</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">queue</span><span class="o">/</span><span class="n">topic</span><span class="o">/</span><span class="n">subject</span><span class="o">&gt;</span>
+</span><span data-line="3"><span class="n">messaging</span><span class="o">.</span><span class="n">operation</span>        <span class="o">=</span> <span class="s2">"publish"</span> <span class="o">|</span> <span class="s2">"process"</span>
+</span><span data-line="4"><span class="n">messaging</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">id</span>       <span class="o">=</span> <span class="o">&lt;</span><span class="n">correlation_id</span><span class="o">&gt;</span>  <span class="p">(</span><span class="n">when</span> <span class="n">available</span><span class="p">)</span>
+</span></pre></div>
+</div>
+<p>Exceptions raised by handlers / publishers are recorded on the active
+span (<code class="docutils literal notranslate"><span class="pre">span.record_exception</span></code>) and the span’s status is set to ERROR
+before the exception propagates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>msg</strong> (<em>AnyMsg</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>context</strong> (<em>ContextRepo</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="litestar_faststream.instrumentation.OtelMiddleware.consume_scope">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">consume_scope</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">call_next</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/litestar_faststream/instrumentation.html#OtelMiddleware.consume_scope"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#litestar_faststream.instrumentation.OtelMiddleware.consume_scope" title="Link to this definition">#</a></dt>
+<dd><p>Asynchronously consumes a message and returns an asynchronous iterator of decoded messages.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>call_next</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>)</p></li>
+<li><p><strong>msg</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="litestar_faststream.instrumentation.OtelMiddleware.publish_scope">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">publish_scope</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">call_next</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmd</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/litestar_faststream/instrumentation.html#OtelMiddleware.publish_scope"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#litestar_faststream.instrumentation.OtelMiddleware.publish_scope" title="Link to this definition">#</a></dt>
+<dd><p>Publish a message and return an async iterator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>call_next</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>)</p></li>
+<li><p><strong>cmd</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="litestar_faststream.instrumentation.OtelMiddleware.after_processed">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">after_processed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exc_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_val</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exc_tb</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/litestar_faststream/instrumentation.html#OtelMiddleware.after_processed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#litestar_faststream.instrumentation.OtelMiddleware.after_processed" title="Link to this definition">#</a></dt>
+<dd><p>Asynchronously called after processing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>exc_type</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#type" title="(in Python v3.15)"><em>type</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#BaseException" title="(in Python v3.15)"><em>BaseException</em></a><em>] </em><em>| </em><em>None</em>)</p></li>
+<li><p><strong>exc_val</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/exceptions.html#BaseException" title="(in Python v3.15)"><em>BaseException</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>exc_tb</strong> (<em>TracebackType</em><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)">bool</a> | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="litestar_faststream.instrumentation.get_tracer">
+<span class="sig-prename descclassname"><span class="pre">litestar_faststream.instrumentation.</span></span><span class="sig-name descname"><span class="pre">get_tracer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/litestar_faststream/instrumentation.html#get_tracer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#litestar_faststream.instrumentation.get_tracer" title="Link to this definition">#</a></dt>
+<dd><p>Return the package tracer, creating it lazily.</p>
+<p>Returns a no-op stub when OpenTelemetry isn’t installed. Callers can
+therefore always <code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">tracer.start_as_current_span(...)</span></code> without
+feature-detecting first.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="litestar_faststream.instrumentation.monitored">
+<span class="sig-prename descclassname"><span class="pre">litestar_faststream.instrumentation.</span></span><span class="sig-name descname"><span class="pre">monitored</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="pre">P</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Awaitable</span><span class="p"><span class="pre">[</span></span><span class="pre">R</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="pre">P</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Awaitable</span><span class="p"><span class="pre">[</span></span><span class="pre">R</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/litestar_faststream/instrumentation.html#monitored"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#litestar_faststream.instrumentation.monitored" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">litestar_faststream.instrumentation.</span></span><span class="sig-name descname"><span class="pre">monitored</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">span_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attributes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_payload</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">record_payload_max_bytes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1024</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="pre">P</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Awaitable</span><span class="p"><span class="pre">[</span></span><span class="pre">R</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="pre">P</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Awaitable</span><span class="p"><span class="pre">[</span></span><span class="pre">R</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span></dt>
+<dd><p>Opt-in per-handler instrumentation: OTel span + structured log + timing.</p>
+<p>Complements broker-wide <a class="reference internal" href="#litestar_faststream.instrumentation.OtelMiddleware" title="litestar_faststream.instrumentation.OtelMiddleware"><code class="xref py py-class docutils literal notranslate"><span class="pre">OtelMiddleware</span></code></a> / <code class="docutils literal notranslate"><span class="pre">LoggingMiddleware</span></code> –
+use this decorator on individual subscribers when you only want
+instrumentation for a subset of handlers, or want to attach
+handler-specific attributes that don’t belong on every consume.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="litestar_faststream.instrumentation.monitored.params.fn"></span><strong>fn</strong><a class="paramlink headerlink reference internal" href="#litestar_faststream.instrumentation.monitored.params.fn">¶</a> – The handler function (only populated for the bare <code class="docutils literal notranslate"><span class="pre">&#64;monitored</span></code>
+form; <code class="docutils literal notranslate"><span class="pre">None</span></code> when used as <code class="docutils literal notranslate"><span class="pre">&#64;monitored(...)</span></code>).</p></li>
+<li><p><span class="target" id="litestar_faststream.instrumentation.monitored.params.span_name"></span><strong>span_name</strong><a class="paramlink headerlink reference internal" href="#litestar_faststream.instrumentation.monitored.params.span_name">¶</a> – Span name. Defaults to the wrapped function’s <code class="docutils literal notranslate"><span class="pre">__qualname__</span></code>.</p></li>
+<li><p><span class="target" id="litestar_faststream.instrumentation.monitored.params.attributes"></span><strong>attributes</strong><a class="paramlink headerlink reference internal" href="#litestar_faststream.instrumentation.monitored.params.attributes">¶</a> – Extra OTel attributes recorded on the span and emitted in
+the structured log line’s <code class="docutils literal notranslate"><span class="pre">extra=</span></code>. Use this for handler-scoped
+tags (“tier”: “critical”, “team”: “billing”).</p></li>
+<li><p><span class="target" id="litestar_faststream.instrumentation.monitored.params.record_payload"></span><strong>record_payload</strong><a class="paramlink headerlink reference internal" href="#litestar_faststream.instrumentation.monitored.params.record_payload">¶</a> – If True, attach <code class="docutils literal notranslate"><span class="pre">str(msg)[:record_payload_max_bytes]</span></code>
+as the <code class="docutils literal notranslate"><span class="pre">messaging.message.body.preview</span></code> span attribute. Off by
+default – payloads frequently contain PII; opt in explicitly per
+handler.</p></li>
+<li><p><span class="target" id="litestar_faststream.instrumentation.monitored.params.record_payload_max_bytes"></span><strong>record_payload_max_bytes</strong><a class="paramlink headerlink reference internal" href="#litestar_faststream.instrumentation.monitored.params.record_payload_max_bytes">¶</a> – Truncation cap for the recorded payload.
+Defaults to 1024 bytes (OTel messaging guidance).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A wrapped coroutine function with the same signature as the original.</p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="nd">@broker</span><span class="o">.</span><span class="n">subscriber</span><span class="p">(</span><span class="s2">"orders"</span><span class="p">)</span>
+</span><span data-line="2"><span class="nd">@monitored</span><span class="p">(</span>
+</span><span data-line="3">    <span class="n">span_name</span><span class="o">=</span><span class="s2">"process_order"</span><span class="p">,</span>
+</span><span data-line="4">    <span class="n">attributes</span><span class="o">=</span><span class="p">{</span><span class="s2">"tier"</span><span class="p">:</span> <span class="s2">"critical"</span><span class="p">},</span>
+</span><span data-line="5">    <span class="n">record_payload</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+</span><span data-line="6"><span class="p">)</span>
+</span><span data-line="7"><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">handle_order</span><span class="p">(</span><span class="n">msg</span><span class="p">:</span> <span class="n">Order</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span> <span class="o">...</span>
+</span></pre></div>
+</div>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Span kind is INTERNAL: it’s expected to nest under the CONSUMER
+span created by <a class="reference internal" href="#litestar_faststream.instrumentation.OtelMiddleware" title="litestar_faststream.instrumentation.OtelMiddleware"><code class="xref py py-class docutils literal notranslate"><span class="pre">OtelMiddleware</span></code></a>. If middleware is absent the
+INTERNAL span is the root – still emitted but less semantically
+rich than middleware + decorator together.</p></li>
+<li><p>When <code class="docutils literal notranslate"><span class="pre">opentelemetry</span></code> is not installed the span work is a no-op
+(via <code class="xref py py-data docutils literal notranslate"><span class="pre">_otel_typing.OPENTELEMETRY_INSTALLED</span></code>); the timing log
+line is always emitted.</p></li>
+</ul>
+</dd></dl>
+
+</section>
+<section id="cli-and-info-litestar-faststream-cli">
+<h2>CLI and info (<code class="docutils literal notranslate"><span class="pre">litestar_faststream.cli</span></code>)<a class="headerlink" href="#cli-and-info-litestar-faststream-cli" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">litestar</span> <span class="pre">faststream</span></code> subcommands and introspection.</p>
+<p id="module-litestar_faststream.cli">Litestar CLI subcommands for FastStream BrokerConfig: run / info / status / drain.</p>
+<p id="module-litestar_faststream.info">Pretty-print registration metadata for a <code class="docutils literal notranslate"><span class="pre">BrokerConfig</span></code>.</p>
+<p>Kept separate from <code class="docutils literal notranslate"><span class="pre">cli.py</span></code> so the formatting logic is unit-testable
+without going through Click.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="litestar_faststream.info.render_plugin_info">
+<span class="sig-prename descclassname"><span class="pre">litestar_faststream.info.</span></span><span class="sig-name descname"><span class="pre">render_plugin_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/litestar_faststream/info.html#render_plugin_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#litestar_faststream.info.render_plugin_info" title="Link to this definition">#</a></dt>
+<dd><p>Render a human-readable summary of what a <code class="docutils literal notranslate"><span class="pre">BrokerConfig</span></code> registered.</p>
+<p>Reads the <code class="docutils literal notranslate"><span class="pre">_registered_subscribers</span></code> / <code class="docutils literal notranslate"><span class="pre">_registered_response_publishers</span></code>
+lists populated by <code class="docutils literal notranslate"><span class="pre">BrokerConfig._apply_to_app_config</span></code>. Returns a single
+string ending with a newline. Format mirrors the table-style rendering used
+by other Litestar plugins so the output is greppable and aligns visually.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>plugin</strong> (<a class="reference internal" href="#litestar_faststream.plugin.BrokerConfig" title="litestar_faststream.plugin.BrokerConfig"><em>BrokerConfig</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="support-litestar-faststream-exceptions">
+<h2>Support (<code class="docutils literal notranslate"><span class="pre">litestar_faststream.exceptions</span></code>)<a class="headerlink" href="#support-litestar-faststream-exceptions" title="Link to this heading">#</a></h2>
+<p>Errors and shared helpers.</p>
+<p id="module-litestar_faststream.exceptions">Exception hierarchy for litestar-faststream.</p>
+<p>All errors inherit from <code class="xref py py-class docutils literal notranslate"><span class="pre">litestar.exceptions.ImproperlyConfiguredException</span></code>
+so existing <code class="docutils literal notranslate"><span class="pre">except</span> <span class="pre">ImproperlyConfiguredException</span></code> blocks keep working;
+specific subclasses let callers (and tests) discriminate failure modes
+without parsing message strings.</p>
+<p>Hierarchy:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">ImproperlyConfiguredException</span>                  <span class="p">(</span><span class="n">litestar</span><span class="p">)</span>
+</span><span data-line="2">  <span class="n">FastStreamPluginError</span>                        <span class="p">(</span><span class="n">base</span> <span class="k">for</span> <span class="n">this</span> <span class="n">package</span><span class="p">)</span>
+</span><span data-line="3">    <span class="n">BrokerConfigurationError</span>                   <span class="p">(</span><span class="n">FastStreamConfig</span> <span class="o">/</span> <span class="n">host</span><span class="p">)</span>
+</span><span data-line="4">      <span class="n">DuplicateBrokerNameError</span>
+</span><span data-line="5">      <span class="n">BrokerNotRegisteredError</span>
+</span><span data-line="6">    <span class="n">HandlerDiscoveryError</span>                      <span class="p">(</span><span class="n">discovery</span><span class="o">.</span><span class="n">collect</span> <span class="o">/</span> <span class="n">markers</span><span class="p">)</span>
+</span><span data-line="7">      <span class="n">MarkerConfigurationError</span>
+</span></pre></div>
+</div>
+<dl class="py exception">
+<dt class="sig sig-object py" id="litestar_faststream.exceptions.BrokerConfigurationError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">litestar_faststream.exceptions.</span></span><span class="sig-name descname"><span class="pre">BrokerConfigurationError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detail</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/litestar_faststream/exceptions.html#BrokerConfigurationError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#litestar_faststream.exceptions.BrokerConfigurationError" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#litestar_faststream.exceptions.FastStreamPluginError" title="litestar_faststream.exceptions.FastStreamPluginError"><code class="xref py py-class docutils literal notranslate"><span class="pre">FastStreamPluginError</span></code></a></p>
+<p>FastStreamConfig / BrokerConfig setup is invalid.</p>
+<p>Initialize <code class="docutils literal notranslate"><span class="pre">HTTPException</span></code>.</p>
+<p>Set <code class="docutils literal notranslate"><span class="pre">detail</span></code> and <code class="docutils literal notranslate"><span class="pre">args</span></code> if not provided.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>*args</strong> (<em>Any</em>) – if <code class="docutils literal notranslate"><span class="pre">detail</span></code> kwarg not provided, first arg should be error detail.</p></li>
+<li><p><strong>detail</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – Exception details or message. Will default to args[0] if not provided.</p></li>
+<li><p><strong>status_code</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Exception HTTP status code.</p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>] </em><em>| </em><em>None</em>) – Headers to set on the response.</p></li>
+<li><p><strong>extra</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a><em>] </em><em>| </em><em>None</em>) – An extra mapping to attach to the exception.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="litestar_faststream.exceptions.BrokerNotRegisteredError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">litestar_faststream.exceptions.</span></span><span class="sig-name descname"><span class="pre">BrokerNotRegisteredError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detail</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/litestar_faststream/exceptions.html#BrokerNotRegisteredError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#litestar_faststream.exceptions.BrokerNotRegisteredError" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#litestar_faststream.exceptions.BrokerConfigurationError" title="litestar_faststream.exceptions.BrokerConfigurationError"><code class="xref py py-class docutils literal notranslate"><span class="pre">BrokerConfigurationError</span></code></a></p>
+<p>A broker was referenced by name but no BrokerConfig owns that name.</p>
+<p>Initialize <code class="docutils literal notranslate"><span class="pre">HTTPException</span></code>.</p>
+<p>Set <code class="docutils literal notranslate"><span class="pre">detail</span></code> and <code class="docutils literal notranslate"><span class="pre">args</span></code> if not provided.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>*args</strong> (<em>Any</em>) – if <code class="docutils literal notranslate"><span class="pre">detail</span></code> kwarg not provided, first arg should be error detail.</p></li>
+<li><p><strong>detail</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – Exception details or message. Will default to args[0] if not provided.</p></li>
+<li><p><strong>status_code</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Exception HTTP status code.</p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>] </em><em>| </em><em>None</em>) – Headers to set on the response.</p></li>
+<li><p><strong>extra</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a><em>] </em><em>| </em><em>None</em>) – An extra mapping to attach to the exception.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="litestar_faststream.exceptions.DuplicateBrokerNameError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">litestar_faststream.exceptions.</span></span><span class="sig-name descname"><span class="pre">DuplicateBrokerNameError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detail</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/litestar_faststream/exceptions.html#DuplicateBrokerNameError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#litestar_faststream.exceptions.DuplicateBrokerNameError" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#litestar_faststream.exceptions.BrokerConfigurationError" title="litestar_faststream.exceptions.BrokerConfigurationError"><code class="xref py py-class docutils literal notranslate"><span class="pre">BrokerConfigurationError</span></code></a></p>
+<p>Two BrokerConfig entries share the same <code class="docutils literal notranslate"><span class="pre">name</span></code>.</p>
+<p>Initialize <code class="docutils literal notranslate"><span class="pre">HTTPException</span></code>.</p>
+<p>Set <code class="docutils literal notranslate"><span class="pre">detail</span></code> and <code class="docutils literal notranslate"><span class="pre">args</span></code> if not provided.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>*args</strong> (<em>Any</em>) – if <code class="docutils literal notranslate"><span class="pre">detail</span></code> kwarg not provided, first arg should be error detail.</p></li>
+<li><p><strong>detail</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – Exception details or message. Will default to args[0] if not provided.</p></li>
+<li><p><strong>status_code</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Exception HTTP status code.</p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>] </em><em>| </em><em>None</em>) – Headers to set on the response.</p></li>
+<li><p><strong>extra</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a><em>] </em><em>| </em><em>None</em>) – An extra mapping to attach to the exception.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="litestar_faststream.exceptions.FastStreamPluginError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">litestar_faststream.exceptions.</span></span><span class="sig-name descname"><span class="pre">FastStreamPluginError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detail</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/litestar_faststream/exceptions.html#FastStreamPluginError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#litestar_faststream.exceptions.FastStreamPluginError" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ImproperlyConfiguredException</span></code></p>
+<p>Base class for all litestar-faststream configuration errors.</p>
+<p>Initialize <code class="docutils literal notranslate"><span class="pre">HTTPException</span></code>.</p>
+<p>Set <code class="docutils literal notranslate"><span class="pre">detail</span></code> and <code class="docutils literal notranslate"><span class="pre">args</span></code> if not provided.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>*args</strong> (<em>Any</em>) – if <code class="docutils literal notranslate"><span class="pre">detail</span></code> kwarg not provided, first arg should be error detail.</p></li>
+<li><p><strong>detail</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – Exception details or message. Will default to args[0] if not provided.</p></li>
+<li><p><strong>status_code</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Exception HTTP status code.</p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>] </em><em>| </em><em>None</em>) – Headers to set on the response.</p></li>
+<li><p><strong>extra</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a><em>] </em><em>| </em><em>None</em>) – An extra mapping to attach to the exception.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="litestar_faststream.exceptions.HandlerDiscoveryError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">litestar_faststream.exceptions.</span></span><span class="sig-name descname"><span class="pre">HandlerDiscoveryError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detail</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/litestar_faststream/exceptions.html#HandlerDiscoveryError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#litestar_faststream.exceptions.HandlerDiscoveryError" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#litestar_faststream.exceptions.FastStreamPluginError" title="litestar_faststream.exceptions.FastStreamPluginError"><code class="xref py py-class docutils literal notranslate"><span class="pre">FastStreamPluginError</span></code></a></p>
+<p>A handler or extra_handler could not be discovered/registered.</p>
+<p>Initialize <code class="docutils literal notranslate"><span class="pre">HTTPException</span></code>.</p>
+<p>Set <code class="docutils literal notranslate"><span class="pre">detail</span></code> and <code class="docutils literal notranslate"><span class="pre">args</span></code> if not provided.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>*args</strong> (<em>Any</em>) – if <code class="docutils literal notranslate"><span class="pre">detail</span></code> kwarg not provided, first arg should be error detail.</p></li>
+<li><p><strong>detail</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – Exception details or message. Will default to args[0] if not provided.</p></li>
+<li><p><strong>status_code</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Exception HTTP status code.</p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>] </em><em>| </em><em>None</em>) – Headers to set on the response.</p></li>
+<li><p><strong>extra</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a><em>] </em><em>| </em><em>None</em>) – An extra mapping to attach to the exception.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="litestar_faststream.exceptions.MarkerConfigurationError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">litestar_faststream.exceptions.</span></span><span class="sig-name descname"><span class="pre">MarkerConfigurationError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detail</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/litestar_faststream/exceptions.html#MarkerConfigurationError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#litestar_faststream.exceptions.MarkerConfigurationError" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#litestar_faststream.exceptions.HandlerDiscoveryError" title="litestar_faststream.exceptions.HandlerDiscoveryError"><code class="xref py py-class docutils literal notranslate"><span class="pre">HandlerDiscoveryError</span></code></a></p>
+<p>An <code class="docutils literal notranslate"><span class="pre">&#64;subscriber</span></code> / <code class="docutils literal notranslate"><span class="pre">&#64;publisher</span></code> marker entry is malformed.</p>
+<p>Initialize <code class="docutils literal notranslate"><span class="pre">HTTPException</span></code>.</p>
+<p>Set <code class="docutils literal notranslate"><span class="pre">detail</span></code> and <code class="docutils literal notranslate"><span class="pre">args</span></code> if not provided.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>*args</strong> (<em>Any</em>) – if <code class="docutils literal notranslate"><span class="pre">detail</span></code> kwarg not provided, first arg should be error detail.</p></li>
+<li><p><strong>detail</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – Exception details or message. Will default to args[0] if not provided.</p></li>
+<li><p><strong>status_code</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – Exception HTTP status code.</p></li>
+<li><p><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>] </em><em>| </em><em>None</em>) – Headers to set on the response.</p></li>
+<li><p><strong>extra</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a><em>] </em><em>| </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><em>Any</em></a><em>] </em><em>| </em><em>None</em>) – An extra mapping to attach to the exception.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="usage.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Usage</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="TODO.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">TODO</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2026, Hasan Sezer Taşan</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+  <a href="https://github.com/hasansezertasan/litestar-faststream" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div>
+    </div>
+  </div>
+</footer>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="_static/togglebutton.js?v=b8b12719"></script>
+      <script src="_static/design-tabs.js?v=f930bc37"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script src="_static/shibuya.js?v=50760d75"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script></body>
+</html>
