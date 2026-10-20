@@ -12,12 +12,6 @@ Litestar integration for FastStream message brokers
    modules
    TODO
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Maintainer guide
-
-   maintaining/setup
-
 Indices and tables
 ==================
 
