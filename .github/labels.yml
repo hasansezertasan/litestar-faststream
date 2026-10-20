@@ -78,6 +78,9 @@
 - name: area:core
   color: "5319e7"
   description: Core package, utilities, or core tests
+- name: area:docs
+  color: 0075ca
+  description: Documentation or project prose
 - name: area:ci
   color: 0e8a16
   description: Continuous integration workflows
