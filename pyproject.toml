@@ -239,14 +239,10 @@ name = "cz_conventional_commits"
 addopts = "-v --tb=short --doctest-glob=README.md -p no:unraisableexception"
 # One marker per component, auto-applied by tests/conftest.py from each test's
 # top-level tests/<dir>/. Enables `pytest -m web` locally and per-component CI
-<<<<<<< before updating
-# jobs (issue #160, https://hasansezertasan.github.io/copier-pyproject/context/ci-topology/#per-component-markers-path-filtered-jobs-and-one-coverage-gate-per-component); `integration` (https://hasansezertasan.github.io/copier-pyproject/context/testing-strategy/#real-broker-integration-tests-testcontainers-locally-per-broker-ci-mechanism) is one axis of the scheme.
+# jobs; `integration` is one axis of the scheme.
 # The broker markers below are the project's own: integration + example tests
 # select brokers with @pytest.mark.rabbit() etc., so they must stay registered
 # alongside the template's component markers under --strict-markers.
-=======
-# jobs; `integration` is one axis of the scheme.
->>>>>>> after updating
 markers = [
   "core: core/shared component tests",
   "rabbit: RabbitMQ broker tests",
