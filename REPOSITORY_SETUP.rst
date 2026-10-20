@@ -5,7 +5,7 @@ This page is the single home for the **one-time repository setup** the project
 author (not contributors) performs so the automated release and maintenance
 workflows work. A contributor opening a pull request never touches any of it —
 their workflow is in the
-`Contributing Guidelines <https://github.com/hasansezertasan/litestar-faststream/blob/main/.github/CONTRIBUTING.md>`_.
+`Contributing Guidelines <https://github.com/hasansezertasan/litestar_faststream/blob/main/.github/CONTRIBUTING.md>`_.
 
 Each step is tagged by who performs it:
 
@@ -30,7 +30,7 @@ reads. Also delete head branches on merge to keep the branch list clean.
 
 .. code-block:: sh
 
-   gh repo edit hasansezertasan/litestar-faststream \
+   gh repo edit hasansezertasan/litestar_faststream \
      --enable-squash-merge \
      --enable-merge-commit=false \
      --enable-rebase-merge=false \
@@ -42,7 +42,7 @@ reads. Also delete head branches on merge to keep the branch list clean.
 
 .. code-block:: sh
 
-   gh api repos/hasansezertasan/litestar-faststream \
+   gh api repos/hasansezertasan/litestar_faststream \
      --jq '.allow_squash_merge and (.allow_merge_commit | not) and (.allow_rebase_merge | not) and (.allow_auto_merge | not) and .delete_branch_on_merge and (.squash_merge_commit_title == "PR_TITLE")' | grep -qx true
 
 UI equivalent: **Settings → General → Pull Requests** — enable **Allow squash
@@ -87,14 +87,14 @@ repository secret (a repository secret is readable by any workflow edit):
 
 .. code-block:: sh
 
-   gh secret set REPO_ADMIN_TOKEN --env ruleset-admin --repo hasansezertasan/litestar-faststream
+   gh secret set REPO_ADMIN_TOKEN --env ruleset-admin --repo hasansezertasan/litestar_faststream
 
 **[AGENT]** Trigger the workflow once (push a change under ``.github/rulesets/``
 or run it directly):
 
 .. code-block:: sh
 
-   gh workflow run ruleset-sync.yml --repo hasansezertasan/litestar-faststream
+   gh workflow run ruleset-sync.yml --repo hasansezertasan/litestar_faststream
 
 **[CHECK]** The ``Protect main`` ruleset is applied and active — verifying the
 end state (not just that the ``REPO_ADMIN_TOKEN`` secret exists), so a repo where
@@ -103,7 +103,7 @@ correctly reported as not-done:
 
 .. code-block:: sh
 
-   gh api --paginate repos/hasansezertasan/litestar-faststream/rulesets \
+   gh api --paginate repos/hasansezertasan/litestar_faststream/rulesets \
      --jq 'any(.[]; .name == "Protect main" and .enforcement == "active")' | grep -qx true
 
 Until the ``REPO_ADMIN_TOKEN`` environment secret is set the workflow logs a
@@ -193,7 +193,7 @@ Recover a release blocked by this mismatch
 
    .. code-block:: sh
 
-      gh api -X DELETE repos/hasansezertasan/litestar-faststream/git/refs/tags/TAG_NAME
+      gh api -X DELETE repos/hasansezertasan/litestar_faststream/git/refs/tags/TAG_NAME
 
    Skip deletion if the tag is absent. If a draft release already exists, retain
    its tag and release and use **Re-run failed jobs** after restoring the
@@ -217,7 +217,7 @@ request, so the repo must allow Actions to create and approve pull requests.
 
 .. code-block:: sh
 
-   gh api -X PUT repos/hasansezertasan/litestar-faststream/actions/permissions/workflow \
+   gh api -X PUT repos/hasansezertasan/litestar_faststream/actions/permissions/workflow \
      -F default_workflow_permissions=read \
      -F can_approve_pull_request_reviews=true
 
@@ -225,7 +225,7 @@ request, so the repo must allow Actions to create and approve pull requests.
 
 .. code-block:: sh
 
-   gh api repos/hasansezertasan/litestar-faststream/actions/permissions/workflow \
+   gh api repos/hasansezertasan/litestar_faststream/actions/permissions/workflow \
      --jq '.can_approve_pull_request_reviews == true and .default_workflow_permissions == "read"' | grep -qx true
 
 UI equivalent: **Settings → Actions → General → Workflow permissions** — enable
@@ -272,7 +272,7 @@ SBOM export, which also tracks the graph but is closing down on 2026-11-13.)
 .. code-block:: sh
 
    gh api --silent \
-     repos/hasansezertasan/litestar-faststream/dependency-graph/compare/main...main
+     repos/hasansezertasan/litestar_faststream/dependency-graph/compare/main...main
 
 PyPI trusted publishing
 -----------------------
@@ -287,8 +287,7 @@ tokens or secrets to manage).
 
 - **PyPI Project Name:** ``litestar_faststream``
 - **Owner:** ``hasansezertasan``
-- **Repository name:** ``litestar-faststream`` — the GitHub repository slug
-  (dashes), not the Python package name; PyPI's OIDC check matches it exactly.
+- **Repository name:** ``litestar_faststream``
 - **Workflow name:** ``release.yml`` — the publish step lives inline in this
   workflow, so this is the filename PyPI's OIDC check matches.
 - **Environment name:** ``publish``
@@ -326,15 +325,15 @@ delete every policy first and re-add exactly one:
 
 .. code-block:: sh
 
-   gh api -X PUT repos/hasansezertasan/litestar-faststream/environments/publish \
+   gh api -X PUT repos/hasansezertasan/litestar_faststream/environments/publish \
      -F 'deployment_branch_policy[protected_branches]=false' \
      -F 'deployment_branch_policy[custom_branch_policies]=true'
-   ids="$(gh api --paginate repos/hasansezertasan/litestar-faststream/environments/publish/deployment-branch-policies \
+   ids="$(gh api --paginate repos/hasansezertasan/litestar_faststream/environments/publish/deployment-branch-policies \
      --jq '.branch_policies[].id')"
    for id in $ids; do
-     gh api -X DELETE "repos/hasansezertasan/litestar-faststream/environments/publish/deployment-branch-policies/$id"
+     gh api -X DELETE "repos/hasansezertasan/litestar_faststream/environments/publish/deployment-branch-policies/$id"
    done
-   gh api -X POST repos/hasansezertasan/litestar-faststream/environments/publish/deployment-branch-policies \
+   gh api -X POST repos/hasansezertasan/litestar_faststream/environments/publish/deployment-branch-policies \
      -f name=main -f type=branch
 
 Artifact attestations are enabled automatically for public repositories. For a
@@ -343,7 +342,7 @@ confirming artifact attestations are available:
 
 .. code-block:: sh
 
-   gh variable set ENABLE_PRIVATE_ATTESTATIONS --body true --repo hasansezertasan/litestar-faststream
+   gh variable set ENABLE_PRIVATE_ATTESTATIONS --body true --repo hasansezertasan/litestar_faststream
 
 **[CHECK]** The collection must be *exactly* one branch policy named ``main`` —
 asserting only that ``main`` is present would pass with a wildcard sitting next
@@ -357,7 +356,7 @@ together with ``--jq``.)
 
 .. code-block:: sh
 
-   policies="$(gh api --paginate repos/hasansezertasan/litestar-faststream/environments/publish/deployment-branch-policies \
+   policies="$(gh api --paginate repos/hasansezertasan/litestar_faststream/environments/publish/deployment-branch-policies \
      --jq '.branch_policies[] | "\(.type // "branch"):\(.name)"')"
    [ "$policies" = "branch:main" ]
 
@@ -382,16 +381,16 @@ dashboard.
 
 .. code-block:: sh
 
-   gh secret set CODECOV_TOKEN --repo hasansezertasan/litestar-faststream
+   gh secret set CODECOV_TOKEN --repo hasansezertasan/litestar_faststream
 
 **[CHECK]** A public repo needs no token; a private repo needs the secret:
 
 .. code-block:: sh
 
-   priv="$(gh repo view hasansezertasan/litestar-faststream --json isPrivate --jq '.isPrivate' 2>/dev/null)"
+   priv="$(gh repo view hasansezertasan/litestar_faststream --json isPrivate --jq '.isPrivate' 2>/dev/null)"
    if [ "$priv" = "false" ]; then true
    elif [ "$priv" = "true" ]; then
-     gh secret list --repo hasansezertasan/litestar-faststream --json name --jq '.[].name' | grep -qx CODECOV_TOKEN
+     gh secret list --repo hasansezertasan/litestar_faststream --json name --jq '.[].name' | grep -qx CODECOV_TOKEN
    else false; fi
 
 The upload is best-effort either way: on a private repo with no token CI records
@@ -416,17 +415,17 @@ empty (and unused) otherwise.
 
 .. code-block:: sh
 
-   gh secret set GITLEAKS_LICENSE --repo hasansezertasan/litestar-faststream
+   gh secret set GITLEAKS_LICENSE --repo hasansezertasan/litestar_faststream
 
 **[CHECK]** A user-owned repo needs no license; an organization-owned repo needs
 the secret:
 
 .. code-block:: sh
 
-   owner="$(gh api repos/hasansezertasan/litestar-faststream --jq '.owner.type' 2>/dev/null)"
+   owner="$(gh api repos/hasansezertasan/litestar_faststream --jq '.owner.type' 2>/dev/null)"
    if [ "$owner" = "User" ]; then true
    elif [ "$owner" = "Organization" ]; then
-     gh secret list --repo hasansezertasan/litestar-faststream --json name --jq '.[].name' | grep -qx GITLEAKS_LICENSE
+     gh secret list --repo hasansezertasan/litestar_faststream --json name --jq '.[].name' | grep -qx GITLEAKS_LICENSE
    else false; fi
 
 For a personal/public repo this needs no setup and the check passes with no
@@ -447,14 +446,14 @@ by the first release that runs ``deploy-docs``, so enable Pages once after that.
 
 .. code-block:: sh
 
-   gh api -X POST repos/hasansezertasan/litestar-faststream/pages \
+   gh api -X POST repos/hasansezertasan/litestar_faststream/pages \
      -f 'source[branch]=gh-pages' -f 'source[path]=/'
 
 **[CHECK]**
 
 .. code-block:: sh
 
-   gh api repos/hasansezertasan/litestar-faststream/pages \
+   gh api repos/hasansezertasan/litestar_faststream/pages \
      --jq '.source.branch == "gh-pages" and .source.path == "/"' | grep -qx true
 
 This check stays red until the first release runs ``deploy-docs`` and creates the
@@ -528,6 +527,43 @@ Renovate's copier manager re-renders files but does not re-lock, and CI, the
 ``prek`` hooks, and the ``mise`` tasks all run ``uv run --locked``, which fails
 outright against a stale lockfile.
 
+Check these even when the update runner reports success:
+
+* **Scan for conflicts.** After checkout, run
+  ``git grep -nE '^(<<<<<<<|>>>>>>>)'`` and
+  ``find . -name '*.rej' -not -path './.git/*'``, and list silent deletions with
+  ``git diff --name-only --diff-filter=D <pre-update-commit> HEAD --``.
+* **New questions took their defaults.** Diff ``.copier-answers.yml`` against
+  the pre-update commit (``git show <pre-update-commit>:.copier-answers.yml``)
+  and review every added or changed key before keeping it: a default can enable
+  a dependency or a behaviour.
+* **Project-owned release state is reset.** An update deletes ``CHANGELOG.md``
+  and resets ``.github/release-please-manifest.json`` to ``0.0.0``. Restore both
+  from the pre-update commit (``git restore --source=<pre-update-commit> --
+  <path>``) and confirm the manifest holds the last released version.
+* **Verify the recorded anchor.** After committing the reconciliation, run
+  ``uvx copier@latest update --vcs-ref=<_commit> --pretend --defaults`` pinned
+  to the ``_commit`` you reconciled to; it must report
+  ``Keeping template version``. An unpinned ``--pretend`` selects the latest
+  release tag, which is not divergence from the recorded anchor.
+* **Retired ai-rulez output.** If the pre-update ``.copier-answers.yml`` has
+  ``include_ai_rulez: true``, the update deletes ``.ai-rulez/`` but leaves the
+  host files it generated (``CLAUDE.md``, ``.github/copilot-instructions.md``,
+  per-host skill copies, ...) behind, next to the newly rendered ``AGENTS.md``.
+  Preferably run ``uvx ai-rulez clean --force --keep-gitignore`` *before*
+  updating, while the sources still exist. If the update is already checked
+  out, restore the sources and clean, then put back the rendered ``AGENTS.md``,
+  which ``clean`` also deletes: ``git checkout <pre-update-commit> --
+  .ai-rulez && uvx ai-rulez clean --force --keep-gitignore && git rm -rf
+  --ignore-unmatch .ai-rulez && git checkout HEAD -- AGENTS.md``. Move any
+  guidance kept in the ``.ai-rulez/`` rule sources into ``AGENTS.md``, and drop
+  the ``agents`` dependency group from ``pyproject.toml`` if it remains.
+* **Never run** ``copier copy --overwrite`` **on an adopted project.** It
+  discards every committed reconciliation; use ``copier update`` (``uvx
+  copier@latest`` if a ``copier`` shim cannot resolve a version).
+* **Leave the merge to a human.** An update PR with no linked issue takes the
+  ``no-issue`` label.
+
 Enable GitHub Discussions
 -------------------------
 
@@ -541,13 +577,13 @@ turned on.
 
 .. code-block:: sh
 
-   gh api -X PATCH repos/hasansezertasan/litestar-faststream -F has_discussions=true
+   gh api -X PATCH repos/hasansezertasan/litestar_faststream -F has_discussions=true
 
 **[CHECK]**
 
 .. code-block:: sh
 
-   [ "$(gh repo view hasansezertasan/litestar-faststream --json hasDiscussionsEnabled --jq '.hasDiscussionsEnabled')" = "true" ]
+   [ "$(gh repo view hasansezertasan/litestar_faststream --json hasDiscussionsEnabled --jq '.hasDiscussionsEnabled')" = "true" ]
 
 UI equivalent: **Settings → General → Features** — tick **Discussions**.
 
@@ -595,7 +631,7 @@ policy step; a CODEOWNERS file alone does not enforce review.
 .. code-block:: sh
 
 
-   gh api --paginate repos/hasansezertasan/litestar-faststream/rules/branches/main \
+   gh api --paginate repos/hasansezertasan/litestar_faststream/rules/branches/main \
      --jq 'any(.[]; .type == "pull_request" and .parameters.require_code_owner_review == true)' | grep -qx true
 
 **[HUMAN]** Only after the prerequisite check passes, install it once on this repository (or your account) from the
@@ -675,7 +711,7 @@ unacceptable.
 Downstream package repositories
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The optional Homebrew tap and Scoop bucket generated by this template are
+The optional Homebrew tap and Scoop bucket this project dispatches to are
 maintainer-owned distribution channels. After the project has stable releases
 and user demand, consider submitting it to community-maintained repositories
 such as Homebrew core, Scoop's main buckets, Arch, Debian, or Fedora. Each has
@@ -695,3 +731,91 @@ stable. Archive a release, add the resulting DOI badge and citation metadata to
 ``README.md``, and update ``CITATION.cff`` if the archive supplies identifiers
 that should be part of the preferred citation. General-purpose applications and
 libraries do not need a DOI solely for completeness.
+
+Adopting into an existing project
+---------------------------------
+
+This section is reference material, not part of the setup walkthrough: it has
+no ``[AGENT]``, ``[HUMAN]`` or ``[CHECK]`` steps. It applies when the template
+was copied over an existing or already-published package. The rendered output is
+a proposed baseline, not authority over the project's existing behaviour: keep
+project-specific functionality unless the owner chooses to change it, and ask
+before any consequential change (removing or merging workflows, changing
+triggers or required checks, supported Python versions or platforms,
+dependencies, test or coverage scope, packaging or release behaviour).
+
+**Set up the baseline first.** Start from a clean tree with all project work
+committed, on a dedicated branch. Record the baseline commit, the last
+published version, and the exact template tag rendered. Render onto that
+committed branch rather than blindly over uncommitted work: the pre-adoption
+commit is the baseline, and the job is restoring the project's side from git.
+``_src_path`` in ``.copier-answers.yml`` must be a git URL such as
+``https://github.com/hasansezertasan/copier-pyproject.git``; the ``gh:``
+shorthand stops Renovate's copier manager from resolving template tags, so no
+update PR ever opens.
+
+Then reconcile, in this order of likely damage:
+
+* **Gate ruff before running any tool.** ``pyproject.toml`` sets ``fix = true``,
+  ``unsafe-fixes = true`` and ``select = ["ALL"]``, so the first ``ruff check``
+  or hook run rewrites ``src/**`` in place. Run ``ruff check --diff`` first and
+  add ``per-file-ignores`` for deliberate patterns before letting it fix. The
+  ``markdownlint-cli2`` config also sets ``"fix": true`` and rewrites every
+  Markdown file it discovers.
+* **The source skeleton collides with real code.** The template renders
+  ``src/litestar_faststream/__init__.py``, ``__main__.py``, ``__metadata__.py``,
+  ``core/`` and ``utils/``, plus tests under ``tests/`` that import them.
+  Restore the project's own files from the baseline, decide which skeleton
+  modules to keep (enabled components read ``core/app.py``), and update the
+  tests that import removed ones.
+* **Docs collide too.** An old MkDocs ``docs/index.md`` has the same docname as
+  the rendered ``docs/index.rst``, and ``docs/modules.rst`` runs ``automodule``
+  on the skeleton modules. Port the content into ``.rst`` and point
+  ``automodule`` at the real modules. Keep custom ``exclude_patterns`` in
+  ``docs/conf.py`` so internal design notes stay off the published site.
+* **Release state starts at zero.** ``.github/release-please-manifest.json``
+  renders as ``0.0.0``; set it to the last published version, checked against
+  the release history (the nearest git tag can belong to a draft or unrelated
+  release). The version stays dynamic: hatch-vcs reads the tag release-please
+  cuts.
+* **Dependencies the answers enabled.** A zero-dependency library must not gain
+  runtime dependencies from a component toggle; compare
+  ``[project] dependencies`` with the baseline before keeping any answer.
+* **A raised Python floor is a breaking change.** Mark it with a ``feat!:``
+  title or a ``BREAKING CHANGE:`` footer so release-please recognises it; the
+  ``bump-minor-pre-major`` policy still uses a minor bump before 1.0.
+* **Planted prose passes every gate.** Resolve each ``TODO @hasansezertasan:``
+  marker one at a time (write, remove or keep), and rewrite the example bodies
+  in ``.github/ISSUE_TEMPLATE/``, including the ``litestar_faststream==0.1.0``
+  pin, for the project's real surface.
+* **Lost check coverage.** Before deleting a hook config or quality job, list
+  every old hook and classify it as retained, replaced, missing or intentionally
+  omitted, with its stage (pre-commit, pre-push, CI), file filters, exclusions
+  and feedback timing. A similar tool name is not proof of equivalent coverage
+  (Ruff ``S`` overlaps Bandit without matching it; a CI ``pip-audit`` is later
+  feedback than a local pre-push audit). Ask before accepting reduced coverage.
+* **Manifest parity (``pyproject.toml``).** Compare table by table, not as one
+  diff, since the template reorders tables. Map each removed env-manager entry
+  point (Hatch, PDM or nox envs, Makefile targets) to the tox env, ``mise`` task
+  or CI step that now runs it. Treat a lower rendered pin as a downgrade, not an
+  update. Check that strictness did not narrow (pytest ``strict`` markers,
+  ``filterwarnings``, type-checker ``include`` covering tests), that runtime
+  ``dependencies`` match the package's real imports, and that keywords, URLs
+  and classifiers keep their old values. Trim template leftovers such as
+  keywords describing the template, and prove an ignore is unused by rerunning
+  the tool before removing it.
+* **Overlapping workflows and required checks.** Compare events, branch and path
+  filters, schedules, manual dispatch, permissions, secrets and ``needs`` for
+  any workflow that does the same job as a shipped one. Before deleting or
+  renaming a workflow or job, inspect check names (including matrix names),
+  aggregate gates and the live branch protection or ruleset; if live
+  requirements are unreadable, defer the removal.
+* **Project customisations.** Preserve source behaviour, meaningful tests,
+  coverage expectations, supported Python and OS combinations, package data, the
+  public CLI and API, docs exclusions, real prose and changelog history.
+  Generated skeletons and placeholder tests do not replace real code or tests.
+
+Validate with the project's own lint, type, test, build and docs commands, and
+inspect auto-fix settings before running tools that write files. Report any check
+that failed or could not run, and do not call untested behaviour equivalent
+merely because files parse or CI is green.

@@ -2,12 +2,12 @@
 
 This is the single runnable entrypoint used by ``python -m litestar_faststream``
 and by every standalone-executable build (PyCrucible launcher, PyInstaller
-freezer, Nuitka compiler — see https://hasansezertasan.github.io/copier-pyproject/context/standalone-executables/#executables-are-named-per-tool-and-os-and-all-target-the-package-main-module).
+freezer, Nuitka compiler).
 The build tools all target this file,
 so the component-selection logic lives here and nowhere else.
 
 When a ``litestar_faststream`` console root exists (``include_console_root`` —
-the CLI, or ≥2 components sharing a launcher; see https://hasansezertasan.github.io/copier-pyproject/context/components/#secondary-components-are-subcommands-of-one-console-root-not-separate-scripts),
+the CLI, or ≥2 components sharing a launcher),
 ``main()`` runs it,
 which dispatches to the primary component by default and to each secondary via a
 subcommand. Otherwise the single enabled component with the highest precedence —
@@ -18,7 +18,7 @@ import/``main`` binding here directly. With no runnable component enabled,
 ``main()`` exits non-zero with an explanatory message.
 
 Either binding routes its import through a loader that turns a missing
-dependency into one actionable line instead of a traceback (https://hasansezertasan.github.io/copier-pyproject/context/components/#launcher-imports-are-guarded-with-exact-match-preflighted-dependency-errors).
+dependency into one actionable line instead of a traceback.
 This is
 the boundary that needs it most: a standalone executable's user has no console
 root to fall back on and no obvious way to read a Python stack trace.
