@@ -72,8 +72,4 @@ jobs:
         # Queries the PyPI Advisory DB for the full resolved tree; exits non-zero
         # on any finding. Runs in an ephemeral uvx env so pip-audit itself is not
         # a project dependency.
-        # CVE-2026-114603 (opentelemetry-api < 1.45.1) is ignored: the dev-only
-        # semgrep pin (sast group) holds opentelemetry-* at 1.37 in the shared
-        # universal lock, and the newer releases break semgrep. Drop the ignore
-        # once semgrep supports opentelemetry >= 1.38.
-        run: uvx pip-audit --ignore-vuln CVE-2026-114603 --requirement requirements-audit.txt
+        run: uvx pip-audit --requirement requirements-audit.txt

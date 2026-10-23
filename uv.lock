@@ -2,16 +2,30 @@ version = 1
 revision = 5
 requires-python = ">=3.11"
 resolution-markers = [
-    "python_full_version >= '3.15'",
-    "python_full_version == '3.14.*' and sys_platform == 'win32'",
-    "python_full_version == '3.14.*' and sys_platform != 'win32'",
-    "python_full_version == '3.13.*' and sys_platform == 'win32'",
-    "python_full_version == '3.13.*' and sys_platform != 'win32'",
-    "python_full_version == '3.12.*' and sys_platform == 'win32'",
-    "python_full_version == '3.12.*' and sys_platform != 'win32'",
-    "python_full_version >= '3.11.5' and python_full_version < '3.12'",
-    "python_full_version < '3.11.5'",
+    "python_full_version >= '3.15' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
+    "python_full_version == '3.14.*' and sys_platform == 'win32' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
+    "python_full_version == '3.14.*' and sys_platform != 'win32' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
+    "python_full_version == '3.13.*' and sys_platform == 'win32' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
+    "python_full_version == '3.12.*' and sys_platform == 'win32' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
+    "python_full_version == '3.13.*' and sys_platform != 'win32' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
+    "python_full_version == '3.12.*' and sys_platform != 'win32' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
+    "python_full_version >= '3.11.5' and python_full_version < '3.12' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
+    "python_full_version < '3.11.5' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
+    "python_full_version >= '3.15' and extra == 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
+    "python_full_version >= '3.13' and python_full_version < '3.15' and extra == 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
+    "python_full_version == '3.12.*' and extra == 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
+    "python_full_version >= '3.11.5' and python_full_version < '3.12' and extra == 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
+    "python_full_version < '3.11.5' and extra == 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
+    "python_full_version >= '3.15' and extra != 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
+    "python_full_version >= '3.13' and python_full_version < '3.15' and extra != 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
+    "python_full_version == '3.12.*' and extra != 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
+    "python_full_version >= '3.11.5' and python_full_version < '3.12' and extra != 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
+    "python_full_version < '3.11.5' and extra != 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
 ]
+conflicts = [[
+    { package = "litestar-faststream", extra = "otel" },
+    { package = "litestar-faststream", group = "sast" },
+]]
 
 [[package]]
 name = "aio-pika"
@@ -100,7 +114,7 @@ version = "4.15.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "idna" },
-    { name = "typing-extensions", marker = "python_full_version < '3.15'" },
+    { name = "typing-extensions", marker = "python_full_version < '3.15' or (extra == 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/a9/d2/f4d173e22df740bc37b1db102b386ba719b66e95b0f0d751f556b387e6d2/anyio-4.15.1.tar.gz", hash = "sha256:9f28306018cbd6d329e64a36d58256edff76dd996fe423bc957326e578b82a94", size = 276966, upload-time = "2026-09-05T10:42:39.44Z" }
 wheels = [
@@ -259,8 +273,8 @@ name = "beautifulsoup4"
 version = "4.15.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "soupsieve", version = "2.10", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11.5'" },
-    { name = "soupsieve", version = "3.0.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11.5'" },
+    { name = "soupsieve", version = "2.10", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11.5' or (extra == 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast')" },
+    { name = "soupsieve", version = "3.0.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11.5' or (extra == 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast')" },
     { name = "typing-extensions" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/43/65/318323f98dbee45d42dff61d8f047181bc6f2268a9068cfad035a46be5af/beautifulsoup4-4.15.0.tar.gz", hash = "sha256:288e3ca7d54b06f2ac191970bc275c1939cb46d450b255bf6718b04aa37ab4f7", size = 632571, upload-time = "2026-06-07T16:44:20.453Z" }
@@ -326,7 +340,7 @@ name = "cffi"
 version = "2.1.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "pycparser", marker = "implementation_name != 'PyPy'" },
+    { name = "pycparser", marker = "implementation_name != 'PyPy' or (extra == 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/9e/ef/008a1939e372c06329a3fce4279c02f328488f3526744906eeec3da7ad5f/cffi-2.1.1.tar.gz", hash = "sha256:dd31f52ea1086513bb9df30f8fcee9b8918323ae067a3d5b78bc826a000712be", size = 530807, upload-time = "2026-08-03T21:21:18.939Z" }
 wheels = [
@@ -571,7 +585,7 @@ name = "click"
 version = "8.4.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "colorama", marker = "sys_platform == 'win32'" },
+    { name = "colorama", marker = "sys_platform == 'win32' or (extra == 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/76/d4/81420972a676e8ffea40450d8c8c92943e7218a78fe9b64359836cc9876b/click-8.4.2.tar.gz", hash = "sha256:9a6cea6e60b17ebe0a44c5cc636d94f09bd66142c1cd7d8b4cd731c4917a15f6", size = 338000, upload-time = "2026-06-24T17:45:15.148Z" }
 wheels = [
@@ -776,7 +790,7 @@ wheels = [
 
 [package.optional-dependencies]
 toml = [
-    { name = "tomli", marker = "python_full_version <= '3.11'" },
+    { name = "tomli", marker = "python_full_version <= '3.11' or (extra == 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast')" },
 ]
 
 [[package]]
@@ -940,10 +954,10 @@ version = "0.25.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "click" },
-    { name = "colorama", marker = "sys_platform == 'win32'" },
+    { name = "colorama", marker = "sys_platform == 'win32' or (extra == 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast')" },
     { name = "packaging" },
     { name = "requirements-parser" },
-    { name = "tomli", marker = "python_full_version < '3.15'" },
+    { name = "tomli", marker = "python_full_version < '3.15' or (extra == 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/b8/b2/50ccc99362ae7757342978b7ecb3b98e47fade721fd617d74db1948ec3a1/deptry-0.25.1.tar.gz", hash = "sha256:45c8cd982c85cd4faae573ddff6920de7eec735336db6973f26a765ae7950f7d", size = 509748, upload-time = "2026-03-18T23:22:18.139Z" }
 wheels = [
@@ -1081,7 +1095,7 @@ name = "faker"
 version = "40.43.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "tzdata", marker = "sys_platform == 'win32'" },
+    { name = "tzdata", marker = "sys_platform == 'win32' or (extra == 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/33/6c/b8793efc2f00a912ef17cf0b61b717cddf34607499efcb8a32238c119368/faker-40.43.0.tar.gz", hash = "sha256:02fae4327c03a4a6315e1b428a3878f435bfc276c93435ea349b95c0c9372361", size = 2032713, upload-time = "2026-10-09T20:06:29.652Z" }
 wheels = [
@@ -1469,7 +1483,7 @@ name = "importlib-metadata"
 version = "8.7.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "zipp" },
+    { name = "zipp", marker = "extra == 'group-19-litestar-faststream-sast'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/f3/49/3b30cad09e7771a4982d9975a8cbf64f00d4a1ececb53297f1d9a7be1b10/importlib_metadata-8.7.1.tar.gz", hash = "sha256:49fef1ae6440c182052f407c8d34a68f72efc36db9ca90dc0113398f2fdde8bb", size = 57107, upload-time = "2025-12-21T10:00:19.278Z" }
 wheels = [
@@ -1759,8 +1773,8 @@ dependencies = [
 
 [package.optional-dependencies]
 otel = [
-    { name = "opentelemetry-api" },
-    { name = "opentelemetry-sdk" },
+    { name = "opentelemetry-api", version = "1.45.1", source = { registry = "https://pypi.org/simple" } },
+    { name = "opentelemetry-sdk", version = "1.45.1", source = { registry = "https://pypi.org/simple" } },
 ]
 
 [package.dev-dependencies]
@@ -1782,8 +1796,10 @@ dev = [
     { name = "inline-snapshot" },
     { name = "litestar", extra = ["standard"] },
     { name = "mypy" },
-    { name = "opentelemetry-api" },
-    { name = "opentelemetry-sdk" },
+    { name = "opentelemetry-api", version = "1.37.0", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-19-litestar-faststream-sast'" },
+    { name = "opentelemetry-api", version = "1.45.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-19-litestar-faststream-otel' or extra != 'group-19-litestar-faststream-sast'" },
+    { name = "opentelemetry-sdk", version = "1.37.0", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-19-litestar-faststream-sast'" },
+    { name = "opentelemetry-sdk", version = "1.45.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-19-litestar-faststream-otel' or extra != 'group-19-litestar-faststream-sast'" },
     { name = "pylint" },
     { name = "pyrefly" },
     { name = "pytest" },
@@ -1848,8 +1864,10 @@ test = [
     { name = "httpx" },
     { name = "inline-snapshot" },
     { name = "litestar", extra = ["standard"] },
-    { name = "opentelemetry-api" },
-    { name = "opentelemetry-sdk" },
+    { name = "opentelemetry-api", version = "1.37.0", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-19-litestar-faststream-sast'" },
+    { name = "opentelemetry-api", version = "1.45.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-19-litestar-faststream-otel' or extra != 'group-19-litestar-faststream-sast'" },
+    { name = "opentelemetry-sdk", version = "1.37.0", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-19-litestar-faststream-sast'" },
+    { name = "opentelemetry-sdk", version = "1.45.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-19-litestar-faststream-otel' or extra != 'group-19-litestar-faststream-sast'" },
     { name = "pytest" },
     { name = "pytest-asyncio" },
     { name = "pytest-deadfixtures" },
@@ -1869,8 +1887,8 @@ requires-dist = [
     { name = "click", specifier = ">=8.0" },
     { name = "faststream", specifier = ">=0.7.1" },
     { name = "litestar", specifier = ">=2.24.0" },
-    { name = "opentelemetry-api", marker = "extra == 'otel'", specifier = ">=1.20" },
-    { name = "opentelemetry-sdk", marker = "extra == 'otel'", specifier = ">=1.20" },
+    { name = "opentelemetry-api", marker = "extra == 'otel'", specifier = ">=1.45.1" },
+    { name = "opentelemetry-sdk", marker = "extra == 'otel'", specifier = ">=1.45.1" },
     { name = "typing-extensions", specifier = ">=4.0" },
 ]
 provides-extras = ["otel"]
@@ -1984,8 +2002,8 @@ name = "loguru"
 version = "0.7.3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "colorama", marker = "sys_platform == 'win32'" },
-    { name = "win32-setctime", marker = "sys_platform == 'win32'" },
+    { name = "colorama", marker = "sys_platform == 'win32' or (extra == 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast')" },
+    { name = "win32-setctime", marker = "sys_platform == 'win32' or (extra == 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/3a/05/a1dae3dffd1116099471c643b8924f5aa6524411dc6c63fdae648c4f1aca/loguru-0.7.3.tar.gz", hash = "sha256:19480589e77d47b8d85b2c827ad95d49bf31b0dcde16593892eb51dd18706eb6", size = 63559, upload-time = "2024-12-06T11:20:56.608Z" }
 wheels = [
@@ -2152,7 +2170,7 @@ dependencies = [
     { name = "jsonschema" },
     { name = "pydantic" },
     { name = "pydantic-settings" },
-    { name = "pyjwt", extra = ["crypto"] },
+    { name = "pyjwt", extra = ["crypto"], marker = "extra == 'group-19-litestar-faststream-sast'" },
     { name = "python-multipart" },
     { name = "pywin32", marker = "sys_platform == 'win32'" },
     { name = "sse-starlette" },
@@ -2448,7 +2466,7 @@ version = "2.4.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "ast-serialize" },
-    { name = "librt", marker = "platform_python_implementation != 'PyPy'" },
+    { name = "librt", marker = "platform_python_implementation != 'PyPy' or (extra == 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast')" },
     { name = "mypy-extensions" },
     { name = "pathspec" },
     { name = "typing-extensions" },
@@ -2612,13 +2630,43 @@ wheels = [
 name = "opentelemetry-api"
 version = "1.37.0"
 source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "python_full_version >= '3.15'",
+    "python_full_version == '3.14.*' and sys_platform == 'win32'",
+    "python_full_version == '3.14.*' and sys_platform != 'win32'",
+    "python_full_version == '3.13.*' and sys_platform == 'win32'",
+    "python_full_version == '3.12.*' and sys_platform == 'win32'",
+    "python_full_version == '3.13.*' and sys_platform != 'win32'",
+    "python_full_version == '3.12.*' and sys_platform != 'win32'",
+    "python_full_version >= '3.11.5' and python_full_version < '3.12'",
+    "python_full_version < '3.11.5'",
+]
 dependencies = [
-    { name = "importlib-metadata" },
-    { name = "typing-extensions" },
+    { name = "importlib-metadata", marker = "extra == 'group-19-litestar-faststream-sast'" },
+    { name = "typing-extensions", marker = "extra == 'group-19-litestar-faststream-sast'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/63/04/05040d7ce33a907a2a02257e601992f0cdf11c73b33f13c4492bf6c3d6d5/opentelemetry_api-1.37.0.tar.gz", hash = "sha256:540735b120355bd5112738ea53621f8d5edb35ebcd6fe21ada3ab1c61d1cd9a7", size = 64923, upload-time = "2025-09-11T10:29:01.662Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/91/48/28ed9e55dcf2f453128df738210a980e09f4e468a456fa3c763dbc8be70a/opentelemetry_api-1.37.0-py3-none-any.whl", hash = "sha256:accf2024d3e89faec14302213bc39550ec0f4095d1cf5ca688e1bfb1c8612f47", size = 65732, upload-time = "2025-09-11T10:28:41.826Z" },
+]
+
+[[package]]
+name = "opentelemetry-api"
+version = "1.45.1"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "python_full_version >= '3.15'",
+    "python_full_version >= '3.13' and python_full_version < '3.15'",
+    "python_full_version == '3.12.*'",
+    "python_full_version >= '3.11.5' and python_full_version < '3.12'",
+    "python_full_version < '3.11.5'",
+]
+dependencies = [
+    { name = "typing-extensions", marker = "extra == 'extra-19-litestar-faststream-otel' or extra != 'group-19-litestar-faststream-sast'" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/2e/02/6e0ae9cc61bd3169d401077b507b3ebc344745171e1051ab430be012dcd9/opentelemetry_api-1.45.1.tar.gz", hash = "sha256:aa38ed19bcc084ba42782a73255b3582283eced7ad6dddbd6695189e69adfb75", size = 72804, upload-time = "2026-10-06T17:32:58.133Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/1e/41/f7dcf80b81ee8e71c1a2b59f14208bc723edbd89ed027a73b175abf6348e/opentelemetry_api-1.45.1-py3-none-any.whl", hash = "sha256:b31553efa588ae44bc306f863c785c5333a9ecc091248c6ee68b4b6c87fdedfb", size = 60256, upload-time = "2026-10-06T17:32:33.506Z" },
 ]
 
 [[package]]
@@ -2639,10 +2687,10 @@ version = "1.37.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "googleapis-common-protos" },
-    { name = "opentelemetry-api" },
+    { name = "opentelemetry-api", version = "1.37.0", source = { registry = "https://pypi.org/simple" } },
     { name = "opentelemetry-exporter-otlp-proto-common" },
     { name = "opentelemetry-proto" },
-    { name = "opentelemetry-sdk" },
+    { name = "opentelemetry-sdk", version = "1.37.0", source = { registry = "https://pypi.org/simple" } },
     { name = "requests" },
     { name = "typing-extensions" },
 ]
@@ -2656,8 +2704,8 @@ name = "opentelemetry-instrumentation"
 version = "0.58b0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "opentelemetry-api" },
-    { name = "opentelemetry-semantic-conventions" },
+    { name = "opentelemetry-api", version = "1.37.0", source = { registry = "https://pypi.org/simple" } },
+    { name = "opentelemetry-semantic-conventions", version = "0.58b0", source = { registry = "https://pypi.org/simple" } },
     { name = "packaging" },
     { name = "wrapt" },
 ]
@@ -2671,9 +2719,9 @@ name = "opentelemetry-instrumentation-requests"
 version = "0.58b0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "opentelemetry-api" },
+    { name = "opentelemetry-api", version = "1.37.0", source = { registry = "https://pypi.org/simple" } },
     { name = "opentelemetry-instrumentation" },
-    { name = "opentelemetry-semantic-conventions" },
+    { name = "opentelemetry-semantic-conventions", version = "0.58b0", source = { registry = "https://pypi.org/simple" } },
     { name = "opentelemetry-util-http" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/36/42/83ee32de763b919779aaa595b60c5a7b9c0a4b33952bbe432c5f6a783085/opentelemetry_instrumentation_requests-0.58b0.tar.gz", hash = "sha256:ae9495e6ff64e27bdb839fce91dbb4be56e325139828e8005f875baf41951a2e", size = 15188, upload-time = "2025-09-11T11:42:51.268Z" }
@@ -2686,7 +2734,7 @@ name = "opentelemetry-instrumentation-threading"
 version = "0.58b0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "opentelemetry-api" },
+    { name = "opentelemetry-api", version = "1.37.0", source = { registry = "https://pypi.org/simple" } },
     { name = "opentelemetry-instrumentation" },
     { name = "wrapt" },
 ]
@@ -2711,10 +2759,21 @@ wheels = [
 name = "opentelemetry-sdk"
 version = "1.37.0"
 source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "python_full_version >= '3.15'",
+    "python_full_version == '3.14.*' and sys_platform == 'win32'",
+    "python_full_version == '3.14.*' and sys_platform != 'win32'",
+    "python_full_version == '3.13.*' and sys_platform == 'win32'",
+    "python_full_version == '3.12.*' and sys_platform == 'win32'",
+    "python_full_version == '3.13.*' and sys_platform != 'win32'",
+    "python_full_version == '3.12.*' and sys_platform != 'win32'",
+    "python_full_version >= '3.11.5' and python_full_version < '3.12'",
+    "python_full_version < '3.11.5'",
+]
 dependencies = [
-    { name = "opentelemetry-api" },
-    { name = "opentelemetry-semantic-conventions" },
-    { name = "typing-extensions" },
+    { name = "opentelemetry-api", version = "1.37.0", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-19-litestar-faststream-sast'" },
+    { name = "opentelemetry-semantic-conventions", version = "0.58b0", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-19-litestar-faststream-sast'" },
+    { name = "typing-extensions", marker = "extra == 'group-19-litestar-faststream-sast'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/f4/62/2e0ca80d7fe94f0b193135375da92c640d15fe81f636658d2acf373086bc/opentelemetry_sdk-1.37.0.tar.gz", hash = "sha256:cc8e089c10953ded765b5ab5669b198bbe0af1b3f89f1007d19acd32dc46dda5", size = 170404, upload-time = "2025-09-11T10:29:11.779Z" }
 wheels = [
@@ -2722,16 +2781,68 @@ wheels = [
 ]
 
 [[package]]
+name = "opentelemetry-sdk"
+version = "1.45.1"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "python_full_version >= '3.15'",
+    "python_full_version >= '3.13' and python_full_version < '3.15'",
+    "python_full_version == '3.12.*'",
+    "python_full_version >= '3.11.5' and python_full_version < '3.12'",
+    "python_full_version < '3.11.5'",
+]
+dependencies = [
+    { name = "opentelemetry-api", version = "1.45.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-19-litestar-faststream-otel' or extra != 'group-19-litestar-faststream-sast'" },
+    { name = "opentelemetry-semantic-conventions", version = "0.66b1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-19-litestar-faststream-otel' or extra != 'group-19-litestar-faststream-sast'" },
+    { name = "typing-extensions", marker = "extra == 'extra-19-litestar-faststream-otel' or extra != 'group-19-litestar-faststream-sast'" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/a1/79/7392e21a1c8f0c61d90b223e31c7e48cb9d452e91a6b820ad24cca5f23c4/opentelemetry_sdk-1.45.1.tar.gz", hash = "sha256:63d24a6ca645019a631e6a51999c73e93adcac1196ca640b8ae78a7cc4762bf3", size = 218324, upload-time = "2026-10-06T17:33:13.26Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/95/3c/87c42b4bd6dd297536f04cd9383d212ac557ecd49f2cbdcd46da1c9ef5c8/opentelemetry_sdk-1.45.1-py3-none-any.whl", hash = "sha256:c604c11dc429810812348989115fa44bd558772a3d7442afc43d024f2c250ca4", size = 140063, upload-time = "2026-10-06T17:32:55.04Z" },
+]
+
+[[package]]
 name = "opentelemetry-semantic-conventions"
 version = "0.58b0"
 source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "python_full_version >= '3.15'",
+    "python_full_version == '3.14.*' and sys_platform == 'win32'",
+    "python_full_version == '3.14.*' and sys_platform != 'win32'",
+    "python_full_version == '3.13.*' and sys_platform == 'win32'",
+    "python_full_version == '3.12.*' and sys_platform == 'win32'",
+    "python_full_version == '3.13.*' and sys_platform != 'win32'",
+    "python_full_version == '3.12.*' and sys_platform != 'win32'",
+    "python_full_version >= '3.11.5' and python_full_version < '3.12'",
+    "python_full_version < '3.11.5'",
+]
 dependencies = [
-    { name = "opentelemetry-api" },
-    { name = "typing-extensions" },
+    { name = "opentelemetry-api", version = "1.37.0", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-19-litestar-faststream-sast'" },
+    { name = "typing-extensions", marker = "extra == 'group-19-litestar-faststream-sast'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/aa/1b/90701d91e6300d9f2fb352153fb1721ed99ed1f6ea14fa992c756016e63a/opentelemetry_semantic_conventions-0.58b0.tar.gz", hash = "sha256:6bd46f51264279c433755767bb44ad00f1c9e2367e1b42af563372c5a6fa0c25", size = 129867, upload-time = "2025-09-11T10:29:12.597Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/07/90/68152b7465f50285d3ce2481b3aec2f82822e3f52e5152eeeaf516bab841/opentelemetry_semantic_conventions-0.58b0-py3-none-any.whl", hash = "sha256:5564905ab1458b96684db1340232729fce3b5375a06e140e8904c78e4f815b28", size = 207954, upload-time = "2025-09-11T10:28:59.218Z" },
+]
+
+[[package]]
+name = "opentelemetry-semantic-conventions"
+version = "0.66b1"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "python_full_version >= '3.15'",
+    "python_full_version >= '3.13' and python_full_version < '3.15'",
+    "python_full_version == '3.12.*'",
+    "python_full_version >= '3.11.5' and python_full_version < '3.12'",
+    "python_full_version < '3.11.5'",
+]
+dependencies = [
+    { name = "opentelemetry-api", version = "1.45.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-19-litestar-faststream-otel' or extra != 'group-19-litestar-faststream-sast'" },
+    { name = "typing-extensions", marker = "extra == 'extra-19-litestar-faststream-otel' or extra != 'group-19-litestar-faststream-sast'" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/46/e4/dbbfb2a010c4db2224a5114638acede6fe563d33cc20fb1752cebcbe6298/opentelemetry_semantic_conventions-0.66b1.tar.gz", hash = "sha256:497ca63bf383723411e8eaf60c8779e9877633c936bb641080adab59d0eb6ec8", size = 150250, upload-time = "2026-10-06T17:33:14.073Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/bc/14/67f8aa798857f8cf686f515bf93d9bb877ce952ddc8efae0fa25b45ce0d6/opentelemetry_semantic_conventions-0.66b1-py3-none-any.whl", hash = "sha256:d4cddeb4315490b35213f55e2bdc9ac54bb1e4d318927475bed62b35545e581b", size = 206279, upload-time = "2026-10-06T17:32:56.103Z" },
 ]
 
 [[package]]
@@ -3261,7 +3372,7 @@ version = "4.0.6"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "astroid" },
-    { name = "colorama", marker = "sys_platform == 'win32'" },
+    { name = "colorama", marker = "sys_platform == 'win32' or (extra == 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast')" },
     { name = "dill" },
     { name = "isort" },
     { name = "mccabe" },
@@ -3318,7 +3429,7 @@ name = "pytest"
 version = "9.1.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "colorama", marker = "sys_platform == 'win32'" },
+    { name = "colorama", marker = "sys_platform == 'win32' or (extra == 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast')" },
     { name = "iniconfig" },
     { name = "packaging" },
     { name = "pluggy" },
@@ -3335,7 +3446,7 @@ version = "1.4.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "pytest" },
-    { name = "typing-extensions", marker = "python_full_version < '3.13'" },
+    { name = "typing-extensions", marker = "python_full_version < '3.13' or (extra == 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/43/7c/d36d04db312ecf4298932ef77e6e4a9e8ad017906e24e34f0b0c361a2473/pytest_asyncio-1.4.0.tar.gz", hash = "sha256:c6c0d2259945122819f171a32ecea2c349ead889ee28176caaf492143424be42", size = 58514, upload-time = "2026-05-26T09:56:04.083Z" }
 wheels = [
@@ -3531,7 +3642,7 @@ name = "pyzmq"
 version = "27.2.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "cffi", marker = "implementation_name == 'pypy'" },
+    { name = "cffi", marker = "implementation_name == 'pypy' or (extra == 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/e7/8d/5b3d5631c2f4b4b8862f64cd0c9eb777b5710eeb5125b4be8dd0a200a4c0/pyzmq-27.2.0.tar.gz", hash = "sha256:54d4259d1bfae24ecdb5ca79f7acc2eac6c286a02d6a0ae617797cb45f0726d3", size = 292316, upload-time = "2026-08-20T19:08:21.19Z" }
 wheels = [
@@ -3607,7 +3718,7 @@ name = "redis"
 version = "8.1.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "async-timeout", marker = "python_full_version < '3.11.3'" },
+    { name = "async-timeout", marker = "python_full_version < '3.11.3' or (extra == 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/a8/99/604f0b666d4c616d891cf77ebb9db6bb21601344c051aebf1b72b9ff915f/redis-8.1.0.tar.gz", hash = "sha256:6e1a19beef9225c83efd689c7e6b7da2d5215b1f42cd13b7fc3714d0a09c7b25", size = 5254356, upload-time = "2026-07-30T08:51:00.269Z" }
 wheels = [
@@ -3621,7 +3732,7 @@ source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "attrs" },
     { name = "rpds-py" },
-    { name = "typing-extensions", marker = "python_full_version < '3.13'" },
+    { name = "typing-extensions", marker = "python_full_version < '3.13' or (extra == 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/22/f5/df4e9027acead3ecc63e50fe1e36aca1523e1719559c499951bb4b53188f/referencing-0.37.0.tar.gz", hash = "sha256:44aefc3142c5b842538163acb373e24cce6632bd54bdb01b21ad5863489f50d8", size = 78036, upload-time = "2025-10-13T15:30:48.871Z" }
 wheels = [
@@ -3794,7 +3905,7 @@ version = "1.9.9"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "click" },
-    { name = "colorama", marker = "sys_platform == 'win32'" },
+    { name = "colorama", marker = "sys_platform == 'win32' or (extra == 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast')" },
     { name = "rich" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/96/3e/5688fdd83aea416de336582a274f2bc8236b5c261b04c11e17bc262786ad/rich_click-1.9.9.tar.gz", hash = "sha256:324cba7513cd4187ee92b2eef21f071714e45be062458c8b157bd7e0c81103e3", size = 75866, upload-time = "2026-09-05T19:20:14.799Z" }
@@ -4042,14 +4153,14 @@ dependencies = [
     { name = "glom" },
     { name = "jsonschema" },
     { name = "mcp" },
-    { name = "opentelemetry-api" },
+    { name = "opentelemetry-api", version = "1.37.0", source = { registry = "https://pypi.org/simple" } },
     { name = "opentelemetry-exporter-otlp-proto-http" },
     { name = "opentelemetry-instrumentation-requests" },
     { name = "opentelemetry-instrumentation-threading" },
-    { name = "opentelemetry-sdk" },
+    { name = "opentelemetry-sdk", version = "1.37.0", source = { registry = "https://pypi.org/simple" } },
     { name = "packaging" },
     { name = "peewee" },
-    { name = "pyjwt", extra = ["crypto"] },
+    { name = "pyjwt", extra = ["crypto"], marker = "extra == 'group-19-litestar-faststream-sast'" },
     { name = "pywin32", marker = "sys_platform == 'win32'" },
     { name = "requests" },
     { name = "rich" },
@@ -4147,14 +4258,22 @@ name = "soupsieve"
 version = "3.0.3"
 source = { registry = "https://pypi.org/simple" }
 resolution-markers = [
-    "python_full_version >= '3.15'",
-    "python_full_version == '3.14.*' and sys_platform == 'win32'",
-    "python_full_version == '3.14.*' and sys_platform != 'win32'",
-    "python_full_version == '3.13.*' and sys_platform == 'win32'",
-    "python_full_version == '3.13.*' and sys_platform != 'win32'",
-    "python_full_version == '3.12.*' and sys_platform == 'win32'",
-    "python_full_version == '3.12.*' and sys_platform != 'win32'",
-    "python_full_version >= '3.11.5' and python_full_version < '3.12'",
+    "python_full_version >= '3.15' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
+    "python_full_version == '3.14.*' and sys_platform == 'win32' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
+    "python_full_version == '3.14.*' and sys_platform != 'win32' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
+    "python_full_version == '3.13.*' and sys_platform == 'win32' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
+    "python_full_version == '3.12.*' and sys_platform == 'win32' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
+    "python_full_version == '3.13.*' and sys_platform != 'win32' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
+    "python_full_version == '3.12.*' and sys_platform != 'win32' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
+    "python_full_version >= '3.11.5' and python_full_version < '3.12' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
+    "python_full_version >= '3.15' and extra == 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
+    "python_full_version >= '3.13' and python_full_version < '3.15' and extra == 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
+    "python_full_version == '3.12.*' and extra == 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
+    "python_full_version >= '3.11.5' and python_full_version < '3.12' and extra == 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
+    "python_full_version >= '3.15' and extra != 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
+    "python_full_version >= '3.13' and python_full_version < '3.15' and extra != 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
+    "python_full_version == '3.12.*' and extra != 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
+    "python_full_version >= '3.11.5' and python_full_version < '3.12' and extra != 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/5e/77/2dcfa996b01702ab8fd0763d84098f6a640d6162a328f1c04c2697579a1a/soupsieve-3.0.3.tar.gz", hash = "sha256:7dcf6022eed0399eb9934a75e020148f7a2024c37b7dfcd3cf2c5505d69c364e", size = 115923, upload-time = "2026-10-12T13:21:17.696Z" }
 wheels = [
@@ -4168,7 +4287,7 @@ source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "alabaster" },
     { name = "babel" },
-    { name = "colorama", marker = "sys_platform == 'win32'" },
+    { name = "colorama", marker = "sys_platform == 'win32' or (extra == 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast')" },
     { name = "docutils" },
     { name = "imagesize" },
     { name = "jinja2" },
@@ -4352,7 +4471,7 @@ version = "1.8.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "anyio" },
-    { name = "typing-extensions", marker = "python_full_version < '3.13'" },
+    { name = "typing-extensions", marker = "python_full_version < '3.13' or (extra == 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast')" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/e9/0c/6efb252d091ecccd7d62048ae11f0ea35cd75a4fbaeea5e30f9c3bf91d10/starlette-1.8.0.tar.gz", hash = "sha256:1565dc0b35d5737a271ed1e0e04e949f4e81198799f216d2667b0a0fb9cf9522", size = 2730457, upload-time = "2026-10-13T07:54:39.53Z" }
 wheels = [
@@ -4497,7 +4616,7 @@ dependencies = [
     { name = "pyproject-api" },
     { name = "python-discovery" },
     { name = "tomli-w" },
-    { name = "typing-extensions", marker = "python_full_version < '3.13'" },
+    { name = "typing-extensions", marker = "python_full_version < '3.13' or (extra == 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast')" },
     { name = "virtualenv" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/41/05/a79f2c293f5b5b2188978b4e8b60d12c64277662de1254184769f3e96571/tox-4.65.0.tar.gz", hash = "sha256:582c4adba07b8fbeca1454b528a512dfc66c19635154289c7032555dbc72d56c", size = 333143, upload-time = "2026-10-09T20:33:09.306Z" }
@@ -4664,7 +4783,7 @@ standard = [
     { name = "httptools" },
     { name = "python-dotenv" },
     { name = "pyyaml" },
-    { name = "uvloop", marker = "platform_python_implementation != 'PyPy' and sys_platform != 'cygwin' and sys_platform != 'win32'" },
+    { name = "uvloop", marker = "(platform_python_implementation != 'PyPy' and sys_platform != 'cygwin' and sys_platform != 'win32') or (platform_python_implementation == 'PyPy' and extra == 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast') or (sys_platform == 'cygwin' and extra == 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast') or (sys_platform == 'win32' and extra == 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast')" },
     { name = "watchfiles" },
     { name = "websockets" },
 ]
