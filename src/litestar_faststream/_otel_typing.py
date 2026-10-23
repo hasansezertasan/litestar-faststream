@@ -13,9 +13,7 @@ local environment. At runtime, the ``try`` branch swaps in stubs when the
 import fails.
 """
 
-from typing import TYPE_CHECKING, Any
-
-from typing_extensions import Self
+from typing import TYPE_CHECKING, Any, Self
 
 __all__ = (
     "OPENTELEMETRY_INSTALLED",
