@@ -105,7 +105,7 @@ class LifespanComposer:
                 for hook in on_shutdown:
                     try:
                         await hook(app)
-                    except Exception:  # ruff: ignore[try-except-in-loop]
+                    except Exception:
                         logger.exception(
                             "on_broker_shutdown hook %s raised",
                             getattr(hook, "__qualname__", repr(hook)),

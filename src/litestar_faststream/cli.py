@@ -157,7 +157,9 @@ def _select(registered: Sequence[Any], plugin_name: str | None) -> Sequence[Any]
 
 
 async def _run_brokers_until_signal(
-    plugins: Sequence[Any], *, timeout: float | None = None
+    plugins: Sequence[Any],
+    *,
+    timeout: float | None = None,  # noqa: ASYNC109
 ) -> int:
     # Re-apply Litestar's logging config so worker-process formatting matches
     # the HTTP server (mirrors litestar-saq/cli.py:355-373). Apply for every
@@ -219,7 +221,7 @@ async def _run_brokers_until_signal(
                     await asyncio.wait_for(
                         asyncio.gather(*shutdown_tasks), timeout=timeout
                     )
-                except asyncio.TimeoutError:
+                except TimeoutError:
                     exceeded_deadline = True
                     logger.warning(
                         "graceful drain timed out after %.1fs; some in-flight "
@@ -229,7 +231,7 @@ async def _run_brokers_until_signal(
     return 1 if exceeded_deadline else 0
 
 
-async def _probe_broker(plugin: Any, timeout: float) -> dict[str, Any]:
+async def _probe_broker(plugin: Any, timeout: float) -> dict[str, Any]:  # noqa: ASYNC109
     """Connect, ping, and report a single broker's reachability.
 
     Uses ``BrokerUsecase.connect()`` + ``ping()`` (uniform across all FastStream
@@ -293,7 +295,7 @@ async def _status_loop(
     *,
     watch: bool,
     interval: float,
-    timeout: float,
+    timeout: float,  # noqa: ASYNC109
     as_json: bool,
 ) -> None:
     stop_event = asyncio.Event()
@@ -320,6 +322,6 @@ async def _status_loop(
             return
         try:
             await asyncio.wait_for(stop_event.wait(), timeout=interval)
-        except asyncio.TimeoutError:
+        except TimeoutError:
             continue
         return

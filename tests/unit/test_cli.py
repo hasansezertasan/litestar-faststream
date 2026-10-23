@@ -105,7 +105,7 @@ def test_drain_invokes_run_loop_with_timeout(monkeypatch) -> None:
 
     captured: dict[str, object] = {}
 
-    async def fake_loop(plugins, *, timeout=None) -> int:
+    async def fake_loop(plugins, *, timeout=None) -> int:  # noqa: ASYNC109
         captured["plugins"] = list(plugins)
         captured["timeout"] = timeout
         return 0
@@ -127,7 +127,7 @@ def test_drain_nonzero_exit_when_deadline_exceeded(monkeypatch) -> None:
     plugin = _make_plugin("rabbit")
     register_broker_cli(cli, plugin)
 
-    async def fake_loop(plugins, *, timeout=None) -> int:
+    async def fake_loop(plugins, *, timeout=None) -> int:  # noqa: ASYNC109
         return 1
 
     from litestar_faststream import cli as cli_mod
