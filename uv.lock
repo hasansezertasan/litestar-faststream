@@ -3,23 +3,23 @@ revision = 5
 requires-python = ">=3.11"
 resolution-markers = [
     "python_full_version >= '3.15' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
+    "python_full_version >= '3.15' and extra == 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
+    "python_full_version >= '3.15' and extra != 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
     "python_full_version == '3.14.*' and sys_platform == 'win32' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
     "python_full_version == '3.14.*' and sys_platform != 'win32' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
     "python_full_version == '3.13.*' and sys_platform == 'win32' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
-    "python_full_version == '3.12.*' and sys_platform == 'win32' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
     "python_full_version == '3.13.*' and sys_platform != 'win32' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
-    "python_full_version == '3.12.*' and sys_platform != 'win32' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
-    "python_full_version >= '3.11.5' and python_full_version < '3.12' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
-    "python_full_version < '3.11.5' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
-    "python_full_version >= '3.15' and extra == 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
     "python_full_version >= '3.13' and python_full_version < '3.15' and extra == 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
-    "python_full_version == '3.12.*' and extra == 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
-    "python_full_version >= '3.11.5' and python_full_version < '3.12' and extra == 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
-    "python_full_version < '3.11.5' and extra == 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
-    "python_full_version >= '3.15' and extra != 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
     "python_full_version >= '3.13' and python_full_version < '3.15' and extra != 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
+    "python_full_version == '3.12.*' and sys_platform == 'win32' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
+    "python_full_version == '3.12.*' and sys_platform != 'win32' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
+    "python_full_version == '3.12.*' and extra == 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
     "python_full_version == '3.12.*' and extra != 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
+    "python_full_version >= '3.11.5' and python_full_version < '3.12' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
+    "python_full_version >= '3.11.5' and python_full_version < '3.12' and extra == 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
     "python_full_version >= '3.11.5' and python_full_version < '3.12' and extra != 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
+    "python_full_version < '3.11.5' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
+    "python_full_version < '3.11.5' and extra == 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
     "python_full_version < '3.11.5' and extra != 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
 ]
 conflicts = [[
@@ -1768,7 +1768,6 @@ dependencies = [
     { name = "click" },
     { name = "faststream" },
     { name = "litestar" },
-    { name = "typing-extensions" },
 ]
 
 [package.optional-dependencies]
@@ -1889,7 +1888,6 @@ requires-dist = [
     { name = "litestar", specifier = ">=2.24.0" },
     { name = "opentelemetry-api", marker = "extra == 'otel'", specifier = ">=1.45.1" },
     { name = "opentelemetry-sdk", marker = "extra == 'otel'", specifier = ">=1.45.1" },
-    { name = "typing-extensions", specifier = ">=4.0" },
 ]
 provides-extras = ["otel"]
 
@@ -2635,8 +2633,8 @@ resolution-markers = [
     "python_full_version == '3.14.*' and sys_platform == 'win32'",
     "python_full_version == '3.14.*' and sys_platform != 'win32'",
     "python_full_version == '3.13.*' and sys_platform == 'win32'",
-    "python_full_version == '3.12.*' and sys_platform == 'win32'",
     "python_full_version == '3.13.*' and sys_platform != 'win32'",
+    "python_full_version == '3.12.*' and sys_platform == 'win32'",
     "python_full_version == '3.12.*' and sys_platform != 'win32'",
     "python_full_version >= '3.11.5' and python_full_version < '3.12'",
     "python_full_version < '3.11.5'",
@@ -2764,8 +2762,8 @@ resolution-markers = [
     "python_full_version == '3.14.*' and sys_platform == 'win32'",
     "python_full_version == '3.14.*' and sys_platform != 'win32'",
     "python_full_version == '3.13.*' and sys_platform == 'win32'",
-    "python_full_version == '3.12.*' and sys_platform == 'win32'",
     "python_full_version == '3.13.*' and sys_platform != 'win32'",
+    "python_full_version == '3.12.*' and sys_platform == 'win32'",
     "python_full_version == '3.12.*' and sys_platform != 'win32'",
     "python_full_version >= '3.11.5' and python_full_version < '3.12'",
     "python_full_version < '3.11.5'",
@@ -2810,8 +2808,8 @@ resolution-markers = [
     "python_full_version == '3.14.*' and sys_platform == 'win32'",
     "python_full_version == '3.14.*' and sys_platform != 'win32'",
     "python_full_version == '3.13.*' and sys_platform == 'win32'",
-    "python_full_version == '3.12.*' and sys_platform == 'win32'",
     "python_full_version == '3.13.*' and sys_platform != 'win32'",
+    "python_full_version == '3.12.*' and sys_platform == 'win32'",
     "python_full_version == '3.12.*' and sys_platform != 'win32'",
     "python_full_version >= '3.11.5' and python_full_version < '3.12'",
     "python_full_version < '3.11.5'",
@@ -4259,20 +4257,20 @@ version = "3.0.3"
 source = { registry = "https://pypi.org/simple" }
 resolution-markers = [
     "python_full_version >= '3.15' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
+    "python_full_version >= '3.15' and extra == 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
+    "python_full_version >= '3.15' and extra != 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
     "python_full_version == '3.14.*' and sys_platform == 'win32' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
     "python_full_version == '3.14.*' and sys_platform != 'win32' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
     "python_full_version == '3.13.*' and sys_platform == 'win32' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
-    "python_full_version == '3.12.*' and sys_platform == 'win32' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
     "python_full_version == '3.13.*' and sys_platform != 'win32' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
-    "python_full_version == '3.12.*' and sys_platform != 'win32' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
-    "python_full_version >= '3.11.5' and python_full_version < '3.12' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
-    "python_full_version >= '3.15' and extra == 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
     "python_full_version >= '3.13' and python_full_version < '3.15' and extra == 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
-    "python_full_version == '3.12.*' and extra == 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
-    "python_full_version >= '3.11.5' and python_full_version < '3.12' and extra == 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
-    "python_full_version >= '3.15' and extra != 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
     "python_full_version >= '3.13' and python_full_version < '3.15' and extra != 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
+    "python_full_version == '3.12.*' and sys_platform == 'win32' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
+    "python_full_version == '3.12.*' and sys_platform != 'win32' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
+    "python_full_version == '3.12.*' and extra == 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
     "python_full_version == '3.12.*' and extra != 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
+    "python_full_version >= '3.11.5' and python_full_version < '3.12' and extra != 'extra-19-litestar-faststream-otel' and extra == 'group-19-litestar-faststream-sast'",
+    "python_full_version >= '3.11.5' and python_full_version < '3.12' and extra == 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
     "python_full_version >= '3.11.5' and python_full_version < '3.12' and extra != 'extra-19-litestar-faststream-otel' and extra != 'group-19-litestar-faststream-sast'",
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/5e/77/2dcfa996b01702ab8fd0763d84098f6a640d6162a328f1c04c2697579a1a/soupsieve-3.0.3.tar.gz", hash = "sha256:7dcf6022eed0399eb9934a75e020148f7a2024c37b7dfcd3cf2c5505d69c364e", size = 115923, upload-time = "2026-10-12T13:21:17.696Z" }

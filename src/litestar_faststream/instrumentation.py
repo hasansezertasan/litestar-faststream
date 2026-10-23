@@ -35,10 +35,9 @@ import logging
 import time
 from collections.abc import Awaitable, Callable
 from functools import wraps
-from typing import TYPE_CHECKING, Any, TypeVar, cast, overload
+from typing import TYPE_CHECKING, Any, ParamSpec, TypeVar, cast, overload
 
 from faststream import BaseMiddleware
-from typing_extensions import ParamSpec
 
 from litestar_faststream._otel_typing import (
     OPENTELEMETRY_INSTALLED,
