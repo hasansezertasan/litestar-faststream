@@ -6,7 +6,7 @@
 [![Documentation Status](https://img.shields.io/github/deployments/hasansezertasan/litestar-faststream/github-pages?label=docs)](https://hasansezertasan.github.io/litestar-faststream)
 [![PyPI - Version](https://img.shields.io/pypi/v/litestar_faststream.svg)](https://pypi.org/project/litestar_faststream)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/litestar_faststream.svg)](https://pypi.org/project/litestar_faststream)
-[![Python versions](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-blue.svg)](./pyproject.toml)
+[![Python versions](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-blue.svg)](./pyproject.toml)
 [![License - MIT](https://img.shields.io/github/license/hasansezertasan/litestar-faststream.svg)](https://opensource.org/licenses/MIT)
 [![GitHub Stars](https://img.shields.io/github/stars/hasansezertasan/litestar-faststream?style=social)](https://github.com/hasansezertasan/litestar-faststream/stargazers)
 [![Latest Commit](https://img.shields.io/github/last-commit/hasansezertasan/litestar-faststream)](https://github.com/hasansezertasan/litestar-faststream)
