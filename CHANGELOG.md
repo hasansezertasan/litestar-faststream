@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.2.0](https://github.com/hasansezertasan/litestar-faststream/compare/v0.1.0...v0.2.0) (2026-10-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop Python 3.10 support ([#171](https://github.com/hasansezertasan/litestar-faststream/issues/171))
+
+### 🧪 Tests
+
+* raise coverage target to 99% and cover src gaps ([#162](https://github.com/hasansezertasan/litestar-faststream/issues/162)) ([ad9c7f3](https://github.com/hasansezertasan/litestar-faststream/commit/ad9c7f35789f0dbd55fcb51571893199663085fe))
+
+
+### 🔧 Chores
+
+* drop Python 3.10 support ([#171](https://github.com/hasansezertasan/litestar-faststream/issues/171)) ([f51ef7f](https://github.com/hasansezertasan/litestar-faststream/commit/f51ef7fde21c52034ca8aae7b731b6ecdf5715f6))
+
 ## 0.1.0 (2026-10-18)
 
 
