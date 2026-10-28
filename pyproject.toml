@@ -52,8 +52,11 @@ classifiers = [
   "Typing :: Typed",
 ]
 requires-python = ">=3.11"
+<<<<<<< before updating
 # Runtime dependencies restored from the pre-adoption manifest: the plugin
 # imports faststream + litestar at module scope.
+=======
+>>>>>>> after updating
 dependencies = [
   "click>=8.0",
   "faststream>=0.7.1",
