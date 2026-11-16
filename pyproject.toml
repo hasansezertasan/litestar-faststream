@@ -61,7 +61,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-otel = ["opentelemetry-api>=1.45.1", "opentelemetry-sdk>=1.45.1"]
+otel = ["opentelemetry-api>=1.45.2", "opentelemetry-sdk>=1.45.2"]
 
 [project.urls]
 changelog = "https://github.com/hasansezertasan/litestar-faststream/blob/main/CHANGELOG.md"
@@ -182,7 +182,7 @@ package = true
 trusted-publishing = "always"
 # semgrep (sast group) pins opentelemetry-* to the 1.37 line, which is affected by
 # CVE-2026-114603. Resolve the published `otel` extra separately so the shipped
-# floor and the lock stay on a patched release (>= 1.45.1).
+# floor and the lock stay on a patched release (>= 1.45.2, for CVE-2026-126360).
 conflicts = [
   [
     { extra = "otel" },
