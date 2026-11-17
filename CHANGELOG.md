@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.2.0](https://github.com/hasansezertasan/litestar-faststream/compare/v0.1.0...v0.2.0) (2026-11-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop Python 3.10 support ([#171](https://github.com/hasansezertasan/litestar-faststream/issues/171))
+
+### 🐛 Bug Fixes
+
+* declare JSONBody on example request bodies for Litestar 2.25 ([#177](https://github.com/hasansezertasan/litestar-faststream/issues/177)) ([197d1be](https://github.com/hasansezertasan/litestar-faststream/commit/197d1be99073a5cb7e960d5e2b20440df33df214))
+* **deps:** raise otel extra floor to 1.45.2 for CVE-2026-126360 ([#176](https://github.com/hasansezertasan/litestar-faststream/issues/176)) ([3ed57d7](https://github.com/hasansezertasan/litestar-faststream/commit/3ed57d7c34f61750d468b6cc6a96d45443a60ac6))
+
+
+### 🧪 Tests
+
+* raise coverage target to 99% and cover src gaps ([#162](https://github.com/hasansezertasan/litestar-faststream/issues/162)) ([ad9c7f3](https://github.com/hasansezertasan/litestar-faststream/commit/ad9c7f35789f0dbd55fcb51571893199663085fe))
+
+
+### 🔧 Chores
+
+* drop Python 3.10 support ([#171](https://github.com/hasansezertasan/litestar-faststream/issues/171)) ([f51ef7f](https://github.com/hasansezertasan/litestar-faststream/commit/f51ef7fde21c52034ca8aae7b731b6ecdf5715f6))
+
 ## 0.1.0 (2026-10-18)
 
 
