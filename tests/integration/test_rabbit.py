@@ -6,6 +6,7 @@ import pytest
 from faststream.rabbit import RabbitBroker, TestRabbitBroker
 from litestar import Controller, Litestar, get, post
 from litestar.di import NamedDependency
+from litestar.params import JSONBody
 from litestar.testing import AsyncTestClient
 
 from litestar_faststream import (
@@ -137,7 +138,9 @@ async def test_http_handler_publishes_via_di() -> None:
     async def process(data: dict) -> None: ...
 
     @post("/send-email")
-    async def endpoint(data: dict, rabbit: NamedDependency[RabbitBroker]) -> dict:
+    async def endpoint(
+        data: JSONBody[dict], rabbit: NamedDependency[RabbitBroker]
+    ) -> dict:
         await rabbit.publish(data, queue="send-email")
         return {"queued": True}
 

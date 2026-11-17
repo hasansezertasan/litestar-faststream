@@ -19,6 +19,7 @@ from faststream.redis import RedisBroker
 from faststream.redis.annotations import Pipeline, Redis, RedisChannelMessage
 from litestar import Controller, Litestar, get, post
 from litestar.di import NamedDependency
+from litestar.params import JSONBody
 
 from litestar_faststream import (
     BrokerConfig,
@@ -50,7 +51,7 @@ class OrdersController(Controller):
 
     @post("/")
     async def create_order(
-        self, data: Order, redis: NamedDependency[RedisBroker]
+        self, data: JSONBody[Order], redis: NamedDependency[RedisBroker]
     ) -> dict:
         await redis.publish(data, "orders.new")
         return {"queued": True}
