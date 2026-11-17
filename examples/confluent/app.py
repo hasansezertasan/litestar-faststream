@@ -21,6 +21,7 @@ from faststream.confluent import KafkaBroker
 from faststream.confluent.annotations import KafkaMessage, KafkaProducer
 from litestar import Controller, Litestar, get, post
 from litestar.di import NamedDependency
+from litestar.params import JSONBody
 
 from litestar_faststream import (
     BrokerConfig,
@@ -49,7 +50,7 @@ class OrdersController(Controller):
 
     @post("/")
     async def create_order(
-        self, data: Order, kafka: NamedDependency[KafkaBroker]
+        self, data: JSONBody[Order], kafka: NamedDependency[KafkaBroker]
     ) -> dict:
         await kafka.publish(data, "orders.new")
         return {"queued": True}

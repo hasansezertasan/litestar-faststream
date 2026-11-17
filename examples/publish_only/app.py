@@ -22,6 +22,7 @@ from faststream import Logger
 from faststream.rabbit import RabbitBroker
 from litestar import Controller, Litestar, post
 from litestar.di import NamedDependency
+from litestar.params import JSONBody
 
 from litestar_faststream import (
     BrokerConfig,
@@ -46,7 +47,7 @@ class OrdersController(Controller):
 
     @post("/")
     async def create_order(
-        self, data: Order, rabbit: NamedDependency[RabbitBroker]
+        self, data: JSONBody[Order], rabbit: NamedDependency[RabbitBroker]
     ) -> dict:
         await rabbit.publish(data, "orders.new")
         return {"queued": True, "user_id": data.user_id}

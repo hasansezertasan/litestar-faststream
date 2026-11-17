@@ -19,6 +19,7 @@ from faststream.mqtt import MQTTBroker
 from faststream.mqtt.annotations import MQTTMessage
 from litestar import Controller, Litestar, get, post
 from litestar.di import NamedDependency
+from litestar.params import JSONBody
 
 from litestar_faststream import (
     BrokerConfig,
@@ -47,7 +48,7 @@ class OrdersController(Controller):
 
     @post("/")
     async def create_order(
-        self, data: Order, mqtt: NamedDependency[MQTTBroker]
+        self, data: JSONBody[Order], mqtt: NamedDependency[MQTTBroker]
     ) -> dict:
         await mqtt.publish(data, "orders/new")
         return {"queued": True}
